@@ -1,11 +1,15 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Authentication from "./Pages/Authentication/Authentication";
 
-function App() {
+const App: React.FC = (): JSX.Element => {
    return (
-      <div className="App">
-         <h1>Password generator</h1>
+      <div className="app">
+         <Routes>
+            <Route path="/" element={<Authentication />} />
+         </Routes>
       </div>
    );
-}
+};
 
 export default App;
