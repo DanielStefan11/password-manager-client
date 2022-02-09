@@ -1,0 +1,33 @@
+@import "./colors";
+
+@mixin roundedButton($width, $height) {
+   width: $width;
+   height: $height;
+   border-radius: 48px;
+   border: none;
+   outline: none;
+   font-size: 18px;
+   font-weight: 700;
+   background-color: $primaryBlue;
+   color: #ffffff;
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
+
+   @media screen and (min-width: 768px) {
+      &:hover {
+         background: darken($color: $primaryBlue, $amount: 10%);
+      }
+   }
+}
+
+@mixin blueTextGradient {
+   background-color: $darkBlue;
+   background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
+   background-size: 100%;
+   background-repeat: repeat;
+
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   -moz-background-clip: text;
+   -moz-text-fill-color: transparent;
+}

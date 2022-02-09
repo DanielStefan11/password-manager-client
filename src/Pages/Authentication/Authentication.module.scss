@@ -1,0 +1,87 @@
+@import "../../StylesTemplate/colors";
+@import "../../StylesTemplate/mixins";
+
+.loginPage {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-image: url("../../Assets/Login/login-bg.jpg");
+   background-position: center;
+   background-size: cover;
+   background-repeat: no-repeat;
+   padding: 0 1rem;
+}
+
+.loginBox {
+   width: 100%;
+   max-width: 700px;
+   min-height: 500px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   background-color: rgba(255, 255, 255, 0.8);
+   border-radius: 16px;
+   padding: 0 1rem;
+}
+
+.heading {
+   margin-bottom: 3rem;
+   @include blueTextGradient;
+}
+
+.formContent {
+   width: 100%;
+   max-width: 500px;
+}
+
+.inputContainer {
+   position: relative;
+
+   &:not(:last-child) {
+      margin-bottom: 1rem;
+   }
+}
+
+.authInput {
+   width: 100%;
+   height: 50px;
+   display: flex;
+   align-items: center;
+   background-color: #ffffff;
+   border-radius: 48px;
+   border: none;
+   outline: none;
+   padding-left: 4rem;
+   font-size: 18px;
+
+   @media screen and (max-width: 500px) {
+      font-size: 16px;
+      height: 40px;
+      padding-left: 3rem;
+   }
+}
+
+.inputIcons {
+   position: absolute;
+   left: 20px;
+   top: 50%;
+   transform: translateY(-50%);
+   font-size: 18px;
+   color: $primaryBlue;
+
+   @media screen and (max-width: 500px) {
+      font-size: 16px;
+   }
+}
+
+.loginButton {
+   margin-top: 1.5rem;
+   @include roundedButton(100%, 50px);
+
+   @media screen and (max-width: 500px) {
+      height: 40px;
+   }
+}

@@ -18,4 +18,13 @@ body,
 
 body {
    font-family: "Montserrat", sans-serif;
+   color: $primaryDark;
+}
+
+.pointer {
+   cursor: pointer;
+}
+
+input {
+   font-family: "Montserrat", sans-serif;
 }
