@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@700&family=Fascinate+Inline&family=Montserrat:wght@100;200;400;700;900&family=Neucha&display=swap");
+@import "./colors";
+@import "./tipography";
+
 html,
 #root,
 body,
@@ -10,4 +14,8 @@ body,
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+}
+
+body {
+   font-family: "Montserrat", sans-serif;
 }
