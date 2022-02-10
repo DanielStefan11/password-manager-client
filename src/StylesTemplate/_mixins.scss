@@ -31,3 +31,7 @@
    -moz-background-clip: text;
    -moz-text-fill-color: transparent;
 }
+
+@mixin verticalGradient {
+   background-image: linear-gradient(to bottom, $darkBlue, $primaryBlue, $lightGreen);
+}

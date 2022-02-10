@@ -5,6 +5,8 @@ import Authentication from "./Pages/Authentication/Authentication";
 import PrivateRoute from "./Utils/PrivateRoute";
 import Vault from "./Pages/Vault/Vault";
 import { ToastContainer } from "react-toastify";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import Header from "./Components/Header/Header";
 
 const App: React.FC = (): JSX.Element => {
    return (
@@ -19,6 +21,9 @@ const App: React.FC = (): JSX.Element => {
             draggable
             closeButton={true}
          />
+
+         <Header />
+         <Sidebar />
 
          <Routes>
             <Route path={appRoutes.authenticate} element={<Authentication />} />

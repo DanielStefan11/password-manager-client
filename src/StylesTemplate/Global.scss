@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@700&family=Fascinate+Inline&family=Montserrat:wght@100;200;400;700;900&family=Neucha&display=swap");
 @import "./colors";
 @import "./tipography";
+@import "./mixins";
+@import "./containers";
 
 html,
 #root,
@@ -19,6 +21,10 @@ body,
 body {
    font-family: "Montserrat", sans-serif;
    color: $primaryDark;
+}
+
+.app {
+   position: relative;
 }
 
 .pointer {

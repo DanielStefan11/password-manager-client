@@ -3,6 +3,7 @@ interface AppRoutes {
    vault: string;
    favorites: string;
    cards: string;
+   passwordGenerator: string;
 }
 
 export const appRoutes: AppRoutes = {
@@ -10,4 +11,5 @@ export const appRoutes: AppRoutes = {
    vault: "/vault",
    favorites: "/favorites",
    cards: "/cards",
+   passwordGenerator: "/password-generator",
 };
