@@ -2,18 +2,35 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { appRoutes } from "./Utils/appRoutes";
 import Authentication from "./Pages/Authentication/Authentication";
+import PrivateRoute from "./Utils/PrivateRoute";
 import Vault from "./Pages/Vault/Vault";
-import LoginProvider from "./Context/LoginProvider";
+import { ToastContainer } from "react-toastify";
 
 const App: React.FC = (): JSX.Element => {
    return (
       <div className="app">
-         <LoginProvider>
-            <Routes>
-               <Route path={appRoutes.authenticate} element={<Authentication />} />
-               <Route path={appRoutes.vault} element={<Vault />} />
-            </Routes>
-         </LoginProvider>
+         <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            closeButton={true}
+         />
+
+         <Routes>
+            <Route path={appRoutes.authenticate} element={<Authentication />} />
+            <Route
+               path={appRoutes.vault}
+               element={
+                  <PrivateRoute>
+                     <Vault />
+                  </PrivateRoute>
+               }
+            />
+         </Routes>
       </div>
    );
 };
