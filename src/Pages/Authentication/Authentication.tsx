@@ -7,12 +7,16 @@ const Authentication: React.FC = (): JSX.Element => {
 
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
+   const handleLogin = (e: React.FormEvent): void => {
+      e.preventDefault();
+   };
+
    return (
       <div className={styles.loginPage}>
          <div className={styles.loginBox}>
             <h2 className={`size-64 weight-900 ${styles.heading}`}>Login</h2>
 
-            <form className={styles.formContent}>
+            <form className={styles.formContent} onSubmit={handleLogin}>
                <div className={styles.inputContainer}>
                   <UserIcon className={styles.inputIcons} />
                   <input type="email" className={styles.authInput} placeholder="Email or username"></input>
@@ -31,7 +35,9 @@ const Authentication: React.FC = (): JSX.Element => {
                   ></input>
                </div>
 
-               <button className={styles.loginButton}>Login</button>
+               <button className={styles.loginButton} onClick={handleLogin}>
+                  Login
+               </button>
             </form>
          </div>
       </div>
