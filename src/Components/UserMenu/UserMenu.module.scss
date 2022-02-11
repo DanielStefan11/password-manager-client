@@ -1,0 +1,58 @@
+@import "../../StylesTemplate/mixins";
+
+.menu {
+   position: absolute;
+   right: 0;
+   top: calc(100% + 1rem);
+   width: 100%;
+   max-width: 320px;
+   height: 200px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border-radius: 16px;
+   padding: 1.5rem;
+   background-color: #ffffff;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+   opacity: 0;
+   pointer-events: none;
+   transform: translateY(-20px);
+   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+   cursor: auto;
+
+   @media screen and (max-width: 700px) {
+      max-width: 200px;
+   }
+}
+
+.menuActive {
+   opacity: 1;
+   transform: translateY(0);
+   pointer-events: auto;
+}
+
+.userName {
+   font-weight: 700;
+   font-size: 18px;
+   color: $darkBlue;
+   margin-bottom: 1rem;
+}
+
+.userEmail {
+   font-weight: 400;
+   font-size: 16px;
+   color: $darkBlue;
+   margin-bottom: 2rem;
+   word-break: break-all;
+}
+
+.logoutButton {
+   @include roundedButton(120px, 40px);
+
+   @media screen and (max-width: 700px) {
+      width: 100px;
+      height: 35px;
+      font-size: 16px;
+   }
+}

@@ -50,10 +50,9 @@ const Authentication: React.FC = (): JSX.Element => {
             let response = await axios.post(process.env.REACT_APP_DEV_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
-
                navigate(appRoutes.vault);
-
                toast.success(loginSuccess);
+               window.location.reload();
             }
          }
       } catch (error) {
