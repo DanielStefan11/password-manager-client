@@ -4,7 +4,7 @@
 .sidebar {
    position: fixed;
    left: 0;
-   top: 100px;
+   top: 80px;
    height: 100%;
    width: 300px;
    display: flex;
@@ -13,6 +13,19 @@
    background-color: #ffffff;
    z-index: 20;
    @include verticalGradient;
+
+   @media screen and (max-width: 1024px) {
+      width: 200px;
+      top: 60px;
+   }
+
+   @media screen and (max-width: 850px) {
+      width: 90px;
+   }
+
+   @media screen and (max-width: 700px) {
+      display: none;
+   }
 }
 
 .linksWrapper {
@@ -33,5 +46,39 @@
    &:hover {
       background-color: rgba(255, 255, 255, 0.8);
       color: $darkBlue;
+   }
+
+   svg {
+      font-size: 25px;
+      margin-right: 1rem;
+   }
+
+   @media screen and (max-width: 1024px) {
+      font-size: 18px;
+      padding: 1.2rem 1.5rem;
+
+      svg {
+         font-size: 20px;
+      }
+   }
+
+   @media screen and (max-width: 850px) {
+      justify-content: center;
+
+      svg {
+         margin-right: 0;
+         font-size: 30px;
+      }
+   }
+}
+
+.activeLink {
+   background-color: rgba(255, 255, 255, 0.8);
+   color: $darkBlue;
+}
+
+.linkSpan {
+   @media screen and (max-width: 850px) {
+      display: none;
    }
 }

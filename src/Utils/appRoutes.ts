@@ -11,5 +11,5 @@ export const appRoutes: AppRoutes = {
    vault: "/vault",
    favorites: "/favorites",
    cards: "/cards",
-   passwordGenerator: "/password-generator",
+   passwordGenerator: "/generator",
 };

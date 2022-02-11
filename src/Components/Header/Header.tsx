@@ -14,7 +14,10 @@ const Header: React.FC = (): JSX.Element => {
                <div className={`largeContainer ${styles.content}`}>
                   <div className={styles.logoContainer}>
                      <img src={LogoIcon} alt="logo" className={styles.logoIcon} />
-                     <h2 className={`weight-900 size-40 ${styles.logoName}`}>Password Manager</h2>
+
+                     <h2 className={`weight-900 size-40 ${styles.logoNameDesktop}`}>Password Manager</h2>
+
+                     <h2 className={styles.logoNameMobile}>{location.pathname.substring(1).toUpperCase()}</h2>
                   </div>
                </div>
             </div>

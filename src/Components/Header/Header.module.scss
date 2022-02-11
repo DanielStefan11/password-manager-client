@@ -4,10 +4,14 @@
    position: fixed;
    top: 0;
    width: 100%;
-   height: 100px;
+   height: 80px;
    background-color: #ffffff;
    z-index: 25;
    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+   @media screen and (max-width: 1024px) {
+      height: 60px;
+   }
 }
 
 .content {
@@ -27,8 +31,36 @@
    max-width: 50px;
    height: auto;
    margin-right: 1rem;
+
+   @media screen and (max-width: 1024px) {
+      max-width: 40px;
+   }
 }
 
-.logoName {
+.logoNameDesktop {
+   margin-bottom: 0;
    @include blueTextGradient;
+
+   @media screen and (max-width: 1024px) {
+      font-size: 30px !important;
+   }
+
+   @media screen and (max-width: 850px) {
+      display: none;
+   }
+}
+
+.logoNameMobile {
+   font-size: 30px;
+   font-weight: 900;
+   margin-bottom: 0;
+   @include blueTextGradient;
+
+   @media screen and (min-width: 851px) {
+      display: none;
+   }
+
+   @media screen and (max-width: 700px) {
+      font-size: 20px;
+   }
 }
