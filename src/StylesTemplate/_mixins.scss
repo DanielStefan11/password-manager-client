@@ -35,3 +35,7 @@
 @mixin verticalGradient {
    background-image: linear-gradient(to bottom, $darkBlue, $primaryBlue, $lightGreen);
 }
+
+@mixin horizontalGradient {
+   background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
+}

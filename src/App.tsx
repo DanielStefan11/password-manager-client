@@ -7,6 +7,7 @@ import Vault from "./Pages/Vault/Vault";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
+import MobileMenu from "./Components/MobileMenu/MobileMenu";
 
 const App: React.FC = (): JSX.Element => {
    return (
@@ -24,6 +25,7 @@ const App: React.FC = (): JSX.Element => {
 
          <Header />
          <Sidebar />
+         <MobileMenu />
 
          <Routes>
             <Route path={appRoutes.authenticate} element={<Authentication />} />

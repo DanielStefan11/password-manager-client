@@ -1,0 +1,30 @@
+@import "../../StylesTemplate/mixins";
+
+.mobileMenu {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   height: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 1rem;
+   @include horizontalGradient;
+
+   @media screen and (min-width: 701px) {
+      display: none;
+   }
+}
+
+.link {
+   flex: 1;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   svg {
+      color: #ffffff;
+      font-size: 30px;
+   }
+}

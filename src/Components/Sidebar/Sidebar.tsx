@@ -7,22 +7,22 @@ import { AiFillStar as FavoritesIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
 
 const Sidebar: React.FC = (): JSX.Element => {
-   const [activeLink, setActiveLink] = useState<string>(() => "vault");
+   const [activeLink, setActiveLink] = useState<string>(() => appRoutes.vault);
 
    const location = useLocation();
    const navigate = useNavigate();
 
    const handleNavigation = (linkId: string) => {
       switch (linkId) {
-         case "vault":
+         case appRoutes.vault:
             navigate(appRoutes.vault);
             break;
 
-         case "favorites":
+         case appRoutes.favorites:
             navigate(appRoutes.favorites);
             break;
 
-         case "generator":
+         case appRoutes.passwordGenerator:
             navigate(appRoutes.passwordGenerator);
             break;
 
@@ -38,24 +38,24 @@ const Sidebar: React.FC = (): JSX.Element => {
             <div className={styles.sidebar}>
                <div className={styles.linksWrapper}>
                   <div
-                     className={`${styles.linkItem} ${activeLink === "vault" && styles.activeLink}`}
-                     onClick={() => handleNavigation("vault")}
+                     className={`${styles.linkItem} ${activeLink === appRoutes.vault && styles.activeLink}`}
+                     onClick={() => handleNavigation(appRoutes.vault)}
                   >
                      <VaultIcon />
                      <span className={styles.linkSpan}>Vault</span>
                   </div>
 
                   <div
-                     className={`${styles.linkItem} ${activeLink === "favorites" && styles.activeLink}`}
-                     onClick={() => handleNavigation("favorites")}
+                     className={`${styles.linkItem} ${activeLink === appRoutes.favorites && styles.activeLink}`}
+                     onClick={() => handleNavigation(appRoutes.favorites)}
                   >
                      <FavoritesIcon />
                      <span className={styles.linkSpan}>Favorites</span>
                   </div>
 
                   <div
-                     className={`${styles.linkItem} ${activeLink === "generator" && styles.activeLink}`}
-                     onClick={() => handleNavigation("generator")}
+                     className={`${styles.linkItem} ${activeLink === appRoutes.passwordGenerator && styles.activeLink}`}
+                     onClick={() => handleNavigation(appRoutes.passwordGenerator)}
                   >
                      <GenerateIcon />
                      <span className={styles.linkSpan}>Generator</span>
