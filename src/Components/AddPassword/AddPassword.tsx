@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import { FaUser as UserIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 import { MdEmail as EmailIcon } from "react-icons/md";
 import { FiLink as LinkIcon } from "react-icons/fi";
+import TemplateFavicon from "../../Assets/Global/template-icon.png";
 
 interface Props {
    show: boolean;
@@ -31,6 +32,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    const [values, setValues] = useState<InputValues>(() => initialValues);
    const [password, setPassword] = useState<string>(() => "");
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
+   const [activeFavicon, setActiveFavicon] = useState<string>(() => "");
 
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
@@ -75,7 +77,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
       setPassword(password.substring(0, length));
    };
 
-   console.log("password generated: ", password);
+   const handleFetchFavicon = () => setActiveFavicon(values.url + "favicon.ico");
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
@@ -148,9 +150,15 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
 
                <div className={styles.faviconContainer}>
                   <div className={styles.favicon}>
-                     <img src="" alt="webiste icon" />
+                     <img
+                        src={activeFavicon === "" ? TemplateFavicon : activeFavicon}
+                        alt="webiste icon"
+                        className={styles.icon}
+                     />
                   </div>
-                  <button className={styles.fetchButton}>Fetch Icon</button>
+                  <button className={styles.fetchButton} onClick={handleFetchFavicon}>
+                     Fetch Icon
+                  </button>
                </div>
             </div>
          </Modal.Body>
