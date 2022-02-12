@@ -4,7 +4,10 @@ import { Modal } from "react-bootstrap";
 import { FaUser as UserIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 import { MdEmail as EmailIcon } from "react-icons/md";
 import { FiLink as LinkIcon } from "react-icons/fi";
+import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
 import TemplateFavicon from "../../Assets/Global/template-icon.png";
+import { toast } from "react-toastify";
+import { errorFetchFavicon } from "../../Utils/notifications";
 
 interface Props {
    show: boolean;
@@ -12,12 +15,14 @@ interface Props {
 }
 
 interface InputValues {
+   title: string;
    url: string;
    username: string;
    email: string;
 }
 
 const initialValues: InputValues = {
+   title: "",
    url: "",
    username: "",
    email: "",
@@ -77,7 +82,15 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
       setPassword(password.substring(0, length));
    };
 
-   const handleFetchFavicon = () => setActiveFavicon(values.url + "favicon.ico");
+   const handleFetchFavicon = () => {
+      if (values.url !== "") {
+         setActiveFavicon(values.url + "favicon.ico");
+      } else {
+         toast.error(errorFetchFavicon);
+      }
+   };
+
+   const handleUndoFavicon = () => setActiveFavicon("");
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
@@ -85,6 +98,18 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
             <h2 className={`text-center weight-400 size-30 dark-blue-text`}>Add Password</h2>
 
             <div className={styles.inputsContainer}>
+               <div className={styles.inputsWrapper}>
+                  <TitleIcon className={styles.inputIcons} />
+                  <input
+                     value={values.title}
+                     name="title"
+                     type="text"
+                     className={styles.addPswInputs}
+                     placeholder="Insert A title"
+                     onChange={handleInputChange}
+                  />
+               </div>
+
                <div className={styles.inputsWrapper}>
                   <LinkIcon className={styles.inputIcons} />
                   <input
@@ -156,9 +181,14 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
                         className={styles.icon}
                      />
                   </div>
-                  <button className={styles.fetchButton} onClick={handleFetchFavicon}>
-                     Fetch Icon
-                  </button>
+                  <div className={styles.actionContainer}>
+                     <button className={styles.fetchButton} onClick={handleFetchFavicon}>
+                        Fetch Icon
+                     </button>
+                     <span className="size-18 weight-700 dark-blue-text pointer" onClick={handleUndoFavicon}>
+                        Undo
+                     </span>
+                  </div>
                </div>
             </div>
          </Modal.Body>

@@ -15,3 +15,5 @@ export const passwordNotValid: JSX.Element = (
 );
 
 export const errorOccured: JSX.Element = <span id="error-occured">An error occured</span>;
+
+export const errorFetchFavicon: JSX.Element = <span id="error-fetch-favicon">You did not specify a URL</span>;
