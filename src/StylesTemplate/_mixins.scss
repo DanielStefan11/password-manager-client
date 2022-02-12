@@ -20,6 +20,32 @@
    }
 }
 
+@mixin gradientButton($width, $height) {
+   width: $width;
+   height: $height;
+   border-radius: 48px;
+   border: none;
+   outline: none;
+   font-size: 18px;
+   font-weight: 700;
+   color: #ffffff;
+   cursor: pointer;
+   background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
+}
+
+@mixin outlineBlueButton($width, $height) {
+   width: $width;
+   height: $height;
+   border-radius: 8px;
+   border: 2px solid $darkBlue;
+   outline: none;
+   font-size: 18px;
+   font-weight: 400;
+   color: $darkBlue;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
 @mixin blueTextGradient {
    background-color: $darkBlue;
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);

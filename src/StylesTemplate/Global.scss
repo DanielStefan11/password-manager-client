@@ -31,6 +31,10 @@ body {
    cursor: pointer;
 }
 
+.text-center {
+   text-align: center;
+}
+
 input {
    font-family: "Montserrat", sans-serif;
 }
@@ -58,4 +62,13 @@ input {
    @media screen and (max-width: 700px) {
       margin-left: 0;
    }
+}
+
+// Modal
+.modal-content {
+   border-radius: 16px;
+}
+
+.modal-footer {
+   border-top: none;
 }

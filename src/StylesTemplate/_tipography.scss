@@ -53,3 +53,19 @@
       font-size: 40px;
    }
 }
+
+// colored text
+.dark-blue-text {
+   color: $darkBlue;
+}
+
+.primary-blue-text {
+   color: $primaryBlue;
+}
+
+.cancel-span {
+   font-weight: 700;
+   font-size: 20px;
+   color: $darkBlue;
+   cursor: pointer;
+}

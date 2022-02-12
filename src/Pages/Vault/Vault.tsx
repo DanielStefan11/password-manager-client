@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./Vault.module.scss";
 import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon } from "react-icons/fa";
+import { BsPlusLg as PlusIcon } from "react-icons/bs";
+import AddPassword from "../../Components/AddPassword/AddPassword";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -14,6 +16,7 @@ const Vault: React.FC = (): JSX.Element => {
          ZtoA: false,
       };
    });
+   const [showAddModal, setShowAddModal] = useState<boolean>(() => false);
 
    const handleSortIcons = (iconId: string) => {
       switch (iconId) {
@@ -30,8 +33,12 @@ const Vault: React.FC = (): JSX.Element => {
       }
    };
 
+   const toggleAddModal = () => setShowAddModal(!showAddModal);
+
    return (
-      <div className={`page`}>
+      <div className={`page ${styles.vaultPage}`}>
+         <AddPassword show={showAddModal} toggleModal={toggleAddModal} />
+
          <div className={styles.filtersContainer}>
             <input type="text" className={styles.search} placeholder="Search..." />
 
@@ -46,6 +53,10 @@ const Vault: React.FC = (): JSX.Element => {
                   onClick={() => handleSortIcons("z-a")}
                />
             </div>
+         </div>
+
+         <div className={styles.addButton} onClick={toggleAddModal}>
+            <PlusIcon />
          </div>
       </div>
    );

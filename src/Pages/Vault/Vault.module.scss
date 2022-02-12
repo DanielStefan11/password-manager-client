@@ -1,12 +1,16 @@
 @import "../../StylesTemplate//mixins";
 @import "../../StylesTemplate//colors";
 
+.vaultPage {
+   position: relative;
+}
+
 .filtersContainer {
    width: 100%;
    display: flex;
    align-items: center;
    justify-content: space-between;
-   margin-top: 4rem;
+   margin: 4rem 0;
 }
 
 .search {
@@ -37,4 +41,38 @@
 
 .activeSortIcon {
    color: $darkBlue;
+}
+
+.addButton {
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   width: 60px;
+   height: 60px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: $primaryBlue;
+   color: #ffffff;
+   border-radius: 50%;
+   cursor: pointer;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+   svg {
+      font-size: 1.5rem;
+   }
+
+   @media screen and (max-width: 1024px) {
+      width: 50px;
+      height: 50px;
+
+      svg {
+         font-size: 1.3rem;
+      }
+   }
+
+   @media screen and (max-width: 700px) {
+      bottom: 90px;
+      right: 20px;
+   }
 }
