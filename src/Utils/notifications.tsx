@@ -2,6 +2,8 @@
 
 export const loginSuccess: JSX.Element = <span id="login-success">You have successfully logged in</span>;
 
+export const passwordAddedSuccess: JSX.Element = <span id="add-psw-success">Password was added successfully</span>;
+
 // Error messages____________________________________________
 
 export const emptyInputsError: JSX.Element = <span id="empty-inputs-error">All fields are required</span>;

@@ -57,7 +57,7 @@ const Authentication: React.FC = (): JSX.Element => {
          }
       } catch (error) {
          toast.error(errorOccured);
-         console.log(error);
+         // console.log(error);
       }
    };
 

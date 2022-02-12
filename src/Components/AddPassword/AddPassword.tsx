@@ -7,7 +7,16 @@ import { FiLink as LinkIcon } from "react-icons/fi";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
 import TemplateFavicon from "../../Assets/Global/template-icon.png";
 import { toast } from "react-toastify";
-import { errorFetchFavicon } from "../../Utils/notifications";
+import {
+   errorFetchFavicon,
+   passwordAddedSuccess,
+   errorOccured,
+   emptyInputsError,
+   emailNotValid,
+   passwordNotValid,
+} from "../../Utils/notifications";
+import axios from "axios";
+import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
 
 interface Props {
    show: boolean;
@@ -38,6 +47,9 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    const [password, setPassword] = useState<string>(() => "");
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
    const [activeFavicon, setActiveFavicon] = useState<string>(() => "");
+
+   const validEmail = emailPattern.test(values.email);
+   const validPassword = pswPattern.test(password);
 
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
@@ -91,6 +103,55 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    };
 
    const handleUndoFavicon = () => setActiveFavicon("");
+
+   const resetValues = () => {
+      setValues({ title: "", url: "", username: "", email: "" });
+      setPassword("");
+      setActiveFavicon("");
+   };
+
+   const addPassword = async () => {
+      const headersObject = {
+         headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+         },
+      };
+
+      const requestBody = {
+         data: {
+            title: values.title,
+            siteUrl: values.url,
+            username: values.username,
+            email: values.email,
+            password,
+            faviconAddress: activeFavicon,
+         },
+      };
+
+      try {
+         if (
+            values.title === "" ||
+            values.url === "" ||
+            values.username === "" ||
+            values.email === "" ||
+            password === ""
+         ) {
+            toast.error(emptyInputsError);
+         } else if (!validEmail) {
+            toast.error(emailNotValid);
+         } else if (!validPassword) {
+            toast.error(passwordNotValid);
+         } else {
+            await axios.post(process.env.REACT_APP_DEV_URL + "/api/passwords", requestBody, headersObject);
+            toast.success(passwordAddedSuccess);
+            toggleModal();
+            resetValues();
+            // window.location.reload();
+         }
+      } catch (err) {
+         toast.error(errorOccured);
+      }
+   };
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
@@ -195,7 +256,9 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
 
          <Modal.Footer>
             <div className={styles.btnContainer}>
-               <button className={styles.addButton}>Add</button>
+               <button className={styles.addButton} onClick={addPassword}>
+                  Add
+               </button>
 
                <span className="cancel-span" onClick={toggleModal}>
                   Cancel
