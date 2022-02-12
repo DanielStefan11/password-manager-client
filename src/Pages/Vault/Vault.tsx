@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./Vault.module.scss";
-import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon } from "react-icons/fa";
+import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon, FaSearch as SearchIcon } from "react-icons/fa";
 import { BsPlusLg as PlusIcon } from "react-icons/bs";
+import { FiRefreshCcw as RefreshIcon } from "react-icons/fi";
 import AddPassword from "../../Components/AddPassword/AddPassword";
 
 interface SortIcons {
@@ -40,18 +41,28 @@ const Vault: React.FC = (): JSX.Element => {
          <AddPassword show={showAddModal} toggleModal={toggleAddModal} />
 
          <div className={styles.filtersContainer}>
-            <input type="text" className={styles.search} placeholder="Search..." />
+            <div className={styles.searchContainer}>
+               <SearchIcon className={styles.inputIcons} />
+               <input type="text" className={styles.search} placeholder="Search..." />
+            </div>
 
-            <div className={styles.sortContainer}>
-               <AtoZIcon
-                  className={`${styles.sortIcons} ${sortIcons.AtoZ && styles.activeSortIcon}`}
-                  onClick={() => handleSortIcons("a-z")}
-               />
+            <div className={styles.actionsWrapper}>
+               <div className={styles.refresh}>
+                  <RefreshIcon />
+                  <span>Refresh</span>
+               </div>
 
-               <ZtoAIcon
-                  className={`${styles.sortIcons} ${sortIcons.ZtoA && styles.activeSortIcon}`}
-                  onClick={() => handleSortIcons("z-a")}
-               />
+               <div className={styles.sortContainer}>
+                  <AtoZIcon
+                     className={`${styles.sortIcons} ${sortIcons.AtoZ && styles.activeSortIcon}`}
+                     onClick={() => handleSortIcons("a-z")}
+                  />
+
+                  <ZtoAIcon
+                     className={`${styles.sortIcons} ${sortIcons.ZtoA && styles.activeSortIcon}`}
+                     onClick={() => handleSortIcons("z-a")}
+                  />
+               </div>
             </div>
          </div>
 
