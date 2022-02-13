@@ -4,6 +4,7 @@ import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon, FaSearch a
 import { BsPlusLg as PlusIcon } from "react-icons/bs";
 import { FiRefreshCcw as RefreshIcon } from "react-icons/fi";
 import AddPassword from "../../Components/AddPassword/AddPassword";
+import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -43,7 +44,7 @@ const Vault: React.FC = (): JSX.Element => {
          <div className={styles.filtersContainer}>
             <div className={styles.searchContainer}>
                <SearchIcon className={styles.inputIcons} />
-               <input type="text" className={styles.search} placeholder="Search..." />
+               <input type="text" className={`shadow ${styles.search}`} placeholder="Search..." />
             </div>
 
             <div className={styles.actionsWrapper}>
@@ -66,7 +67,11 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
          </div>
 
-         <div className={styles.addButton} onClick={toggleAddModal}>
+         <div className={styles.list}>
+            <PasswordItem />
+         </div>
+
+         <div className={`shadow ${styles.addButton}`} onClick={toggleAddModal}>
             <PlusIcon />
          </div>
       </div>
