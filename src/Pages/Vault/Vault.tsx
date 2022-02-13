@@ -5,6 +5,7 @@ import { BsPlusLg as PlusIcon } from "react-icons/bs";
 import { FiRefreshCcw as RefreshIcon } from "react-icons/fi";
 import AddPassword from "../../Components/AddPassword/AddPassword";
 import PasswordItem from "../../Components/PasswordItem/PasswordItem";
+import { usePasswordsContext } from "../../Context/PasswordsProvider";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -19,6 +20,8 @@ const Vault: React.FC = (): JSX.Element => {
       };
    });
    const [showAddModal, setShowAddModal] = useState<boolean>(() => false);
+
+   const passwordsContext = usePasswordsContext();
 
    const handleSortIcons = (iconId: string) => {
       switch (iconId) {
@@ -37,8 +40,10 @@ const Vault: React.FC = (): JSX.Element => {
 
    const toggleAddModal = () => setShowAddModal(!showAddModal);
 
+   console.log("in vault: ", passwordsContext);
+
    return (
-      <div className={`page ${styles.vaultPage}`}>
+      <div className={`pb-5 page ${styles.vaultPage}`}>
          <AddPassword show={showAddModal} toggleModal={toggleAddModal} />
 
          <div className={styles.filtersContainer}>
@@ -68,7 +73,11 @@ const Vault: React.FC = (): JSX.Element => {
          </div>
 
          <div className={styles.list}>
-            <PasswordItem />
+            {passwordsContext === [] || passwordsContext === null || passwordsContext === undefined ? (
+               <h2>You have not added any passwords</h2>
+            ) : (
+               passwordsContext.map(password => <PasswordItem key={password.id} password={password} />)
+            )}
          </div>
 
          <div className={`shadow ${styles.addButton}`} onClick={toggleAddModal}>

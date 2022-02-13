@@ -26,7 +26,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
                headersObject
             );
             setPasswords(result.data.data);
-            console.log(result.data.data);
+            // console.log(result.data.data);
          };
 
          fetchedData();

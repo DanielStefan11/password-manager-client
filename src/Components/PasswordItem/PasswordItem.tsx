@@ -9,24 +9,41 @@ import {
 } from "react-icons/ai";
 import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
 import { MdFileCopy as CopyIcon } from "react-icons/md";
+import { Password } from "../../Interfaces/GlobalInterfaces";
 
-const PasswordItem: React.FC = (): JSX.Element => {
+interface Props {
+   password: Password;
+}
+
+const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
          {/* small screen pwd identity */}
          <div className={styles.pwdTitleSM}>
-            <img src={TemplateFavicon} alt="site icon" className={styles.favicon} />
-            <span className={`size-24 weight-700 primary-blue-text ${styles.titleSpan}`}>Twitter</span>
+            <img
+               src={password.attributes.faviconAddress ? password.attributes.faviconAddress : TemplateFavicon}
+               alt="site icon"
+               className={styles.favicon}
+            />
+            <span className={`size-24 weight-700 primary-blue-text ${styles.titleSpan}`}>
+               {password.attributes.title ? password.attributes.title : "N/A"}
+            </span>
          </div>
 
          {/* favicon */}
          <div className={`${styles.faviconCol} ${styles.col}`}>
-            <img src={TemplateFavicon} alt="site icon" className={styles.favicon} />
+            <img
+               src={password.attributes.faviconAddress ? password.attributes.faviconAddress : TemplateFavicon}
+               alt="site icon"
+               className={styles.favicon}
+            />
          </div>
 
          {/* Title */}
          <div className={`${styles.titleCol} ${styles.col}`}>
-            <span className={`size-24 weight-700 primary-blue-text ${styles.titleSpan}`}>Twitter</span>
+            <span className={`size-24 weight-700 primary-blue-text ${styles.titleSpan}`}>
+               {password.attributes.title ? password.attributes.title : "N/A"}
+            </span>
          </div>
 
          {/* username */}
@@ -37,7 +54,7 @@ const PasswordItem: React.FC = (): JSX.Element => {
 
          {/* Email */}
          <div className={`${styles.emailCol} ${styles.col} d-flex align-items-center`}>
-            <span className={`size-18 weight-400 ${styles.emailSpan}`}>MyEmail</span>
+            <span className={`size-18 weight-400 ${styles.emailSpan}`}>Email</span>
             <CopyIcon className={styles.copyIcon} />
          </div>
 

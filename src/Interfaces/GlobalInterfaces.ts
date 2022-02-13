@@ -3,6 +3,7 @@ export interface ChildrenProps {
 }
 
 export interface Password {
+   id: number;
    attributes: {
       title: string;
       username: string;
