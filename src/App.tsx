@@ -9,38 +9,41 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
 import MobileMenu from "./Components/MobileMenu/MobileMenu";
 import UserInfoProvider from "./Context/UserInfoProvider";
+import PasswordsProvider from "./Context/PasswordsProvider";
 
 const App: React.FC = (): JSX.Element => {
    return (
       <UserInfoProvider>
-         <div className="app">
-            <ToastContainer
-               position="top-center"
-               autoClose={5000}
-               newestOnTop={false}
-               closeOnClick
-               rtl={false}
-               pauseOnFocusLoss
-               draggable
-               closeButton={true}
-            />
-
-            <Header />
-            <Sidebar />
-            <MobileMenu />
-
-            <Routes>
-               <Route path={appRoutes.authenticate} element={<Authentication />} />
-               <Route
-                  path={appRoutes.vault}
-                  element={
-                     <PrivateRoute>
-                        <Vault />
-                     </PrivateRoute>
-                  }
+         <PasswordsProvider>
+            <div className="app">
+               <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  closeButton={true}
                />
-            </Routes>
-         </div>
+
+               <Header />
+               <Sidebar />
+               <MobileMenu />
+
+               <Routes>
+                  <Route path={appRoutes.authenticate} element={<Authentication />} />
+                  <Route
+                     path={appRoutes.vault}
+                     element={
+                        <PrivateRoute>
+                           <Vault />
+                        </PrivateRoute>
+                     }
+                  />
+               </Routes>
+            </div>
+         </PasswordsProvider>
       </UserInfoProvider>
    );
 };
