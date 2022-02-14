@@ -10,12 +10,23 @@ import {
 import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
 import { MdFileCopy as CopyIcon } from "react-icons/md";
 import { Password } from "../../Interfaces/GlobalInterfaces";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 interface Props {
    password: Password;
 }
 
 const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
+   // functions
+   const handleCopy = (itemType: string, valueCopied: string) => {
+      if (valueCopied === "n/a" || valueCopied === "N/A") {
+         toast.error("There is no value to copy");
+      } else {
+         toast.success(`The ${itemType} has been copied to the clipboard`);
+      }
+   };
+
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
          {/* small screen pwd identity */}
@@ -49,19 +60,34 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          {/* username */}
          <div className={`${styles.usernameCol} ${styles.col} d-flex align-items-center`}>
             <span className={`size-18 weight-400 ${styles.emailSpan}`}>Username</span>
-            <CopyIcon className={styles.copyIcon} />
+            <CopyToClipboard
+               text={password.attributes.username}
+               onCopy={() => handleCopy("username", password.attributes.username)}
+            >
+               <CopyIcon className={styles.copyIcon} />
+            </CopyToClipboard>
          </div>
 
          {/* Email */}
          <div className={`${styles.emailCol} ${styles.col} d-flex align-items-center`}>
             <span className={`size-18 weight-400 ${styles.emailSpan}`}>Email</span>
-            <CopyIcon className={styles.copyIcon} />
+            <CopyToClipboard
+               text={password.attributes.email}
+               onCopy={() => handleCopy("email", password.attributes.email)}
+            >
+               <CopyIcon className={styles.copyIcon} />
+            </CopyToClipboard>
          </div>
 
          {/* Password */}
          <div className={`${styles.passwordCol} ${styles.col}`}>
             <span className="mb-4 size-40 eight-700">......</span>
-            <CopyIcon className={styles.copyIcon} />
+            <CopyToClipboard
+               text={password.attributes.password}
+               onCopy={() => handleCopy("password", password.attributes.password)}
+            >
+               <CopyIcon className={styles.copyIcon} />
+            </CopyToClipboard>
          </div>
 
          {/* Actions */}

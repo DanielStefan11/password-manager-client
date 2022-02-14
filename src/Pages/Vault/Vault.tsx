@@ -53,7 +53,7 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
 
             <div className={styles.actionsWrapper}>
-               <div className={styles.refresh}>
+               <div className={styles.refresh} onClick={passwordsContext?.refreshPasswordsList}>
                   <RefreshIcon />
                   <span>Refresh</span>
                </div>
@@ -73,10 +73,12 @@ const Vault: React.FC = (): JSX.Element => {
          </div>
 
          <div className={styles.list}>
-            {passwordsContext === [] || passwordsContext === null || passwordsContext === undefined ? (
+            {passwordsContext?.passwords === [] ||
+            passwordsContext?.passwords === null ||
+            passwordsContext?.passwords === undefined ? (
                <h2>You have not added any passwords</h2>
             ) : (
-               passwordsContext.map(password => <PasswordItem key={password.id} password={password} />)
+               passwordsContext?.passwords.map(password => <PasswordItem key={password.id} password={password} />)
             )}
          </div>
 
