@@ -50,11 +50,14 @@ input {
    padding-left: 4rem;
    padding-right: 4rem;
 
+   @media screen and (max-width: 1440px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+   }
+
    @media screen and (max-width: 1024px) {
       padding-top: 60px;
       margin-left: 200px;
-      padding-left: 2rem;
-      padding-right: 2rem;
    }
 
    @media screen and (max-width: 850px) {

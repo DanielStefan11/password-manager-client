@@ -66,7 +66,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
          {/* Actions */}
          <div className={`${styles.actionsCol} ${styles.col} d-flex align-items-center justify-content-around`}>
-            <RevealPwdIcon className="pointer" size={30} color="#3c8dbb" />
+            <RevealPwdIcon className={`pointer ${styles.revealIcon}`} size={30} color="#3c8dbb" />
 
             <EditIcon className="pointer" size={30} color="#00008b" />
 
