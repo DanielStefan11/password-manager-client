@@ -11,5 +11,6 @@ export interface Password {
       password: string;
       siteUrl: string;
       faviconAddress: string;
+      favorite: boolean;
    };
 }

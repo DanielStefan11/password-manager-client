@@ -29,7 +29,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       try {
          const result = await axios.get(
             process.env.REACT_APP_DEV_URL +
-               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:asc",
+               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc",
             headersObject
          );
          setPasswords(result.data.data);
@@ -43,7 +43,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       try {
          const result = await axios.get(
             process.env.REACT_APP_DEV_URL +
-               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:desc",
+               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:desc",
             headersObject
          );
          setPasswords(result.data.data);
@@ -59,7 +59,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             const fetchedData = async () => {
                const result = await axios.get(
                   process.env.REACT_APP_DEV_URL +
-                     "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:asc",
+                     "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc",
                   headersObject
                );
                setPasswords(result.data.data);
