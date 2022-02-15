@@ -17,6 +17,7 @@ import {
 } from "../../Utils/notifications";
 import axios from "axios";
 import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
+import { usePasswordsContext } from "../../Context/PasswordsProvider";
 
 interface Props {
    show: boolean;
@@ -48,12 +49,23 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
    const [activeFavicon, setActiveFavicon] = useState<string>(() => "");
 
+   const passwordsContext = usePasswordsContext();
+
    const validEmail = emailPattern.test(values.email);
    const validPassword = pswPattern.test(password);
 
+   const capitalizeFirstLetter = (word: string): string | undefined => {
+      if (word !== "") {
+         const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1);
+         return capitalizedWord;
+      } else {
+         return;
+      }
+   };
+
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
-   const handleInputChange = (e: React.FormEvent) => {
+   const handleInputChange = (e: React.FormEvent): void => {
       const target = e.target as HTMLInputElement;
       const { name, value } = target;
       setValues({
@@ -62,12 +74,12 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
       });
    };
 
-   const handlePasswordChange = (e: React.FormEvent) => {
+   const handlePasswordChange = (e: React.FormEvent): void => {
       const target = e.target as HTMLInputElement;
       setPassword(target.value);
    };
 
-   const generatePassword = () => {
+   const generatePassword = (): void => {
       const formValid = +length > 0;
       if (!formValid) {
          return;
@@ -110,7 +122,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
       setActiveFavicon("");
    };
 
-   const addPassword = async () => {
+   const addPassword = async (): Promise<void> => {
       const headersObject = {
          headers: {
             Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -146,7 +158,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
             toast.success(passwordAddedSuccess);
             toggleModal();
             resetValues();
-            // window.location.reload();
+            passwordsContext?.fetchPwdAscending();
          }
       } catch (err) {
          toast.error(errorOccured);
@@ -162,7 +174,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
                <div className={styles.inputsWrapper}>
                   <TitleIcon className={styles.inputIcons} />
                   <input
-                     value={values.title}
+                     value={capitalizeFirstLetter(values.title)}
                      name="title"
                      type="text"
                      className={styles.addPswInputs}
