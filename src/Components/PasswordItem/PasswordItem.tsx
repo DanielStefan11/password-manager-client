@@ -40,7 +40,11 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
          <CreatePassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
-         <RemovePwdConfirmation show={showDeletePwdModal} toggleModal={handleToggleDeletePwdModal} />
+         <RemovePwdConfirmation
+            show={showDeletePwdModal}
+            toggleModal={handleToggleDeletePwdModal}
+            passwordItem={password}
+         />
 
          {/* small screen pwd identity */}
          <div className={styles.pwdTitleSM}>

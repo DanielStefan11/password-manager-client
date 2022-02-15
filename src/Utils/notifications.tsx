@@ -6,6 +6,10 @@ export const passwordAddedSuccess: JSX.Element = <span id="add-psw-success">Pass
 
 export const passwordEditedSuccess: JSX.Element = <span id="edit-psw-success">Password was edited successfully</span>;
 
+export const passwordDeletedSuccess: JSX.Element = (
+   <span id="delete-psw-success">Password was deleted successfully</span>
+);
+
 // Error messages____________________________________________
 
 export const emptyInputsError: JSX.Element = <span id="empty-inputs-error">All fields are required</span>;
