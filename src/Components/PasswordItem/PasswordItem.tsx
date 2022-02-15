@@ -13,6 +13,7 @@ import { Password } from "../../Interfaces/GlobalInterfaces";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import CreatePassword from "../CreatePassword/CreatePassword";
+import RemovePwdConfirmation from "../RemovePwdConfirmation/RemovePwdConfirmation";
 
 interface Props {
    password: Password;
@@ -21,6 +22,7 @@ interface Props {
 const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    // state
    const [showEditModal, setShowEditModal] = useState<boolean>(() => false);
+   const [showDeletePwdModal, setShowDeletePwdModal] = useState<boolean>(() => false);
 
    // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
@@ -33,9 +35,12 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    const handleToggleEditModal = () => setShowEditModal(!showEditModal);
 
+   const handleToggleDeletePwdModal = () => setShowDeletePwdModal(!showDeletePwdModal);
+
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
          <CreatePassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
+         <RemovePwdConfirmation show={showDeletePwdModal} toggleModal={handleToggleDeletePwdModal} />
 
          {/* small screen pwd identity */}
          <div className={styles.pwdTitleSM}>
@@ -106,7 +111,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
             <OutlineStarIcon className="pointer" size={30} color="#3c8dbb" />
 
-            <RemoveIcon className="pointer" size={30} color="#e62e00" />
+            <RemoveIcon className="pointer" size={30} color="#e62e00" onClick={handleToggleDeletePwdModal} />
          </div>
       </div>
    );

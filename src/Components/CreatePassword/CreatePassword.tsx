@@ -307,7 +307,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
 
          <Modal.Footer>
             <div className={styles.btnContainer}>
-               <button className={styles.addButton} onClick={handleSubmitPassword}>
+               <button className={`confirmModalButton`} onClick={handleSubmitPassword}>
                   {edit ? "Edit" : "Add"}
                </button>
 

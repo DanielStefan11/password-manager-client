@@ -87,3 +87,8 @@ input {
 .modal-footer {
    border-top: none;
 }
+
+.confirmModalButton {
+   @include gradientButton(100px, 40px);
+   margin-right: 1rem;
+}
