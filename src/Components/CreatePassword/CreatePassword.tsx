@@ -165,6 +165,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
             email: values.email,
             password,
             faviconAddress: activeFavicon,
+            favorite: false,
          },
       };
 

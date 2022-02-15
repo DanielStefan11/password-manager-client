@@ -14,6 +14,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import CreatePassword from "../CreatePassword/CreatePassword";
 import RemovePwdConfirmation from "../RemovePwdConfirmation/RemovePwdConfirmation";
+import { errorOccured } from "../../Utils/notifications";
+import axios from "axios";
+import { usePasswordsContext } from "../../Context/PasswordsProvider";
 
 interface Props {
    password: Password;
@@ -23,6 +26,27 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    // state
    const [showEditModal, setShowEditModal] = useState<boolean>(() => false);
    const [showDeletePwdModal, setShowDeletePwdModal] = useState<boolean>(() => false);
+
+   // other hooks
+   const passwordContext = usePasswordsContext();
+
+   const headersObject = {
+      headers: {
+         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+      },
+   };
+
+   const requestBody = {
+      data: {
+         title: password.attributes.title,
+         siteUrl: password.attributes.siteUrl,
+         username: password.attributes.username,
+         email: password.attributes.email,
+         password: password.attributes.password,
+         faviconAddress: password.attributes.faviconAddress,
+         favorite: !password.attributes.favorite,
+      },
+   };
 
    // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
@@ -36,6 +60,23 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    const handleToggleEditModal = () => setShowEditModal(!showEditModal);
 
    const handleToggleDeletePwdModal = () => setShowDeletePwdModal(!showDeletePwdModal);
+
+   const handleToggleFavorites = async (passwordTitle: string | undefined) => {
+      try {
+         await axios.put(process.env.REACT_APP_DEV_URL + `/api/passwords/${password?.id}`, requestBody, headersObject);
+         if (passwordTitle !== undefined) {
+            if (password.attributes.favorite) {
+               toast.info(`${passwordTitle} password was removed from Favorites`);
+            } else {
+               toast.info(`${passwordTitle} password was added to Favorites`);
+            }
+         }
+         passwordContext?.fetchPwdAscending();
+      } catch (err) {
+         console.log(err);
+         toast.error(errorOccured);
+      }
+   };
 
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
@@ -113,7 +154,21 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
             <EditIcon className="pointer" size={30} color="#00008b" onClick={handleToggleEditModal} />
 
-            <OutlineStarIcon className="pointer" size={30} color="#3c8dbb" />
+            {password.attributes.favorite ? (
+               <FillStarIcon
+                  className="pointer"
+                  size={30}
+                  color="#ffd700"
+                  onClick={() => handleToggleFavorites(password.attributes.title)}
+               />
+            ) : (
+               <OutlineStarIcon
+                  className="pointer"
+                  size={30}
+                  color="#3c8dbb"
+                  onClick={() => handleToggleFavorites(password.attributes.title)}
+               />
+            )}
 
             <RemoveIcon className="pointer" size={30} color="#e62e00" onClick={handleToggleDeletePwdModal} />
          </div>
