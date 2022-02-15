@@ -6,7 +6,8 @@ import { errorOccured } from "../Utils/notifications";
 
 interface ContextState {
    passwords: Password[] | null;
-   refreshPasswordsList: () => Promise<void>;
+   fetchPwdAscending: () => Promise<void>;
+   sortPwdDescending: () => Promise<void>;
 }
 
 const PasswordsContext = React.createContext<ContextState | null>(null);
@@ -24,21 +25,31 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
 
    const userLogged = sessionStorage.getItem("jwt");
 
-   const refreshPasswordsList = async (): Promise<void> => {
-      if (userLogged) {
-         try {
-            const result = await axios.get(
-               process.env.REACT_APP_DEV_URL +
-                  "/api/passwords?fields=title,username,email,password,siteUrl,faviconAddress",
-               headersObject
-            );
-            setPasswords(result.data.data);
-         } catch (err) {
-            toast.error(errorOccured);
-            console.log(err);
-         }
-      } else {
-         return;
+   const fetchPwdAscending = async (): Promise<void> => {
+      try {
+         const result = await axios.get(
+            process.env.REACT_APP_DEV_URL +
+               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:asc",
+            headersObject
+         );
+         setPasswords(result.data.data);
+      } catch (err) {
+         toast.error(errorOccured);
+         console.log(err);
+      }
+   };
+
+   const sortPwdDescending = async () => {
+      try {
+         const result = await axios.get(
+            process.env.REACT_APP_DEV_URL +
+               "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:desc",
+            headersObject
+         );
+         setPasswords(result.data.data);
+      } catch (err) {
+         toast.error(errorOccured);
+         console.log(err);
       }
    };
 
@@ -48,7 +59,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             const fetchedData = async () => {
                const result = await axios.get(
                   process.env.REACT_APP_DEV_URL +
-                     "/api/passwords?fields=title,username,email,password,siteUrl,faviconAddress",
+                     "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress&sort=title:asc",
                   headersObject
                );
                setPasswords(result.data.data);
@@ -66,7 +77,8 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
 
    const state: ContextState | null = {
       passwords,
-      refreshPasswordsList,
+      fetchPwdAscending,
+      sortPwdDescending,
    };
 
    return <PasswordsContext.Provider value={state}>{children}</PasswordsContext.Provider>;

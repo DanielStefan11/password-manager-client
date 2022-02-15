@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./Vault.module.scss";
 import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon, FaSearch as SearchIcon } from "react-icons/fa";
 import { BsPlusLg as PlusIcon } from "react-icons/bs";
@@ -25,6 +25,8 @@ const Vault: React.FC = (): JSX.Element => {
    const [search, setSearch] = useState<string>(() => "");
    const [clearSearch, setClearSearch] = useState<boolean>(() => false);
 
+   const searchRef = useRef<HTMLInputElement>(null);
+
    const passwordsContext = usePasswordsContext();
    const filteredPasswords = passwordsContext?.passwords?.filter(password => {
       return password.attributes.title.toLowerCase().includes(search.toLowerCase());
@@ -34,14 +36,17 @@ const Vault: React.FC = (): JSX.Element => {
       switch (iconId) {
          case "a-z":
             setSortIcons({ AtoZ: true, ZtoA: false });
+            passwordsContext?.fetchPwdAscending();
             break;
 
          case "z-a":
             setSortIcons({ AtoZ: false, ZtoA: true });
+            passwordsContext?.sortPwdDescending();
             break;
 
          default:
             setSortIcons({ AtoZ: true, ZtoA: false });
+            passwordsContext?.fetchPwdAscending();
       }
    };
 
@@ -55,6 +60,7 @@ const Vault: React.FC = (): JSX.Element => {
    const handleClearSearch = () => {
       setSearch("");
       setClearSearch(false);
+      searchRef.current?.focus();
    };
 
    // console.log("in vault: ", passwordsContext);
@@ -68,6 +74,7 @@ const Vault: React.FC = (): JSX.Element => {
             <div className={styles.searchContainer}>
                <SearchIcon className={styles.inputIcons} />
                <input
+                  ref={searchRef}
                   type="text"
                   value={search}
                   className={`shadow ${styles.search}`}
@@ -78,7 +85,7 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
 
             <div className={styles.actionsWrapper}>
-               <div className={styles.refresh} onClick={passwordsContext?.refreshPasswordsList}>
+               <div className={styles.refresh} onClick={passwordsContext?.fetchPwdAscending}>
                   <RefreshIcon />
                   <span>Refresh</span>
                </div>
