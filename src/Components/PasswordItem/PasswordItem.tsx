@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./PasswordItem.module.scss";
 import TemplateFavicon from "../../Assets/Global/template-icon.png";
 import {
@@ -12,12 +12,16 @@ import { MdFileCopy as CopyIcon } from "react-icons/md";
 import { Password } from "../../Interfaces/GlobalInterfaces";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import AddPassword from "../../Components/AddPassword/AddPassword";
 
 interface Props {
    password: Password;
 }
 
 const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
+   // state
+   const [showEditModal, setShowEditModal] = useState<boolean>(() => false);
+
    // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
       if (valueCopied === "n/a" || valueCopied === "N/A") {
@@ -27,8 +31,12 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
       }
    };
 
+   const handleToggleEditModal = () => setShowEditModal(!showEditModal);
+
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
+         <AddPassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
+
          {/* small screen pwd identity */}
          <div className={styles.pwdTitleSM}>
             <img
@@ -94,7 +102,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          <div className={`${styles.actionsCol} ${styles.col} d-flex align-items-center justify-content-around`}>
             <RevealPwdIcon className={`pointer ${styles.revealIcon}`} size={30} color="#3c8dbb" />
 
-            <EditIcon className="pointer" size={30} color="#00008b" />
+            <EditIcon className="pointer" size={30} color="#00008b" onClick={handleToggleEditModal} />
 
             <OutlineStarIcon className="pointer" size={30} color="#3c8dbb" />
 

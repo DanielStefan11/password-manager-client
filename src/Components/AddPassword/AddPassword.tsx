@@ -14,48 +14,66 @@ import {
    emptyInputsError,
    emailNotValid,
    passwordNotValid,
+   passwordEditedSuccess,
 } from "../../Utils/notifications";
 import axios from "axios";
 import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { Password } from "../../Interfaces/GlobalInterfaces";
 
 interface Props {
    show: boolean;
    toggleModal: () => void;
+   edit?: boolean;
+   passwordItem?: Password;
 }
 
 interface InputValues {
-   title: string;
-   url: string;
-   username: string;
-   email: string;
+   title: string | undefined;
+   url: string | undefined;
+   username: string | undefined;
+   email: string | undefined;
 }
-
-const initialValues: InputValues = {
-   title: "",
-   url: "",
-   username: "",
-   email: "",
-};
 
 const letters = "abcdefghijklmnopqrstuvwxyz";
 const numbers = "0123456789";
 const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 const length = 10;
 
-const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
-   const [values, setValues] = useState<InputValues>(() => initialValues);
-   const [password, setPassword] = useState<string>(() => "");
-   const [hidePassword, setHidePassword] = useState<boolean>(() => true);
-   const [activeFavicon, setActiveFavicon] = useState<string>(() => "");
+const AddPassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem }): JSX.Element => {
+   const initialValues: InputValues = {
+      title: "",
+      url: "",
+      username: "",
+      email: "",
+   };
 
+   const initialEditableValues: InputValues = {
+      title: passwordItem?.attributes.title,
+      url: passwordItem?.attributes.siteUrl,
+      username: passwordItem?.attributes.username,
+      email: passwordItem?.attributes.email,
+   };
+
+   // state
+   const [hidePassword, setHidePassword] = useState<boolean>(() => true);
+   // Add password states
+   const [values, setValues] = useState<InputValues>(() => (edit ? initialEditableValues : initialValues));
+   const [password, setPassword] = useState<string | undefined>(() => (edit ? passwordItem?.attributes.password : ""));
+   const [activeFavicon, setActiveFavicon] = useState<string | undefined>(() =>
+      edit ? passwordItem?.attributes.faviconAddress : ""
+   );
+
+   // other hooks
    const passwordsContext = usePasswordsContext();
 
-   const validEmail = emailPattern.test(values.email);
-   const validPassword = pswPattern.test(password);
+   // Regex patterns
+   const validEmail = values.email !== undefined && emailPattern.test(values.email);
+   const validPassword = password !== undefined && pswPattern.test(password);
 
+   // functions
    const capitalizeFirstLetter = (word: string): string | undefined => {
-      if (word !== "") {
+      if (word !== "" || word !== undefined) {
          const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1);
          return capitalizedWord;
       } else {
@@ -68,10 +86,11 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    const handleInputChange = (e: React.FormEvent): void => {
       const target = e.target as HTMLInputElement;
       const { name, value } = target;
-      setValues({
-         ...values,
-         [name]: value,
-      });
+      if (name === "title") {
+         setValues({ ...values, [name]: capitalizeFirstLetter(value) });
+      } else {
+         setValues({ ...values, [name]: value });
+      }
    };
 
    const handlePasswordChange = (e: React.FormEvent): void => {
@@ -122,7 +141,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
       setActiveFavicon("");
    };
 
-   const addPassword = async (): Promise<void> => {
+   const handleSubmitPassword = async (): Promise<void> => {
       const headersObject = {
          headers: {
             Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -154,11 +173,22 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
          } else if (!validPassword) {
             toast.error(passwordNotValid);
          } else {
-            await axios.post(process.env.REACT_APP_DEV_URL + "/api/passwords", requestBody, headersObject);
-            toast.success(passwordAddedSuccess);
-            toggleModal();
-            resetValues();
-            passwordsContext?.fetchPwdAscending();
+            if (!edit) {
+               await axios.post(process.env.REACT_APP_DEV_URL + "/api/passwords", requestBody, headersObject);
+               toast.success(passwordAddedSuccess);
+               toggleModal();
+               resetValues();
+               passwordsContext?.fetchPwdAscending();
+            } else {
+               await axios.put(
+                  process.env.REACT_APP_DEV_URL + `/api/passwords/${passwordItem?.id}`,
+                  requestBody,
+                  headersObject
+               );
+               toast.success(passwordEditedSuccess);
+               toggleModal();
+               passwordsContext?.fetchPwdAscending();
+            }
          }
       } catch (err) {
          toast.error(errorOccured);
@@ -168,13 +198,13 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
    return (
       <Modal centered show={show} onHide={toggleModal}>
          <Modal.Body>
-            <h2 className={`text-center weight-400 size-30 dark-blue-text`}>Add Password</h2>
+            <h2 className={`text-center weight-400 size-30 dark-blue-text`}>{edit ? "Edit" : "Add"} Password</h2>
 
             <div className={styles.inputsContainer}>
                <div className={styles.inputsWrapper}>
                   <TitleIcon className={styles.inputIcons} />
                   <input
-                     value={capitalizeFirstLetter(values.title)}
+                     value={values.title}
                      name="title"
                      type="text"
                      className={styles.addPswInputs}
@@ -268,8 +298,8 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal }): JSX.Element => {
 
          <Modal.Footer>
             <div className={styles.btnContainer}>
-               <button className={styles.addButton} onClick={addPassword}>
-                  Add
+               <button className={styles.addButton} onClick={handleSubmitPassword}>
+                  {edit ? "Edit" : "Add"}
                </button>
 
                <span className="cancel-span" onClick={toggleModal}>
