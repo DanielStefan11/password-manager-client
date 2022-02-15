@@ -5,7 +5,7 @@ import { BsPlusLg as PlusIcon } from "react-icons/bs";
 import { FiRefreshCcw as RefreshIcon } from "react-icons/fi";
 import { IoIosClose as DeleteIcon } from "react-icons/io";
 import { ReactComponent as EmptyListImage } from "../../Assets/Global/not-found.svg";
-import AddPassword from "../../Components/AddPassword/AddPassword";
+import CreatePassword from "../../Components/CreatePassword/CreatePassword";
 import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 
@@ -68,7 +68,7 @@ const Vault: React.FC = (): JSX.Element => {
 
    return (
       <div className={`pb-5 page ${styles.vaultPage}`}>
-         <AddPassword show={showAddModal} toggleModal={toggleAddModal} />
+         <CreatePassword show={showAddModal} toggleModal={toggleAddModal} />
 
          <div className={styles.filtersContainer}>
             <div className={styles.searchContainer}>

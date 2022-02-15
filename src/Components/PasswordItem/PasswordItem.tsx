@@ -12,7 +12,7 @@ import { MdFileCopy as CopyIcon } from "react-icons/md";
 import { Password } from "../../Interfaces/GlobalInterfaces";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
-import AddPassword from "../../Components/AddPassword/AddPassword";
+import CreatePassword from "../CreatePassword/CreatePassword";
 
 interface Props {
    password: Password;
@@ -35,7 +35,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    return (
       <div className={`shadow ${styles.itemLargeScreen}`}>
-         <AddPassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
+         <CreatePassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
 
          {/* small screen pwd identity */}
          <div className={styles.pwdTitleSM}>

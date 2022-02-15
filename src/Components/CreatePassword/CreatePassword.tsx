@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./AddPassword.module.scss";
+import styles from "./CreatePassword.module.scss";
 import { Modal } from "react-bootstrap";
 import { FaUser as UserIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 import { MdEmail as EmailIcon } from "react-icons/md";
@@ -40,7 +40,7 @@ const numbers = "0123456789";
 const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 const length = 10;
 
-const AddPassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem }): JSX.Element => {
+const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem }): JSX.Element => {
    const initialValues: InputValues = {
       title: "",
       url: "",
@@ -139,6 +139,15 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem })
       setValues({ title: "", url: "", username: "", email: "" });
       setPassword("");
       setActiveFavicon("");
+   };
+
+   const handleCancel = () => {
+      if (edit) {
+         toggleModal();
+      } else {
+         toggleModal();
+         resetValues();
+      }
    };
 
    const handleSubmitPassword = async (): Promise<void> => {
@@ -302,7 +311,7 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem })
                   {edit ? "Edit" : "Add"}
                </button>
 
-               <span className="cancel-span" onClick={toggleModal}>
+               <span className="cancel-span" onClick={handleCancel}>
                   Cancel
                </span>
             </div>
@@ -311,4 +320,4 @@ const AddPassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem })
    );
 };
 
-export default AddPassword;
+export default CreatePassword;
