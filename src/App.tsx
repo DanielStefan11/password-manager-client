@@ -4,6 +4,7 @@ import { appRoutes } from "./Utils/appRoutes";
 import Authentication from "./Pages/Authentication/Authentication";
 import PrivateRoute from "./Utils/PrivateRoute";
 import Vault from "./Pages/Vault/Vault";
+import Favorites from "./Pages/Favorites/Favorites";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
@@ -38,6 +39,15 @@ const App: React.FC = (): JSX.Element => {
                      element={
                         <PrivateRoute>
                            <Vault />
+                        </PrivateRoute>
+                     }
+                  />
+
+                  <Route
+                     path={appRoutes.favorites}
+                     element={
+                        <PrivateRoute>
+                           <Favorites />
                         </PrivateRoute>
                      }
                   />

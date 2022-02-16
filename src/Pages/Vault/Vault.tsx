@@ -64,9 +64,6 @@ const Vault: React.FC = (): JSX.Element => {
       searchRef.current?.focus();
    };
 
-   // console.log("in vault: ", passwordsContext);
-   // console.log("filteredPasswords: ", filteredPasswords);
-
    return (
       <div className={`page ${styles.vaultPage}`}>
          <CreatePassword show={showAddModal} toggleModal={toggleAddModal} />
