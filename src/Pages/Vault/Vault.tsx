@@ -65,10 +65,10 @@ const Vault: React.FC = (): JSX.Element => {
    };
 
    // console.log("in vault: ", passwordsContext);
-   console.log("filteredPasswords: ", filteredPasswords);
+   // console.log("filteredPasswords: ", filteredPasswords);
 
    return (
-      <div className={`pb-5 page ${styles.vaultPage}`}>
+      <div className={`page ${styles.vaultPage}`}>
          <CreatePassword show={showAddModal} toggleModal={toggleAddModal} />
 
          <PageHeading />

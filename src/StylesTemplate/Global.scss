@@ -80,12 +80,22 @@ input {
 }
 
 // Modal
+.modal-header {
+   border-bottom: none;
+}
+
 .modal-content {
    border-radius: 16px;
 }
 
 .modal-footer {
    border-top: none;
+}
+
+.btn-close {
+   position: absolute;
+   top: 20px;
+   right: 20px;
 }
 
 .confirmModalButton {

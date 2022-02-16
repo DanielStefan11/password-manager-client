@@ -14,6 +14,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import CreatePassword from "../CreatePassword/CreatePassword";
 import RemovePwdConfirmation from "../RemovePwdConfirmation/RemovePwdConfirmation";
+import PasswordPreview from "../PasswordPreview/PasswordPreview";
 import { errorOccured } from "../../Utils/notifications";
 import axios from "axios";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
@@ -26,6 +27,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    // state
    const [showEditModal, setShowEditModal] = useState<boolean>(() => false);
    const [showDeletePwdModal, setShowDeletePwdModal] = useState<boolean>(() => false);
+   const [showPwdPreviewModal, setShowPwdPreviewModal] = useState<boolean>(() => false);
 
    // other hooks
    const passwordContext = usePasswordsContext();
@@ -61,6 +63,8 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    const handleToggleDeletePwdModal = () => setShowDeletePwdModal(!showDeletePwdModal);
 
+   const handleTogglePwdPreviewModal = () => setShowPwdPreviewModal(!showPwdPreviewModal);
+
    const handleToggleFavorites = async (passwordTitle: string | undefined) => {
       try {
          await axios.put(process.env.REACT_APP_DEV_URL + `/api/passwords/${password?.id}`, requestBody, headersObject);
@@ -84,6 +88,11 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          <RemovePwdConfirmation
             show={showDeletePwdModal}
             toggleModal={handleToggleDeletePwdModal}
+            passwordItem={password}
+         />
+         <PasswordPreview
+            show={showPwdPreviewModal}
+            toggleModal={handleTogglePwdPreviewModal}
             passwordItem={password}
          />
 
@@ -150,7 +159,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
          {/* Actions */}
          <div className={`${styles.actionsCol} ${styles.col} d-flex align-items-center justify-content-around`}>
-            <RevealPwdIcon className={`pointer ${styles.revealIcon}`} size={30} color="#3c8dbb" />
+            <RevealPwdIcon className={`pointer`} size={30} color="#3c8dbb" onClick={handleTogglePwdPreviewModal} />
 
             <EditIcon className="pointer" size={30} color="#00008b" onClick={handleToggleEditModal} />
 
