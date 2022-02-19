@@ -5,6 +5,7 @@ import Authentication from "./Pages/Authentication/Authentication";
 import PrivateRoute from "./Utils/PrivateRoute";
 import Vault from "./Pages/Vault/Vault";
 import Favorites from "./Pages/Favorites/Favorites";
+import PasswordGenerator from "./Pages/PasswordGenerator/PasswordGenerator";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
@@ -48,6 +49,15 @@ const App: React.FC = (): JSX.Element => {
                      element={
                         <PrivateRoute>
                            <Favorites />
+                        </PrivateRoute>
+                     }
+                  />
+
+                  <Route
+                     path={appRoutes.passwordGenerator}
+                     element={
+                        <PrivateRoute>
+                           <PasswordGenerator />
                         </PrivateRoute>
                      }
                   />

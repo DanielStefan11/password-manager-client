@@ -20,10 +20,10 @@
    }
 }
 
-@mixin gradientButton($width, $height) {
+@mixin gradientButton($width, $height, $borderRadius) {
    width: $width;
    height: $height;
-   border-radius: 48px;
+   border-radius: $borderRadius;
    border: none;
    outline: none;
    font-size: 18px;
@@ -42,6 +42,19 @@
    font-size: 18px;
    font-weight: 400;
    color: $darkBlue;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+@mixin outlinePrimaryBlueButton($width, $height) {
+   width: $width;
+   height: $height;
+   border-radius: 8px;
+   border: 2px solid $primaryBlue;
+   outline: none;
+   font-size: 18px;
+   font-weight: 400;
+   color: $primaryBlue;
    background-color: #ffffff;
    cursor: pointer;
 }
