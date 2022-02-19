@@ -30,3 +30,12 @@
       font-size: 30px;
    }
 }
+
+.activeLink {
+   @extend .link;
+
+   svg {
+      font-size: 30px;
+      color: $primaryYellow;
+   }
+}

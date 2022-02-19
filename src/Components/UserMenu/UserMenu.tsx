@@ -10,9 +10,11 @@ interface Props {
 }
 
 const UserMenu: React.FC<Props> = ({ show, toggle }): JSX.Element => {
+   // hooks
    const userContext = useUserInfoContext();
    const navigate = useNavigate();
 
+   // functions
    const logout = () => {
       sessionStorage.clear();
       navigate(appRoutes.authenticate);

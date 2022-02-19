@@ -13,8 +13,10 @@ interface Props {
 }
 
 const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordItem }): JSX.Element => {
+   // hooks
    const passwordsContext = usePasswordsContext();
 
+   // functions
    const handleDeletePassword = async () => {
       const requestBody = {
          headers: {

@@ -22,16 +22,19 @@ const initialPasswordSettings: PasswordSettings = {
 };
 
 const PasswordGenerator: React.FC = (): JSX.Element => {
+   // state
    const [password, setPassword] = useState<string>(() => "");
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
    const [passwordLength, setPasswordLength] = useState<number>(() => 12);
    const [checkAll, setCheckAll] = useState<boolean>(() => false);
    const [passwordSettings, setPasswordSettings] = useState<PasswordSettings>(() => initialPasswordSettings);
 
+   // notifications
    const noPwdSettings: JSX.Element = <span id="no-pwd-settings">You must select at least one password pattern</span>;
    const pwdCopied: JSX.Element = <span id="pwd-copied">Password successfully copied</span>;
    const noPwdToCopy: JSX.Element = <span id="no-pwd-copied">You must first generate the password</span>;
 
+   // functions
    const handleCopy = () => {
       if (password === "") {
          toast.error(noPwdToCopy);

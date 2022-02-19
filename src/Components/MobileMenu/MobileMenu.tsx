@@ -3,47 +3,37 @@ import styles from "./MobileMenu.module.scss";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
 import { AiFillStar as FavoritesIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 
 const MobileMenu: React.FC = (): JSX.Element => {
+   // hooks
    const location = useLocation();
-   const navigate = useNavigate();
-
-   const handleNavigation = (linkId: string) => {
-      switch (linkId) {
-         case appRoutes.vault:
-            navigate(appRoutes.vault);
-            break;
-
-         case appRoutes.favorites:
-            navigate(appRoutes.favorites);
-            break;
-
-         case appRoutes.passwordGenerator:
-            navigate(appRoutes.passwordGenerator);
-            break;
-
-         default:
-            navigate(appRoutes.vault);
-      }
-   };
 
    return (
       <>
          {location.pathname === appRoutes.authenticate ? null : (
             <div className={styles.mobileMenu}>
-               <div className={styles.link} onClick={() => handleNavigation(appRoutes.vault)}>
+               <NavLink
+                  to={appRoutes.vault}
+                  className={navData => (navData.isActive ? styles.activeLink : styles.link)}
+               >
                   <VaultIcon />
-               </div>
+               </NavLink>
 
-               <div className={styles.link} onClick={() => handleNavigation(appRoutes.favorites)}>
+               <NavLink
+                  to={appRoutes.favorites}
+                  className={navData => (navData.isActive ? styles.activeLink : styles.link)}
+               >
                   <FavoritesIcon />
-               </div>
+               </NavLink>
 
-               <div className={styles.link} onClick={() => handleNavigation(appRoutes.passwordGenerator)}>
+               <NavLink
+                  to={appRoutes.passwordGenerator}
+                  className={navData => (navData.isActive ? styles.activeLink : styles.link)}
+               >
                   <GenerateIcon />
-               </div>
+               </NavLink>
             </div>
          )}
       </>

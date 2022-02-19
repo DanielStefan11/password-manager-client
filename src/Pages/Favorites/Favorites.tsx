@@ -6,7 +6,10 @@ import { ReactComponent as EmptyListImage } from "../../Assets/Global/not-found.
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 
 const Favorites: React.FC = (): JSX.Element => {
+   // hooks
    const passwordsContext = usePasswordsContext();
+
+   // filteredData
    const filteredPasswords = passwordsContext?.passwords?.filter(password => {
       return password.attributes.favorite === true;
    });

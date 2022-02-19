@@ -5,7 +5,7 @@ import axios from "axios";
 import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
 import { toast } from "react-toastify";
 import {
-   loginSuccess,
+   // loginSuccess,
    errorOccured,
    emailNotValid,
    passwordNotValid,
@@ -15,13 +15,17 @@ import { useNavigate } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 
 const Authentication: React.FC = (): JSX.Element => {
+   // state
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
 
+   // hooks
    const navigate = useNavigate();
 
+   // refs
    const emailRef = useRef<HTMLInputElement>(null);
    const passwordRef = useRef<HTMLInputElement>(null);
 
+   // functions
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
    const handleLogin = async (e: React.FormEvent) => {
@@ -51,13 +55,13 @@ const Authentication: React.FC = (): JSX.Element => {
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
                navigate(appRoutes.vault);
-               toast.success(loginSuccess);
+               // toast.success(loginSuccess);
                window.location.reload();
             }
          }
       } catch (error) {
          toast.error(errorOccured);
-         // console.log(error);
+         console.log(error);
       }
    };
 

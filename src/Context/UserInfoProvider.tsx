@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ChildrenProps } from "../Interfaces/GlobalInterfaces";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 interface UserInfo {
    id: number;
@@ -29,15 +30,20 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
 
       const userLogged = sessionStorage.getItem("jwt");
 
-      if (userLogged) {
-         const fetchedData = async () => {
-            const result = await axios.get(process.env.REACT_APP_DEV_URL + "/api/users/1", headersObject);
-            setUserInfo(result.data);
-         };
+      try {
+         if (userLogged) {
+            const fetchedData = async () => {
+               const result = await axios.get(process.env.REACT_APP_DEV_URL + "/api/users/1", headersObject);
+               setUserInfo(result.data);
+            };
 
-         fetchedData();
-      } else {
-         return;
+            fetchedData();
+         } else {
+            return;
+         }
+      } catch (err) {
+         console.log(err);
+         toast.error("Error occurred when fetching user info");
       }
    }, []);
 

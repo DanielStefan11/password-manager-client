@@ -15,10 +15,13 @@ interface Props {
 }
 
 const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): JSX.Element => {
+   // state
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
 
+   // hooks
    const handleHidePassword = (): void => setHidePassword(!hidePassword);
 
+   // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
       if (valueCopied === "n/a" || valueCopied === "N/A") {
          toast.error("There is no value to copy");

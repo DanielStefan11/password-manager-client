@@ -16,6 +16,7 @@ interface SortIcons {
 }
 
 const Vault: React.FC = (): JSX.Element => {
+   // state
    const [sortIcons, setSortIcons] = useState<SortIcons>(() => {
       return {
          AtoZ: true,
@@ -26,13 +27,18 @@ const Vault: React.FC = (): JSX.Element => {
    const [search, setSearch] = useState<string>(() => "");
    const [clearSearch, setClearSearch] = useState<boolean>(() => false);
 
+   // refs
    const searchRef = useRef<HTMLInputElement>(null);
 
+   // hooks
    const passwordsContext = usePasswordsContext();
+
+   // filteredData
    const filteredPasswords = passwordsContext?.passwords?.filter(password => {
       return password.attributes.title.toLowerCase().includes(search.toLowerCase());
    });
 
+   // functions
    const handleSortIcons = (iconId: string) => {
       switch (iconId) {
          case "a-z":
@@ -70,6 +76,7 @@ const Vault: React.FC = (): JSX.Element => {
 
          <PageHeading />
 
+         {/* Filters */}
          <div className={styles.filtersContainer}>
             <div className={styles.searchContainer}>
                <SearchIcon className={styles.inputIcons} />
@@ -104,6 +111,7 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
          </div>
 
+         {/* Password List */}
          <div className={styles.list}>
             {filteredPasswords === [] || filteredPasswords === null || filteredPasswords === undefined ? (
                <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
@@ -115,6 +123,7 @@ const Vault: React.FC = (): JSX.Element => {
             )}
          </div>
 
+         {/* Add Password */}
          <div className={`shadow ${styles.addButton}`} onClick={toggleAddModal}>
             <PlusIcon />
          </div>

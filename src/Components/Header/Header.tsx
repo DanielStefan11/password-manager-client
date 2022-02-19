@@ -7,10 +7,13 @@ import { appRoutes } from "../../Utils/appRoutes";
 import UserMenu from "../UserMenu/UserMenu";
 
 const Header: React.FC = (): JSX.Element => {
+   // state
    const [showUserMenu, setShowUserMenu] = useState<boolean>(() => false);
 
+   // other hooks
    const location = useLocation();
 
+   // functions
    const handleToggleMenu = () => setShowUserMenu(!showUserMenu);
 
    return (

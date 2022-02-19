@@ -29,9 +29,10 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    const [showDeletePwdModal, setShowDeletePwdModal] = useState<boolean>(() => false);
    const [showPwdPreviewModal, setShowPwdPreviewModal] = useState<boolean>(() => false);
 
-   // other hooks
+   // hooks
    const passwordContext = usePasswordsContext();
 
+   // request objects
    const headersObject = {
       headers: {
          Authorization: "Bearer " + sessionStorage.getItem("jwt"),

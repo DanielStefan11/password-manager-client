@@ -18,6 +18,7 @@ const App: React.FC = (): JSX.Element => {
       <UserInfoProvider>
          <PasswordsProvider>
             <div className="app">
+               {/* Global components */}
                <ToastContainer
                   position="top-center"
                   autoClose={5000}
@@ -33,8 +34,12 @@ const App: React.FC = (): JSX.Element => {
                <Sidebar />
                <MobileMenu />
 
+               {/* Routes */}
                <Routes>
+                  {/* Authenticate/Login */}
                   <Route path={appRoutes.authenticate} element={<Authentication />} />
+
+                  {/* Vault */}
                   <Route
                      path={appRoutes.vault}
                      element={
@@ -44,6 +49,7 @@ const App: React.FC = (): JSX.Element => {
                      }
                   />
 
+                  {/* Favorites */}
                   <Route
                      path={appRoutes.favorites}
                      element={
@@ -53,6 +59,7 @@ const App: React.FC = (): JSX.Element => {
                      }
                   />
 
+                  {/* PAssword generator */}
                   <Route
                      path={appRoutes.passwordGenerator}
                      element={

@@ -7,8 +7,10 @@ import { useLocation } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 
 const PageHeading: React.FC = (): JSX.Element => {
+   // hooks
    const location = useLocation();
 
+   // renderers
    let headingContent: JSX.Element | null;
 
    switch (location.pathname) {

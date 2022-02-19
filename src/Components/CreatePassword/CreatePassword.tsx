@@ -35,7 +35,7 @@ interface InputValues {
    email: string | undefined;
 }
 
-const letters = "abcdefghijklmnopqrstuvwxyz";
+const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 const numbers = "0123456789";
 const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 const length = 10;
@@ -57,7 +57,6 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
 
    // state
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
-   // Add password states
    const [values, setValues] = useState<InputValues>(() => (edit ? initialEditableValues : initialValues));
    const [password, setPassword] = useState<string | undefined>(() => (edit ? passwordItem?.attributes.password : ""));
    const [activeFavicon, setActiveFavicon] = useState<string | undefined>(() =>
@@ -211,6 +210,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
             <h2 className={`text-center weight-400 size-30 dark-blue-text`}>{edit ? "Edit" : "Add"} Password</h2>
 
             <div className={styles.inputsContainer}>
+               {/* Title */}
                <div className={styles.inputsWrapper}>
                   <TitleIcon className={styles.inputIcons} />
                   <input
@@ -223,6 +223,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   />
                </div>
 
+               {/* Site URL */}
                <div className={styles.inputsWrapper}>
                   <LinkIcon className={styles.inputIcons} />
                   <input
@@ -235,6 +236,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   />
                </div>
 
+               {/* Username */}
                <div className={styles.inputsWrapper}>
                   <UserIcon className={styles.inputIcons} />
                   <input
@@ -247,6 +249,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   />
                </div>
 
+               {/* Email */}
                <div className={styles.inputsWrapper}>
                   <EmailIcon className={styles.inputIcons} />
                   <input
@@ -259,6 +262,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   />
                </div>
 
+               {/* Password */}
                <div className={styles.inputsWrapper}>
                   {hidePassword ? (
                      <CloseLock className={`${styles.inputIcons} pointer`} onClick={handleToggleHidePassword} />
@@ -275,6 +279,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   />
                </div>
 
+               {/* Generate random password */}
                <div className={styles.spanContainer}>
                   <p className={`size-16 weight-400 `}>
                      Or{" "}
@@ -284,8 +289,8 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   </p>
                </div>
 
+               {/* Generate favicon */}
                <h5 className={`size-18 weight-400`}>Generate favicon (optional):</h5>
-
                <div className={styles.faviconContainer}>
                   <div className={styles.favicon}>
                      <img
