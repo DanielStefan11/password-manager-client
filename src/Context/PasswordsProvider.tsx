@@ -81,8 +81,6 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       sortPwdDescending,
    };
 
-   console.log("URL: ", process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local");
-
    return <PasswordsContext.Provider value={state}>{children}</PasswordsContext.Provider>;
 };
 
