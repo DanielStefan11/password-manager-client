@@ -33,7 +33,10 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
       try {
          if (userLogged) {
             const fetchedData = async () => {
-               const result = await axios.get(process.env.REACT_APP_DEV_URL + "/api/users/1", headersObject);
+               const result = await axios.get(
+                  process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/users/1",
+                  headersObject
+               );
                setUserInfo(result.data);
             };
 

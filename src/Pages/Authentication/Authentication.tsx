@@ -51,7 +51,7 @@ const Authentication: React.FC = (): JSX.Element => {
          } else if (!validPassword) {
             toast.error(passwordNotValid);
          } else {
-            let response = await axios.post(process.env.REACT_APP_DEV_URL + "/api/auth/local", reqObj);
+            let response = await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
                navigate(appRoutes.vault);

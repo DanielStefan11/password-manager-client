@@ -28,7 +28,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const fetchPwdAscending = async (): Promise<void> => {
       try {
          const result = await axios.get(
-            process.env.REACT_APP_DEV_URL +
+            process.env.REACT_APP_PASSWORD_MANAGER_URL +
                "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc",
             headersObject
          );
@@ -42,7 +42,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const sortPwdDescending = async () => {
       try {
          const result = await axios.get(
-            process.env.REACT_APP_DEV_URL +
+            process.env.REACT_APP_PASSWORD_MANAGER_URL +
                "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:desc",
             headersObject
          );
@@ -58,7 +58,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          try {
             const fetchedData = async () => {
                const result = await axios.get(
-                  process.env.REACT_APP_DEV_URL +
+                  process.env.REACT_APP_PASSWORD_MANAGER_URL +
                      "/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc",
                   headersObject
                );

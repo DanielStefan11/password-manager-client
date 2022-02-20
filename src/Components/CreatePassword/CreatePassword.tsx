@@ -183,14 +183,18 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
             toast.error(passwordNotValid);
          } else {
             if (!edit) {
-               await axios.post(process.env.REACT_APP_DEV_URL + "/api/passwords", requestBody, headersObject);
+               await axios.post(
+                  process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/passwords",
+                  requestBody,
+                  headersObject
+               );
                toast.success(passwordAddedSuccess);
                toggleModal();
                resetValues();
                passwordsContext?.fetchPwdAscending();
             } else {
                await axios.put(
-                  process.env.REACT_APP_DEV_URL + `/api/passwords/${passwordItem?.id}`,
+                  process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${passwordItem?.id}`,
                   requestBody,
                   headersObject
                );

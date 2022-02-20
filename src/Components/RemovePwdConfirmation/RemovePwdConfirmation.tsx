@@ -26,7 +26,10 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
       };
 
       try {
-         await axios.delete(process.env.REACT_APP_DEV_URL + `/api/passwords/${passwordItem?.id}`, requestBody);
+         await axios.delete(
+            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${passwordItem?.id}`,
+            requestBody
+         );
          toggleModal();
          toast.success(passwordDeletedSuccess);
          passwordsContext?.fetchPwdAscending();

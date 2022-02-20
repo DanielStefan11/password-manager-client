@@ -68,7 +68,11 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    const handleToggleFavorites = async (passwordTitle: string | undefined) => {
       try {
-         await axios.put(process.env.REACT_APP_DEV_URL + `/api/passwords/${password?.id}`, requestBody, headersObject);
+         await axios.put(
+            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${password?.id}`,
+            requestBody,
+            headersObject
+         );
          if (passwordTitle !== undefined) {
             if (password.attributes.favorite) {
                toast.info(`${passwordTitle} password was removed from Favorites`);
