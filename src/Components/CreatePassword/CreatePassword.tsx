@@ -135,7 +135,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const handleUndoFavicon = () => setActiveFavicon("");
 
    const resetValues = () => {
-      setValues({ title: "", url: "", username: "", email: "" });
+      setValues({ title: "", url: "", username: "N/A", email: "" });
       setPassword("");
       setActiveFavicon("");
    };
