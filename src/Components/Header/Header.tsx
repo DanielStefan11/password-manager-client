@@ -18,7 +18,7 @@ const Header: React.FC = (): JSX.Element => {
 
    return (
       <>
-         {location.pathname === appRoutes.authenticate ? null : (
+         {location.pathname === appRoutes.authenticate || location.pathname === appRoutes.errorPage ? null : (
             <div className={styles.header}>
                <div className={`largeContainer ${styles.content}`}>
                   <div className={styles.logoContainer}>

@@ -12,7 +12,7 @@ const Sidebar: React.FC = (): JSX.Element => {
 
    return (
       <>
-         {location.pathname === appRoutes.authenticate ? null : (
+         {location.pathname === appRoutes.authenticate || location.pathname === appRoutes.errorPage ? null : (
             <div className={styles.sidebar}>
                <div className={styles.linksWrapper}>
                   <NavLink

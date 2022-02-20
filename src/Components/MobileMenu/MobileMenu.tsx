@@ -12,7 +12,7 @@ const MobileMenu: React.FC = (): JSX.Element => {
 
    return (
       <>
-         {location.pathname === appRoutes.authenticate ? null : (
+         {location.pathname === appRoutes.authenticate || location.pathname === appRoutes.errorPage ? null : (
             <div className={styles.mobileMenu}>
                <NavLink
                   to={appRoutes.vault}

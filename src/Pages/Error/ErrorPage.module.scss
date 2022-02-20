@@ -1,0 +1,17 @@
+@import "../../StylesTemplate/colors";
+@import "../../StylesTemplate/mixins";
+
+.errorPage {
+   width: 100%;
+   height: 100vh;
+}
+
+.errorImage {
+   width: 100%;
+   max-width: 400px;
+   height: auto;
+}
+
+.backButton {
+   @include gradientButton(150px, 40px, 48px);
+}

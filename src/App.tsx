@@ -1,11 +1,12 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { appRoutes } from "./Utils/appRoutes";
 import Authentication from "./Pages/Authentication/Authentication";
 import PrivateRoute from "./Utils/PrivateRoute";
 import Vault from "./Pages/Vault/Vault";
 import Favorites from "./Pages/Favorites/Favorites";
 import PasswordGenerator from "./Pages/PasswordGenerator/PasswordGenerator";
+import ErrorPage from "./Pages/Error/ErrorPage";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
@@ -59,7 +60,7 @@ const App: React.FC = (): JSX.Element => {
                      }
                   />
 
-                  {/* PAssword generator */}
+                  {/* Password generator */}
                   <Route
                      path={appRoutes.passwordGenerator}
                      element={
@@ -68,6 +69,10 @@ const App: React.FC = (): JSX.Element => {
                         </PrivateRoute>
                      }
                   />
+
+                  {/* Error page */}
+                  <Route path={appRoutes.errorPage} element={<ErrorPage />} />
+                  <Route path="*" element={<Navigate to={appRoutes.errorPage} />} />
                </Routes>
             </div>
          </PasswordsProvider>
