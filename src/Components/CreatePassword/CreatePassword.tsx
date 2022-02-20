@@ -44,7 +44,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const initialValues: InputValues = {
       title: "",
       url: "",
-      username: "",
+      username: "N/A",
       email: "",
    };
 
