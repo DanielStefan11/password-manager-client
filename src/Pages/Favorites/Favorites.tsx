@@ -19,7 +19,10 @@ const Favorites: React.FC = (): JSX.Element => {
          <PageHeading />
 
          <div className={styles.list}>
-            {filteredPasswords === [] || filteredPasswords === null || filteredPasswords === undefined ? (
+            {filteredPasswords === [] ||
+            filteredPasswords === null ||
+            filteredPasswords === undefined ||
+            filteredPasswords?.length === 0 ? (
                <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
                   <EmptyListImage className="empty-list-image" />
                   <h2 className="text-center">You have not added any favorite passwords</h2>
