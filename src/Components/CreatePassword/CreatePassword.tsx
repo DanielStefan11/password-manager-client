@@ -18,8 +18,9 @@ import {
 } from "../../Utils/notifications";
 import axios from "axios";
 import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
-import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { Password } from "../../Interfaces/GlobalInterfaces";
+import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface Props {
    show: boolean;
@@ -65,6 +66,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
 
    // other hooks
    const passwordsContext = usePasswordsContext();
+   const darkModeContext = useDarkModeContext();
 
    // Regex patterns
    const validEmail = values.email !== undefined && emailPattern.test(values.email);
@@ -210,8 +212,8 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
-         <Modal.Body>
-            <h2 className={`text-center weight-400 size-30 dark-blue-text`}>{edit ? "Edit" : "Add"} Password</h2>
+         <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
+            <h2 className={`text-center weight-400 size-30 primary-blue-text`}>{edit ? "Edit" : "Add"} Password</h2>
 
             <div className={styles.inputsContainer}>
                {/* Title */}
@@ -221,7 +223,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.title}
                      name="title"
                      type="text"
-                     className={styles.addPswInputs}
+                     className={`${styles.addPswInputs} ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                      placeholder="Insert A title"
                      onChange={handleInputChange}
                   />
@@ -234,7 +238,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.url}
                      name="url"
                      type="text"
-                     className={styles.addPswInputs}
+                     className={`${styles.addPswInputs} ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                      placeholder="Insert site URL"
                      onChange={handleInputChange}
                   />
@@ -247,7 +253,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.username}
                      type="text"
                      name="username"
-                     className={styles.addPswInputs}
+                     className={`${styles.addPswInputs} ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                      placeholder="Insert your username"
                      onChange={handleInputChange}
                   />
@@ -260,7 +268,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.email}
                      name="email"
                      type="email"
-                     className={styles.addPswInputs}
+                     className={`${styles.addPswInputs} ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                      placeholder="Insert your email"
                      onChange={handleInputChange}
                   />
@@ -277,7 +287,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={password}
                      name="password"
                      type={hidePassword ? "password" : "text"}
-                     className={styles.addPswInputs}
+                     className={`${styles.addPswInputs} ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                      placeholder="Insert a password"
                      onChange={e => handlePasswordChange(e)}
                   />
@@ -287,7 +299,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                <div className={styles.spanContainer}>
                   <p className={`size-16 weight-400 `}>
                      Or{" "}
-                     <span className={`size-16 weight-700 dark-blue-text pointer`} onClick={generatePassword}>
+                     <span className={`size-16 weight-700 primary-blue-text pointer`} onClick={generatePassword}>
                         generate random password
                      </span>
                   </p>
@@ -307,7 +319,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      <button className={styles.fetchButton} onClick={handleFetchFavicon}>
                         Fetch Icon
                      </button>
-                     <span className="size-18 weight-700 dark-blue-text pointer" onClick={handleUndoFavicon}>
+                     <span className="size-18 weight-700 primary-blue-text pointer" onClick={handleUndoFavicon}>
                         Undo
                      </span>
                   </div>
@@ -315,7 +327,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
             </div>
          </Modal.Body>
 
-         <Modal.Footer>
+         <Modal.Footer className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className={styles.btnContainer}>
                <button className={`confirmModalButton`} onClick={handleSubmitPassword}>
                   {edit ? "Edit" : "Add"}

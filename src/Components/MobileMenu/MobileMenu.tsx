@@ -5,15 +5,21 @@ import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "reac
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
 import { useLocation, NavLink } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 const MobileMenu: React.FC = (): JSX.Element => {
    // hooks
    const location = useLocation();
+   const darkModeContext = useDarkModeContext();
 
    return (
       <>
          {location.pathname === appRoutes.authenticate || location.pathname === appRoutes.errorPage ? null : (
-            <div className={styles.mobileMenu}>
+            <div
+               className={`${styles.mobileMenu} ${
+                  darkModeContext?.darkMode ? styles.menuDarkMode : styles.menuLightMode
+               }`}
+            >
                <NavLink
                   to={appRoutes.vault}
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}

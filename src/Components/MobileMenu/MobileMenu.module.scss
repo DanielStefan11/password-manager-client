@@ -11,11 +11,19 @@
    padding: 0 1rem;
    z-index: 25;
    border-top: 2px solid #ffffff;
-   @include horizontalGradient;
 
    @media screen and (min-width: 701px) {
       display: none;
    }
+}
+
+.menuLightMode {
+   @include horizontalGradient;
+}
+
+.menuDarkMode {
+   background-color: $elements_Bg_DM;
+   border-top: 1px solid $mediumGray;
 }
 
 .link {

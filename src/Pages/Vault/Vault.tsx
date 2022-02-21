@@ -9,6 +9,7 @@ import PageHeading from "../../Components/PageHeading/PageHeading";
 import CreatePassword from "../../Components/CreatePassword/CreatePassword";
 import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -32,6 +33,7 @@ const Vault: React.FC = (): JSX.Element => {
 
    // hooks
    const passwordsContext = usePasswordsContext();
+   const darkModeContext = useDarkModeContext();
 
    // filteredData
    const filteredPasswords = passwordsContext?.passwords?.filter(password => {
@@ -71,7 +73,11 @@ const Vault: React.FC = (): JSX.Element => {
    };
 
    return (
-      <div className={`page ${styles.vaultPage}`}>
+      <div
+         className={`page darkModeTransition ${styles.vaultPage} ${
+            darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
+         }`}
+      >
          <CreatePassword show={showAddModal} toggleModal={toggleAddModal} />
 
          <PageHeading />
@@ -84,7 +90,9 @@ const Vault: React.FC = (): JSX.Element => {
                   ref={searchRef}
                   type="text"
                   value={search}
-                  className={`shadow ${styles.search}`}
+                  className={`shadow ${styles.search} ${
+                     darkModeContext?.darkMode ? "elementBgDarkMode" : styles.searchBackground
+                  }`}
                   placeholder="Search..."
                   onChange={e => handleSearch(e)}
                />
@@ -116,7 +124,9 @@ const Vault: React.FC = (): JSX.Element => {
             {filteredPasswords === [] || filteredPasswords === null || filteredPasswords === undefined ? (
                <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
                   <EmptyListImage className="empty-list-image" />
-                  <h2 className="text-center">You have not added any passwords</h2>
+                  <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                     You have not added any passwords
+                  </h2>
                </div>
             ) : (
                filteredPasswords.map(password => <PasswordItem key={password.id} password={password} />)

@@ -13,7 +13,6 @@
    justify-content: center;
    border-radius: 16px;
    padding: 1.5rem;
-   background-color: #ffffff;
    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
    opacity: 0;
    pointer-events: none;
@@ -26,6 +25,14 @@
    }
 }
 
+.menuLightMode {
+   background-color: #ffffff;
+}
+
+.menuDarkMode {
+   background-color: $lighter_dark_element;
+}
+
 .menuActive {
    opacity: 1;
    transform: translateY(0);
@@ -35,14 +42,16 @@
 .userName {
    font-weight: 700;
    font-size: 18px;
-   color: $darkBlue;
+   // color: $darkBlue;
+   color: $lightGreen;
    margin-bottom: 1rem;
 }
 
 .userEmail {
    font-weight: 400;
    font-size: 16px;
-   color: $darkBlue;
+   // color: $darkBlue;
+   color: $primaryBlue;
    margin-bottom: 2rem;
    word-break: break-all;
 }

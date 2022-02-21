@@ -1,0 +1,11 @@
+@import "./colors";
+@import "./mixins";
+
+.backgroundDarkMode {
+   background-color: $background_DM;
+}
+
+.elementBgDarkMode {
+   background-color: $elements_Bg_DM;
+   color: #ffffff;
+}

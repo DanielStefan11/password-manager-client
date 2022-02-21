@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { errorOccured, passwordDeletedSuccess } from "../../Utils/notifications";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface Props {
    show: boolean;
@@ -15,6 +16,7 @@ interface Props {
 const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordItem }): JSX.Element => {
    // hooks
    const passwordsContext = usePasswordsContext();
+   const darkModeContext = useDarkModeContext();
 
    // functions
    const handleDeletePassword = async () => {
@@ -42,13 +44,13 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
-         <Modal.Body>
-            <h3 className="text-center size-20 weight-700 dark-blue-text">
+         <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
+            <h3 className="text-center size-20 weight-700 primary-blue-text">
                Are you sure you want to delete "{passwordItem?.attributes.title}" password?
             </h3>
          </Modal.Body>
 
-         <Modal.Footer>
+         <Modal.Footer className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className="w-100 d-flex align-items-center justify-content-center">
                <button className={`confirmModalButton`} onClick={handleDeletePassword}>
                   Delete

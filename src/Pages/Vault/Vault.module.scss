@@ -10,6 +10,10 @@
    }
 }
 
+.lightBackground {
+   background-color: #ffffff;
+}
+
 .filtersContainer {
    width: 100%;
    display: flex;
@@ -52,6 +56,10 @@
    outline: none;
    padding: 0.5rem 0.5rem 0.5rem 3rem;
    border-radius: 8px;
+}
+
+.searchBackground {
+   background-color: #ffffff;
 }
 
 .deleteIcon {
@@ -103,7 +111,7 @@
 }
 
 .activeSortIcon {
-   color: $darkBlue;
+   color: $lightGreen;
 }
 
 .list {

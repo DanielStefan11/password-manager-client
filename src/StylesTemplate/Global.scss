@@ -3,6 +3,7 @@
 @import "./tipography";
 @import "./mixins";
 @import "./containers";
+@import "./darkMode";
 
 html,
 #root,
@@ -10,6 +11,7 @@ body,
 .app {
    width: 100%;
    height: 100%;
+   background-color: #ffffff;
 }
 
 * {
@@ -39,8 +41,25 @@ input {
    font-family: "Montserrat", sans-serif;
 }
 
+.inputLightMode {
+   background-color: #fafafa;
+}
+
+.inputDarkMode {
+   background-color: $background_DM;
+   color: #ffffff;
+
+   &::placeholder {
+      color: #c7c3c3;
+   }
+}
+
 .shadow {
    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.darkModeTransition {
+   transition: all 0.2s ease-in-out;
 }
 
 .page {
@@ -69,6 +88,10 @@ input {
    @media screen and (max-width: 700px) {
       margin-left: 0;
    }
+}
+
+.pageLightMode {
+   background-color: #ffffff;
 }
 
 .empty-list-image {
@@ -154,20 +177,27 @@ input[type="number"]::-webkit-inner-spin-button,
 // Modal_______________________________________________________________________________
 .modal-header {
    border-bottom: none;
+   border-radius: unset !important;
 }
 
 .modal-content {
-   border-radius: 16px;
+   border-radius: 16px !important;
+   overflow: hidden;
 }
 
 .modal-footer {
    border-top: none;
+   border-radius: unset !important;
 }
 
 .btn-close {
    position: absolute;
    top: 20px;
    right: 20px;
+}
+
+.modalLightMode {
+   background-color: #ffffff;
 }
 
 .confirmModalButton {

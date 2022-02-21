@@ -18,6 +18,7 @@ import PasswordPreview from "../PasswordPreview/PasswordPreview";
 import { errorOccured } from "../../Utils/notifications";
 import axios from "axios";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface Props {
    password: Password;
@@ -31,6 +32,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    // hooks
    const passwordContext = usePasswordsContext();
+   const darkModeContext = useDarkModeContext();
 
    // request objects
    const headersObject = {
@@ -88,7 +90,11 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    };
 
    return (
-      <div className={`shadow ${styles.itemLargeScreen}`}>
+      <div
+         className={`shadow darkModeTransition ${styles.item} ${
+            darkModeContext?.darkMode ? "elementBgDarkMode" : styles.itemLightMode
+         }`}
+      >
          <CreatePassword show={showEditModal} toggleModal={handleToggleEditModal} edit={true} passwordItem={password} />
          <RemovePwdConfirmation
             show={showDeletePwdModal}
@@ -166,7 +172,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          <div className={`${styles.actionsCol} ${styles.col} d-flex align-items-center justify-content-around`}>
             <RevealPwdIcon className={`pointer`} size={30} color="#3c8dbb" onClick={handleTogglePwdPreviewModal} />
 
-            <EditIcon className="pointer" size={30} color="#00008b" onClick={handleToggleEditModal} />
+            <EditIcon className="pointer" size={30} color="#33cccc" onClick={handleToggleEditModal} />
 
             {password.attributes.favorite ? (
                <FillStarIcon
