@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./Vault.module.scss";
 import { FaSortAlphaDown as AtoZIcon, FaSortAlphaDownAlt as ZtoAIcon, FaSearch as SearchIcon } from "react-icons/fa";
-import { BsPlusLg as PlusIcon, BsShieldLockFill as VaultIcon } from "react-icons/bs";
+import { BsPlusLg as PlusIcon } from "react-icons/bs";
 import { FiRefreshCcw as RefreshIcon } from "react-icons/fi";
 import { IoIosClose as DeleteIcon } from "react-icons/io";
 import { ReactComponent as EmptyListImage } from "../../Assets/Global/not-found.svg";

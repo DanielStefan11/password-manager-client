@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./Settings.module.scss";
 import PageHeading from "../../Components/PageHeading/PageHeading";
 import ToggleButton from "../../Components/ToggleButton/ToggleButton";
