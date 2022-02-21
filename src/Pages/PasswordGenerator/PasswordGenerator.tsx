@@ -243,7 +243,10 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
                      <span className="checkmark"></span>
                   </label>
 
-                  <button className={styles.generateButton} onClick={handleGeneratePassword}>
+                  <button
+                     className={darkModeContext?.darkMode ? styles.generateButtonDM : styles.generateButton}
+                     onClick={handleGeneratePassword}
+                  >
                      Generate
                   </button>
                </div>

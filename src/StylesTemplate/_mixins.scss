@@ -33,6 +33,19 @@
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
 }
 
+@mixin gradientButtonDarkMode($width, $height, $borderRadius) {
+   width: $width;
+   height: $height;
+   border-radius: $borderRadius;
+   border: none;
+   outline: none;
+   font-size: 18px;
+   font-weight: 700;
+   color: #ffffff;
+   cursor: pointer;
+   background-image: linear-gradient(to right, $darkBlue_DM, $primaryBlue, $lightGreen);
+}
+
 @mixin outlineBlueButton($width, $height) {
    width: $width;
    height: $height;
