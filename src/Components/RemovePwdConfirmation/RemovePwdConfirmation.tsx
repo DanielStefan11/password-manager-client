@@ -52,7 +52,10 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
 
          <Modal.Footer className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className="w-100 d-flex align-items-center justify-content-center">
-               <button className={`confirmModalButton`} onClick={handleDeletePassword}>
+               <button
+                  className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
+                  onClick={handleDeletePassword}
+               >
                   Delete
                </button>
 
