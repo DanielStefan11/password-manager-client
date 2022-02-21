@@ -1,0 +1,15 @@
+@import "../../StylesTemplate/mixins";
+@import "../../StylesTemplate/colors";
+
+.box {
+   width: 100%;
+   max-width: 400px;
+   min-height: 300px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   background-color: #ffffff;
+   border-radius: 16px;
+   padding: 1.5rem;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./MobileMenu.module.scss";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
-import { AiFillStar as FavoritesIcon } from "react-icons/ai";
+import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
 import { useLocation, NavLink } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
@@ -33,6 +33,13 @@ const MobileMenu: React.FC = (): JSX.Element => {
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}
                >
                   <GenerateIcon />
+               </NavLink>
+
+               <NavLink
+                  to={appRoutes.settings}
+                  className={navData => (navData.isActive ? styles.activeLink : styles.link)}
+               >
+                  <SettingsIcon />
                </NavLink>
             </div>
          )}

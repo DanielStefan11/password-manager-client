@@ -3,7 +3,7 @@ import styles from "./Sidebar.module.scss";
 import { useLocation, NavLink } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
-import { AiFillStar as FavoritesIcon } from "react-icons/ai";
+import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
 
 const Sidebar: React.FC = (): JSX.Element => {
@@ -37,6 +37,14 @@ const Sidebar: React.FC = (): JSX.Element => {
                   >
                      <GenerateIcon />
                      <span className={styles.linkSpan}>Generator</span>
+                  </NavLink>
+
+                  <NavLink
+                     to={appRoutes.settings}
+                     className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}
+                  >
+                     <SettingsIcon />
+                     <span className={styles.linkSpan}>Settings</span>
                   </NavLink>
                </div>
             </div>
