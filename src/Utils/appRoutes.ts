@@ -4,6 +4,7 @@ interface AppRoutes {
    favorites: string;
    cards: string;
    passwordGenerator: string;
+   settings: string;
    errorPage: string;
 }
 
@@ -13,5 +14,6 @@ export const appRoutes: AppRoutes = {
    favorites: "/favorites",
    cards: "/cards",
    passwordGenerator: "/generator",
+   settings: "/settings",
    errorPage: "/error",
 };

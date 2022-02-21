@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PageHeading.module.scss";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
-import { AiFillStar as FavoritesIcon } from "react-icons/ai";
+import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
@@ -37,6 +37,15 @@ const PageHeading: React.FC = (): JSX.Element => {
             <>
                <GenerateIcon size={30} className="me-2" color="#3c8dbb" />
                <h1 className="mb-0 primary-blue-text size-30 weight-900">Password Generator</h1>
+            </>
+         );
+         break;
+
+      case appRoutes.settings:
+         headingContent = (
+            <>
+               <SettingsIcon size={30} className="me-2" color="#3c8dbb" />
+               <h1 className="mb-0 primary-blue-text size-30 weight-900">Settings</h1>
             </>
          );
          break;

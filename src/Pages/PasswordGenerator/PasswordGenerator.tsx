@@ -6,6 +6,7 @@ import { MdFileCopy as CopyIcon } from "react-icons/md";
 import { numbers, upperCaseLetters, lowerCaseLetters, specialCharacters } from "../../Utils/passwordCharacters";
 import { toast } from "react-toastify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface PasswordSettings {
    uppercase: boolean;
@@ -28,6 +29,9 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
    const [passwordLength, setPasswordLength] = useState<number>(() => 12);
    const [checkAll, setCheckAll] = useState<boolean>(() => false);
    const [passwordSettings, setPasswordSettings] = useState<PasswordSettings>(() => initialPasswordSettings);
+
+   // hooks
+   const darkModeContext = useDarkModeContext();
 
    // notifications
    const noPwdSettings: JSX.Element = <span id="no-pwd-settings">You must select at least one password pattern</span>;
@@ -105,17 +109,27 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
    };
 
    return (
-      <div className={`page ${styles.generatorPage}`}>
+      <div
+         className={`page darkModeTransition ${styles.generatorPage} ${
+            darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
+         }`}
+      >
          <PageHeading />
 
          <div className="w-100 d-flex justify-content-center align-items-center">
-            <div className={`shadow ${styles.generator}`}>
+            <div
+               className={`shadow darkModeTransition ${styles.generator} ${
+                  darkModeContext?.darkMode ? "elementBgDarkMode" : styles.generatorLightMode
+               }`}
+            >
                {/* Password generated */}
                <input
                   value={password}
                   type={hidePassword ? "password" : "text"}
                   disabled
-                  className={`shadow ${styles.passwordInput}`}
+                  className={`shadow darkModeTransition ${styles.passwordInput} ${
+                     darkModeContext?.darkMode ? "inputDarkMode" : styles.inputLightMode
+                  }`}
                   placeholder="Password will be generated here"
                />
 
@@ -229,7 +243,10 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
                      <span className="checkmark"></span>
                   </label>
 
-                  <button className={styles.generateButton} onClick={handleGeneratePassword}>
+                  <button
+                     className={darkModeContext?.darkMode ? styles.generateButtonDM : styles.generateButton}
+                     onClick={handleGeneratePassword}
+                  >
                      Generate
                   </button>
                </div>

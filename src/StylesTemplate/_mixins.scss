@@ -33,6 +33,19 @@
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
 }
 
+@mixin gradientButtonDarkMode($width, $height, $borderRadius) {
+   width: $width;
+   height: $height;
+   border-radius: $borderRadius;
+   border: none;
+   outline: none;
+   font-size: 18px;
+   font-weight: 700;
+   color: #ffffff;
+   cursor: pointer;
+   background-image: linear-gradient(to right, $darkBlue_DM, $primaryBlue, $lightGreen);
+}
+
 @mixin outlineBlueButton($width, $height) {
    width: $width;
    height: $height;
@@ -42,7 +55,7 @@
    font-size: 18px;
    font-weight: 400;
    color: $darkBlue;
-   background-color: #ffffff;
+   background-color: transparent;
    cursor: pointer;
 }
 
@@ -55,13 +68,25 @@
    font-size: 18px;
    font-weight: 400;
    color: $primaryBlue;
-   background-color: #ffffff;
+   background-color: transparent;
    cursor: pointer;
 }
 
 @mixin blueTextGradient {
    background-color: $darkBlue;
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
+   background-size: 100%;
+   background-repeat: repeat;
+
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   -moz-background-clip: text;
+   -moz-text-fill-color: transparent;
+}
+
+@mixin blueTextGradientDarkMode {
+   background-color: $darkBlue;
+   background-image: linear-gradient(to right, $darkBlue_DM, $primaryBlue, $lightGreen);
    background-size: 100%;
    background-repeat: repeat;
 

@@ -7,6 +7,7 @@ import { MdFileCopy as CopyIcon } from "react-icons/md";
 import TemplateFavicon from "../../Assets/Global/template-icon.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface Props {
    show: boolean;
@@ -19,9 +20,11 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
 
    // hooks
-   const handleHidePassword = (): void => setHidePassword(!hidePassword);
+   const darkModeContext = useDarkModeContext();
 
    // functions
+   const handleHidePassword = (): void => setHidePassword(!hidePassword);
+
    const handleCopy = (itemType: string, valueCopied: string) => {
       if (valueCopied === "n/a" || valueCopied === "N/A") {
          toast.error("There is no value to copy");
@@ -32,7 +35,7 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
-         <Modal.Header closeButton>
+         <Modal.Header closeButton className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className="w-100 pt-4 d-flex justify-content-center align-items-center">
                <div className={`shadow ${styles.faviconContainer}`}>
                   <img
@@ -51,9 +54,13 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
             </div>
          </Modal.Header>
 
-         <Modal.Body>
+         <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className="w-100 d-flex flex-column">
-               <div className={`shadow ${styles.item}`}>
+               <div
+                  className={`shadow ${styles.item} ${
+                     darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
+                  }`}
+               >
                   <p className="mb-1 weight-700 size-18">Username</p>
                   <span className="weight-400 size-16 text-break">{passwordItem?.attributes.username}</span>
 
@@ -70,7 +77,11 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   </CopyToClipboard>
                </div>
 
-               <div className={`shadow ${styles.item}`}>
+               <div
+                  className={`shadow ${styles.item} ${
+                     darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
+                  }`}
+               >
                   <p className="mb-1 weight-700 size-18">Email</p>
                   <span className="weight-400 size-16 text-break">{passwordItem?.attributes.email}</span>
 
@@ -87,7 +98,11 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   </CopyToClipboard>
                </div>
 
-               <div className={`shadow ${styles.item}`}>
+               <div
+                  className={`shadow ${styles.item} ${
+                     darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
+                  }`}
+               >
                   <div className="mb-1 d-flex align-items-center">
                      <p className="mb-0 weight-700 size-18">Password</p>
                      {hidePassword ? (
