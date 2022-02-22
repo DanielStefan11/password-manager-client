@@ -12,7 +12,7 @@ export const passwordDeletedSuccess: JSX.Element = (
 
 // Error messages____________________________________________
 
-export const emptyInputsError: JSX.Element = <span id="empty-inputs-error">All fields are required</span>;
+export const emptyInputsError: JSX.Element = <span id="empty-inputs-error">Some fields are empty</span>;
 
 export const emailNotValid: JSX.Element = <span id="email-not-valid">Email address is not valid</span>;
 

@@ -49,27 +49,36 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   />
                </div>
                <h3 className="mb-0 text-center size-26 weight-700 primary-blue-text">
-                  {passwordItem?.attributes.title}
+                  {passwordItem?.attributes.title ? passwordItem?.attributes.title : "Unkown"}
                </h3>
             </div>
          </Modal.Header>
 
          <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <div className="w-100 d-flex flex-column">
+               {/* Username */}
                <div
                   className={`shadow ${styles.item} ${
                      darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
                   }`}
                >
                   <p className="mb-1 weight-700 size-18">Username</p>
-                  <span className="weight-400 size-16 text-break">{passwordItem?.attributes.username}</span>
+                  <span className="weight-400 size-16 text-break">
+                     {passwordItem?.attributes.username ? passwordItem?.attributes.username : "N/A"}
+                  </span>
 
                   <CopyToClipboard
-                     text={passwordItem?.attributes.username === undefined ? "n/a" : passwordItem?.attributes.username}
+                     text={
+                        passwordItem?.attributes.username === undefined || passwordItem?.attributes.username === ""
+                           ? "N/A"
+                           : passwordItem?.attributes.username
+                     }
                      onCopy={() =>
                         handleCopy(
                            "username",
-                           passwordItem?.attributes.username === undefined ? "n/a" : passwordItem?.attributes.username
+                           passwordItem?.attributes.username === undefined || passwordItem?.attributes.username === ""
+                              ? "n/a"
+                              : passwordItem?.attributes.username
                         )
                      }
                   >
@@ -77,20 +86,29 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   </CopyToClipboard>
                </div>
 
+               {/* Email */}
                <div
                   className={`shadow ${styles.item} ${
                      darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
                   }`}
                >
                   <p className="mb-1 weight-700 size-18">Email</p>
-                  <span className="weight-400 size-16 text-break">{passwordItem?.attributes.email}</span>
+                  <span className="weight-400 size-16 text-break">
+                     {passwordItem?.attributes.email ? passwordItem?.attributes.email : "N/A"}
+                  </span>
 
                   <CopyToClipboard
-                     text={passwordItem?.attributes.email === undefined ? "n/a" : passwordItem?.attributes.email}
+                     text={
+                        passwordItem?.attributes.email === undefined || passwordItem?.attributes.email === ""
+                           ? "N/A"
+                           : passwordItem?.attributes.email
+                     }
                      onCopy={() =>
                         handleCopy(
                            "email",
-                           passwordItem?.attributes.email === undefined ? "n/a" : passwordItem?.attributes.email
+                           passwordItem?.attributes.email === undefined || passwordItem?.attributes.email === ""
+                              ? "N/A"
+                              : passwordItem?.attributes.email
                         )
                      }
                   >
@@ -98,6 +116,7 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   </CopyToClipboard>
                </div>
 
+               {/* Password */}
                <div
                   className={`shadow ${styles.item} ${
                      darkModeContext?.darkMode ? styles.itemDarkMode : styles.itemLightMode
@@ -120,15 +139,23 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
                   {hidePassword ? (
                      <span className="size-30 weight-900 primary-blue-text">. . . . . . . . . . </span>
                   ) : (
-                     <span className={`weight-400 size-16 text-break`}>{passwordItem?.attributes.password}</span>
+                     <span className={`weight-400 size-16 text-break`}>
+                        {passwordItem?.attributes.password ? passwordItem?.attributes.password : "N/A"}
+                     </span>
                   )}
 
                   <CopyToClipboard
-                     text={passwordItem?.attributes.password === undefined ? "n/a" : passwordItem?.attributes.password}
+                     text={
+                        passwordItem?.attributes.password === undefined || passwordItem?.attributes.password === ""
+                           ? "N/A"
+                           : passwordItem?.attributes.password
+                     }
                      onCopy={() =>
                         handleCopy(
                            "password",
-                           passwordItem?.attributes.password === undefined ? "n/a" : passwordItem?.attributes.password
+                           passwordItem?.attributes.password === undefined || passwordItem?.attributes.password === ""
+                              ? "N/A"
+                              : passwordItem?.attributes.password
                         )
                      }
                   >
