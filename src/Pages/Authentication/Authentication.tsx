@@ -4,15 +4,12 @@ import { FaLock as CloseLock, FaUnlockAlt as OpenedLock, FaUserAlt as UserIcon }
 import axios from "axios";
 import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
 import { toast } from "react-toastify";
-import {
-   // loginSuccess,
-   errorOccured,
-   emailNotValid,
-   passwordNotValid,
-   emptyInputsError,
-} from "../../Utils/notifications";
+import { errorOccured, emailNotValid, passwordNotValid, emptyInputsError } from "../../Utils/notifications";
 import { useNavigate } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
+import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import ToggleButton from "../../Components/ToggleButton/ToggleButton";
+import { BsFillMoonFill as MoonIcon, BsFillSunFill as SunIcon } from "react-icons/bs";
 
 const Authentication: React.FC = (): JSX.Element => {
    // state
@@ -20,6 +17,7 @@ const Authentication: React.FC = (): JSX.Element => {
 
    // hooks
    const navigate = useNavigate();
+   const darkModeContext = useDarkModeContext();
 
    // refs
    const emailRef = useRef<HTMLInputElement>(null);
@@ -55,7 +53,6 @@ const Authentication: React.FC = (): JSX.Element => {
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
                navigate(appRoutes.vault);
-               // toast.success(loginSuccess);
                window.location.reload();
             }
          }
@@ -66,9 +63,27 @@ const Authentication: React.FC = (): JSX.Element => {
    };
 
    return (
-      <div className={styles.loginPage}>
-         <div className={styles.loginBox}>
-            <h2 className={`size-64 weight-900 ${styles.heading}`}>Login</h2>
+      <div
+         className={`${darkModeContext?.darkMode ? styles.backgroundDarkMode : styles.backgroundLightMode} ${
+            styles.loginPage
+         }`}
+      >
+         {/* Dark mode control */}
+         <div className={styles.darkModeControl}>
+            <SunIcon color="#ffae00" size={20} className={`me-2`} />
+            <ToggleButton checkState={darkModeContext?.darkMode} toggle={darkModeContext!.handleToggleDarkMode} />
+            <MoonIcon color="#ffd700" size={20} className={`ms-2`} />
+         </div>
+
+         {/* Login box */}
+         <div className={`${styles.loginBox} ${darkModeContext?.darkMode ? styles.boxDarkMode : styles.boxLightMode}`}>
+            <h2
+               className={`size-64 weight-900 ${styles.heading} ${
+                  darkModeContext?.darkMode ? styles.headingDarkMode : styles.headingLightMode
+               }`}
+            >
+               Login
+            </h2>
 
             <form className={styles.formContent} onSubmit={handleLogin}>
                <div className={styles.inputContainer}>
@@ -76,7 +91,9 @@ const Authentication: React.FC = (): JSX.Element => {
                   <input
                      ref={emailRef}
                      type="email"
-                     className={styles.authInput}
+                     className={`${styles.authInput} ${
+                        darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+                     }`}
                      placeholder="Email or username"
                   ></input>
                </div>
@@ -90,7 +107,9 @@ const Authentication: React.FC = (): JSX.Element => {
                   <input
                      ref={passwordRef}
                      type={hidePassword ? "password" : "text"}
-                     className={styles.authInput}
+                     className={`${styles.authInput} ${
+                        darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+                     }`}
                      placeholder="Password"
                   ></input>
                </div>
