@@ -10,10 +10,12 @@ import { appRoutes } from "../../Utils/appRoutes";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import ToggleButton from "../../Components/ToggleButton/ToggleButton";
 import { BsFillMoonFill as MoonIcon, BsFillSunFill as SunIcon } from "react-icons/bs";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const Authentication: React.FC = (): JSX.Element => {
    // state
    const [hidePassword, setHidePassword] = useState<boolean>(() => true);
+   const [loading, setLoading] = useState<boolean>(() => false);
 
    // hooks
    const navigate = useNavigate();
@@ -41,6 +43,8 @@ const Authentication: React.FC = (): JSX.Element => {
          password: passwordInputValue,
       };
 
+      setLoading(true);
+
       try {
          if (emailInputValue === "" || passwordInputValue === "") {
             toast.error(emptyInputsError);
@@ -52,12 +56,14 @@ const Authentication: React.FC = (): JSX.Element => {
             let response = await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
+               setLoading(false);
                navigate(appRoutes.vault);
                window.location.reload();
             }
          }
       } catch (error) {
          toast.error(errorOccured);
+         setLoading(false);
          console.log(error);
       }
    };
@@ -115,7 +121,7 @@ const Authentication: React.FC = (): JSX.Element => {
                </div>
 
                <button className={styles.loginButton} onClick={handleLogin}>
-                  Login
+                  {loading ? <PulseLoader color="#ffffff" size={12} /> : "Log In"}
                </button>
             </form>
          </div>

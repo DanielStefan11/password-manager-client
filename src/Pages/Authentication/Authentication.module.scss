@@ -113,6 +113,9 @@
 
 .loginButton {
    margin-top: 1.5rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
    @include roundedButton(100%, 50px);
 
    @media screen and (max-width: 500px) {
