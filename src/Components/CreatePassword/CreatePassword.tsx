@@ -12,12 +12,9 @@ import {
    passwordAddedSuccess,
    errorOccured,
    emptyInputsError,
-   emailNotValid,
-   passwordNotValid,
    passwordEditedSuccess,
 } from "../../Utils/notifications";
 import axios from "axios";
-import { emailPattern, pswPattern } from "../../Utils/regexPatterns";
 import { Password } from "../../Interfaces/GlobalInterfaces";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
@@ -45,7 +42,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const initialValues: InputValues = {
       title: "",
       url: "",
-      username: "N/A",
+      username: "",
       email: "",
    };
 
@@ -67,10 +64,6 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    // other hooks
    const passwordsContext = usePasswordsContext();
    const darkModeContext = useDarkModeContext();
-
-   // Regex patterns
-   const validEmail = values.email !== undefined && emailPattern.test(values.email);
-   const validPassword = password !== undefined && pswPattern.test(password);
 
    // functions
    const capitalizeFirstLetter = (word: string): string | undefined => {
@@ -137,7 +130,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const handleUndoFavicon = () => setActiveFavicon("");
 
    const resetValues = () => {
-      setValues({ title: "", url: "", username: "N/A", email: "" });
+      setValues({ title: "", url: "", username: "", email: "" });
       setPassword("");
       setActiveFavicon("");
    };
@@ -172,17 +165,15 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
 
       try {
          if (
-            values.title === "" ||
-            values.url === "" ||
-            values.username === "" ||
-            values.email === "" ||
+            values.title === "" &&
+            values.url === "" &&
+            values.username === "" &&
+            values.email === "" &&
             password === ""
          ) {
             toast.error(emptyInputsError);
-         } else if (!validEmail) {
-            toast.error(emailNotValid);
-         } else if (!validPassword) {
-            toast.error(passwordNotValid);
+         } else if (values.title === "") {
+            toast.error("Title is mandatory");
          } else {
             if (!edit) {
                await axios.post(
