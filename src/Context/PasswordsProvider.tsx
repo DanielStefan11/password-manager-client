@@ -3,6 +3,8 @@ import { Password, ChildrenProps, IPagination } from "../Interfaces/GlobalInterf
 import axios from "axios";
 import { toast } from "react-toastify";
 import { errorOccured } from "../Utils/notifications";
+import { headersObject } from "../Utils/authorization";
+import { getJWT } from "../Utils/authorization";
 
 interface ContextState {
    passwords: Password[] | null;
@@ -22,14 +24,6 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const [passwords, setPasswords] = useState<Password[] | null>(() => null);
    const [paginationData, setPaginationData] = useState<IPagination | null>(() => null);
    const [pageNumber, setPageNumber] = useState<number>(() => 1);
-
-   const headersObject = {
-      headers: {
-         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-   };
-
-   const userLogged = sessionStorage.getItem("jwt");
 
    // fetching data ascending
    const sortPwdAscending = async (): Promise<void> => {
@@ -92,7 +86,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
 
    // initial data fetching
    useEffect(() => {
-      if (userLogged) {
+      if (getJWT) {
          try {
             const fetchedData = async () => {
                const result = await axios.get(

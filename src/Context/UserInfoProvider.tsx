@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { ChildrenProps } from "../Interfaces/GlobalInterfaces";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { headersObject, getJWT } from "../Utils/authorization";
 
 interface UserInfo {
    id: number;
@@ -22,16 +23,8 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
    const [userInfo, setUserInfo] = useState<UserInfo | null>(() => null);
 
    useEffect(() => {
-      const headersObject = {
-         headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-         },
-      };
-
-      const userLogged = sessionStorage.getItem("jwt");
-
       try {
-         if (userLogged) {
+         if (getJWT) {
             const fetchedData = async () => {
                const result = await axios.get(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/users/1",

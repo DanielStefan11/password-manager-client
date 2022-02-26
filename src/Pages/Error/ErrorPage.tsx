@@ -3,17 +3,15 @@ import styles from "./ErrorPage.module.scss";
 import { ReactComponent as ErrorImage } from "../../Assets/Error/error.svg";
 import { appRoutes } from "../../Utils/appRoutes";
 import { useNavigate } from "react-router-dom";
+import { getJWT } from "../../Utils/authorization";
 
 const ErrorPage: React.FC = (): JSX.Element => {
    // hooks
    const navigate = useNavigate();
 
-   // jwt
-   const userJwt = sessionStorage.getItem("jwt");
-
    // functions
    const handleGoBack = () => {
-      if (userJwt) {
+      if (getJWT) {
          navigate(appRoutes.vault);
       } else {
          navigate(appRoutes.authenticate);

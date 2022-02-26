@@ -18,7 +18,9 @@ import PasswordPreview from "../PasswordPreview/PasswordPreview";
 import { errorOccured } from "../../Utils/notifications";
 import axios from "axios";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useFavoritesContext } from "../../Context/FavoritesProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import { headersObject } from "../../Utils/authorization";
 
 interface Props {
    password: Password;
@@ -32,15 +34,10 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    // hooks
    const passwordContext = usePasswordsContext();
+   const favoritesContext = useFavoritesContext();
    const darkModeContext = useDarkModeContext();
 
    // request objects
-   const headersObject = {
-      headers: {
-         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-   };
-
    const requestBody = {
       data: {
          title: password.attributes.title,
@@ -82,6 +79,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
                toast.info(`${passwordTitle} password was added to Favorites`);
             }
          }
+         favoritesContext?.refreshFavorites();
          passwordContext?.refreshData();
       } catch (err) {
          console.log(err);
