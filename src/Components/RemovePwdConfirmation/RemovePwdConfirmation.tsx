@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { errorOccured, passwordDeletedSuccess } from "../../Utils/notifications";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import { getJWT } from "../../Utils/authorization";
 
 interface Props {
    show: boolean;
@@ -22,7 +23,7 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
    const handleDeletePassword = async () => {
       const requestBody = {
          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+            Authorization: "Bearer " + getJWT,
          },
          data: passwordItem,
       };

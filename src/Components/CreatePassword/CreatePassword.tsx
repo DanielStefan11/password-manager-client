@@ -18,6 +18,7 @@ import axios from "axios";
 import { Password } from "../../Interfaces/GlobalInterfaces";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import { headersObject } from "../../Utils/authorization";
 
 interface Props {
    show: boolean;
@@ -145,12 +146,6 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    };
 
    const handleSubmitPassword = async (): Promise<void> => {
-      const headersObject = {
-         headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-         },
-      };
-
       const requestBody = {
          data: {
             title: values.title,

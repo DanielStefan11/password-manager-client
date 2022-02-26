@@ -3,6 +3,7 @@ import { Password, ChildrenProps } from "../Interfaces/GlobalInterfaces";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { errorOccured } from "../Utils/notifications";
+import { headersObject, getJWT } from "../Utils/authorization";
 
 interface IFavoritesContext {
    favorites: Password[] | null;
@@ -15,14 +16,6 @@ export const useFavoritesContext = () => useContext(FavoritesContext);
 
 const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
    const [favorites, setFavorites] = useState<Password[] | null>(() => null);
-
-   const headersObject = {
-      headers: {
-         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-   };
-
-   const userLogged = sessionStorage.getItem("jwt");
 
    const refreshFavorites = async (): Promise<void> => {
       try {
@@ -39,7 +32,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    };
 
    useEffect(() => {
-      if (userLogged) {
+      if (getJWT) {
          try {
             const fetchedData = async () => {
                const result = await axios.get(
