@@ -102,16 +102,12 @@
 
 .sortIcons {
    font-size: 30px;
-   color: $mediumGray;
+   color: $lightGreen;
    cursor: pointer;
 
    &:first-child {
       margin-right: 1rem;
    }
-}
-
-.activeSortIcon {
-   color: $lightGreen;
 }
 
 .list {
@@ -151,5 +147,21 @@
    @media screen and (max-width: 700px) {
       bottom: 90px;
       right: 20px;
+   }
+}
+
+.paginationSM {
+   margin-bottom: 3rem;
+
+   @media screen and (min-width: 701px) {
+      display: none;
+   }
+}
+
+.paginationLG {
+   margin-top: 3rem;
+
+   @media screen and (max-width: 700px) {
+      display: none;
    }
 }

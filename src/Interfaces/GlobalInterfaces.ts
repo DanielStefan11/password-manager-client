@@ -14,3 +14,10 @@ export interface Password {
       favorite: boolean;
    };
 }
+
+export interface IPagination {
+   page: number;
+   pageCount: number;
+   pageSize: number;
+   total: number;
+}

@@ -1,0 +1,32 @@
+@import "../../StylesTemplate/colors";
+
+.pagination {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+}
+
+.paginationContainer {
+   display: flex;
+   align-items: center;
+}
+
+.paginationButton {
+   width: 40px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   outline: none;
+   border-radius: 50%;
+   background-color: $primaryBlue;
+   border: 1px solid $primaryBlue;
+   color: #ffffff;
+   font-size: 1.2rem;
+   cursor: pointer;
+}
+
+.disabledButton {
+   background-color: lighten($color: $primaryBlue, $amount: 20%);
+   cursor: unset;
+}
