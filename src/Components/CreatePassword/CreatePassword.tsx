@@ -184,7 +184,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                toast.success(passwordAddedSuccess);
                toggleModal();
                resetValues();
-               passwordsContext?.fetchPwdAscending();
+               passwordsContext?.refreshData();
             } else {
                await axios.put(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${passwordItem?.id}`,
@@ -193,7 +193,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                );
                toast.success(passwordEditedSuccess);
                toggleModal();
-               passwordsContext?.fetchPwdAscending();
+               passwordsContext?.refreshData();
             }
          }
       } catch (err) {

@@ -34,7 +34,7 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
          );
          toggleModal();
          toast.success(passwordDeletedSuccess);
-         passwordsContext?.fetchPwdAscending();
+         passwordsContext?.refreshData();
       } catch (err) {
          console.log(err);
          toast.error(errorOccured);

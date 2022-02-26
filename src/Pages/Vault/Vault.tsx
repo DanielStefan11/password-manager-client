@@ -10,6 +10,7 @@ import CreatePassword from "../../Components/CreatePassword/CreatePassword";
 import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import Pagination from "../../Components/Pagination/Pagination";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -20,7 +21,7 @@ const Vault: React.FC = (): JSX.Element => {
    // state
    const [sortIcons, setSortIcons] = useState<SortIcons>(() => {
       return {
-         AtoZ: true,
+         AtoZ: false,
          ZtoA: false,
       };
    });
@@ -45,7 +46,7 @@ const Vault: React.FC = (): JSX.Element => {
       switch (iconId) {
          case "a-z":
             setSortIcons({ AtoZ: true, ZtoA: false });
-            passwordsContext?.fetchPwdAscending();
+            passwordsContext?.sortPwdAscending();
             break;
 
          case "z-a":
@@ -55,7 +56,7 @@ const Vault: React.FC = (): JSX.Element => {
 
          default:
             setSortIcons({ AtoZ: true, ZtoA: false });
-            passwordsContext?.fetchPwdAscending();
+            passwordsContext?.sortPwdAscending();
       }
    };
 
@@ -100,28 +101,25 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
 
             <div className={styles.actionsWrapper}>
-               <div className={styles.refresh} onClick={passwordsContext?.fetchPwdAscending}>
+               <div className={styles.refresh} onClick={passwordsContext?.refreshData}>
                   <RefreshIcon />
                   <span>Refresh</span>
                </div>
 
                <div className={styles.sortContainer}>
-                  <AtoZIcon
-                     className={`${styles.sortIcons} ${sortIcons.AtoZ && styles.activeSortIcon}`}
-                     onClick={() => handleSortIcons("a-z")}
-                  />
+                  <AtoZIcon className={`${styles.sortIcons}`} onClick={() => handleSortIcons("a-z")} />
 
-                  <ZtoAIcon
-                     className={`${styles.sortIcons} ${sortIcons.ZtoA && styles.activeSortIcon}`}
-                     onClick={() => handleSortIcons("z-a")}
-                  />
+                  <ZtoAIcon className={`${styles.sortIcons}`} onClick={() => handleSortIcons("z-a")} />
                </div>
             </div>
          </div>
 
          {/* Password List */}
          <div className={styles.list}>
-            {filteredPasswords === [] || filteredPasswords === null || filteredPasswords === undefined ? (
+            {filteredPasswords === [] ||
+            filteredPasswords === null ||
+            filteredPasswords === undefined ||
+            filteredPasswords.length === 0 ? (
                <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
                   <EmptyListImage className="empty-list-image" />
                   <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
@@ -129,7 +127,21 @@ const Vault: React.FC = (): JSX.Element => {
                   </h2>
                </div>
             ) : (
-               filteredPasswords.map(password => <PasswordItem key={password.id} password={password} />)
+               <>
+                  {/* Pagination */}
+                  <div className={styles.paginationSM}>
+                     <Pagination />
+                  </div>
+
+                  {filteredPasswords.map(password => (
+                     <PasswordItem key={password.id} password={password} />
+                  ))}
+
+                  {/* Pagination */}
+                  <div className={styles.paginationLG}>
+                     <Pagination />
+                  </div>
+               </>
             )}
          </div>
 

@@ -82,7 +82,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
                toast.info(`${passwordTitle} password was added to Favorites`);
             }
          }
-         passwordContext?.fetchPwdAscending();
+         passwordContext?.refreshData();
       } catch (err) {
          console.log(err);
          toast.error(errorOccured);
