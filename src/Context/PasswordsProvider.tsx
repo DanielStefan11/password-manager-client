@@ -3,8 +3,7 @@ import { Password, ChildrenProps, IPagination } from "../Interfaces/GlobalInterf
 import axios from "axios";
 import { toast } from "react-toastify";
 import { errorOccured } from "../Utils/notifications";
-import { headersObject } from "../Utils/authorization";
-import { getJWT } from "../Utils/authorization";
+import { headersObject, getJWT } from "../Utils/authorization";
 
 interface ContextState {
    passwords: Password[] | null;
