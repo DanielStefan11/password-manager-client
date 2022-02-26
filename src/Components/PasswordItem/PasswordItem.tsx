@@ -18,6 +18,7 @@ import PasswordPreview from "../PasswordPreview/PasswordPreview";
 import { errorOccured } from "../../Utils/notifications";
 import axios from "axios";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useFavoritesContext } from "../../Context/FavoritesProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 interface Props {
@@ -32,6 +33,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    // hooks
    const passwordContext = usePasswordsContext();
+   const favoritesContext = useFavoritesContext();
    const darkModeContext = useDarkModeContext();
 
    // request objects
@@ -82,6 +84,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
                toast.info(`${passwordTitle} password was added to Favorites`);
             }
          }
+         favoritesContext?.refreshFavorites();
          passwordContext?.refreshData();
       } catch (err) {
          console.log(err);

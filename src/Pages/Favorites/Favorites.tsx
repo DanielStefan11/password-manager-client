@@ -3,16 +3,16 @@ import styles from "./Favorites.module.scss";
 import PageHeading from "../../Components/PageHeading/PageHeading";
 import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 import { ReactComponent as EmptyListImage } from "../../Assets/Global/not-found.svg";
-import { usePasswordsContext } from "../../Context/PasswordsProvider";
+import { useFavoritesContext } from "../../Context/FavoritesProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 const Favorites: React.FC = (): JSX.Element => {
    // hooks
-   const passwordsContext = usePasswordsContext();
+   const favoritesContext = useFavoritesContext();
    const darkModeContext = useDarkModeContext();
 
    // filteredData
-   const filteredPasswords = passwordsContext?.passwords?.filter(password => {
+   const filteredPasswords = favoritesContext?.favorites?.filter(password => {
       return password.attributes.favorite === true;
    });
 
