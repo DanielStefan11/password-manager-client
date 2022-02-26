@@ -16,8 +16,6 @@ const Favorites: React.FC = (): JSX.Element => {
       return password.attributes.favorite === true;
    });
 
-   console.log("favorites: ", filteredPasswords);
-
    return (
       <div
          className={`page darkModeTransition ${styles.favorites} ${
