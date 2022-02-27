@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PasswordItem.module.scss";
 import TemplateFavicon from "../../Assets/Global/template-icon.png";
-import {
-   AiFillEye as RevealPwdIcon,
-   AiFillEdit as EditIcon,
-   AiOutlineStar as OutlineStarIcon,
-   AiFillStar as FillStarIcon,
-} from "react-icons/ai";
+import { AiFillEye as RevealPwdIcon, AiFillEdit as EditIcon, AiFillStar as FillStarIcon } from "react-icons/ai";
 import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
 import { MdFileCopy as CopyIcon } from "react-icons/md";
 import { Password } from "../../Interfaces/GlobalInterfaces";
@@ -20,7 +15,9 @@ import axios from "axios";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useFavoritesContext } from "../../Context/FavoritesProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
-import { headersObject } from "../../Utils/authorization";
+import { headersObject, getJWT } from "../../Utils/authorization";
+import { useLocation } from "react-router-dom";
+import { appRoutes } from "../../Utils/appRoutes";
 
 interface Props {
    password: Password;
@@ -36,6 +33,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    const passwordContext = usePasswordsContext();
    const favoritesContext = useFavoritesContext();
    const darkModeContext = useDarkModeContext();
+   const location = useLocation();
 
    // request objects
    const requestBody = {
@@ -47,6 +45,21 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          password: password.attributes.password,
          faviconAddress: password.attributes.faviconAddress,
          favorite: !password.attributes.favorite,
+      },
+   };
+
+   const removeRequestBody = {
+      headers: {
+         Authorization: "Bearer " + getJWT,
+      },
+      data: {
+         title: password.attributes.title,
+         siteUrl: password.attributes.siteUrl,
+         username: password.attributes.username,
+         email: password.attributes.email,
+         password: password.attributes.password,
+         faviconAddress: password.attributes.faviconAddress,
+         favorite: false,
       },
    };
 
@@ -65,25 +78,41 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    const handleTogglePwdPreviewModal = () => setShowPwdPreviewModal(!showPwdPreviewModal);
 
-   const handleToggleFavorites = async (passwordTitle: string | undefined) => {
+   const handleAddToFavorites = async (passwordTitle: string | undefined) => {
       try {
-         await axios.put(
-            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${password?.id}`,
-            requestBody,
-            headersObject
+         await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/favorites`, requestBody, headersObject);
+         if (passwordTitle !== undefined) {
+            toast.info(`${passwordTitle} password was added to Favorites`);
+         }
+         favoritesContext?.refreshFavorites();
+      } catch (err) {
+         console.log(err);
+         toast.error(errorOccured);
+      }
+   };
+
+   const handleRemoveFromFavorites = async (passwordTitle: string | undefined) => {
+      try {
+         await axios.delete(
+            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/favorites/${password?.id}`,
+            removeRequestBody
          );
          if (passwordTitle !== undefined) {
-            if (password.attributes.favorite) {
-               toast.info(`${passwordTitle} password was removed from Favorites`);
-            } else {
-               toast.info(`${passwordTitle} password was added to Favorites`);
-            }
+            toast.info(`${passwordTitle} password was removed from Favorites`);
          }
          favoritesContext?.refreshFavorites();
          passwordContext?.refreshData();
       } catch (err) {
          console.log(err);
          toast.error(errorOccured);
+      }
+   };
+
+   const handleDelete = (passwordTitle: string | undefined) => {
+      if (location.pathname === appRoutes.vault) {
+         handleToggleDeletePwdModal();
+      } else if (location.pathname === appRoutes.favorites) {
+         handleRemoveFromFavorites(passwordTitle);
       }
    };
 
@@ -170,25 +199,25 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
          <div className={`${styles.actionsCol} ${styles.col} d-flex align-items-center justify-content-around`}>
             <RevealPwdIcon className={`pointer`} size={30} color="#3c8dbb" onClick={handleTogglePwdPreviewModal} />
 
-            <EditIcon className="pointer" size={30} color="#33cccc" onClick={handleToggleEditModal} />
+            {location.pathname !== appRoutes.favorites && (
+               <EditIcon className="pointer" size={30} color="#33cccc" onClick={handleToggleEditModal} />
+            )}
 
-            {password.attributes.favorite ? (
+            {location.pathname !== appRoutes.favorites && (
                <FillStarIcon
                   className="pointer"
                   size={30}
                   color="#ffd700"
-                  onClick={() => handleToggleFavorites(password.attributes.title)}
-               />
-            ) : (
-               <OutlineStarIcon
-                  className="pointer"
-                  size={30}
-                  color="#3c8dbb"
-                  onClick={() => handleToggleFavorites(password.attributes.title)}
+                  onClick={() => handleAddToFavorites(password.attributes.title)}
                />
             )}
 
-            <RemoveIcon className="pointer" size={30} color="#e62e00" onClick={handleToggleDeletePwdModal} />
+            <RemoveIcon
+               className="pointer"
+               size={30}
+               color="#e62e00"
+               onClick={() => handleDelete(password.attributes.title)}
+            />
          </div>
       </div>
    );

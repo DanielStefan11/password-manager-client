@@ -21,7 +21,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       try {
          const result = await axios.get(
             process.env.REACT_APP_PASSWORD_MANAGER_URL +
-               `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
+               `/api/favorites?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
             headersObject
          );
          setFavorites(result.data.data);
@@ -37,7 +37,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             const fetchedData = async () => {
                const result = await axios.get(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL +
-                     `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
+                     `/api/favorites?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
                   headersObject
                );
                setFavorites(result.data.data);
