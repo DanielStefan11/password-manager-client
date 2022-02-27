@@ -80,11 +80,15 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    const handleAddToFavorites = async (passwordTitle: string | undefined) => {
       try {
-         await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/favorites`, requestBody, headersObject);
-         if (passwordTitle !== undefined) {
-            toast.info(`${passwordTitle} password was added to Favorites`);
+         if (favoritesContext?.favorites?.some(pwdItem => pwdItem.attributes.title === passwordTitle)) {
+            toast.error("Password already exists in the list");
+         } else {
+            await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/favorites`, requestBody, headersObject);
+            if (passwordTitle !== undefined) {
+               toast.info(`${passwordTitle} password was added to Favorites`);
+            }
+            favoritesContext?.refreshFavorites();
          }
-         favoritesContext?.refreshFavorites();
       } catch (err) {
          console.log(err);
          toast.error(errorOccured);
