@@ -13,6 +13,7 @@ interface ContextState {
    paginationData: IPagination | null;
    pageNumber: number;
    handlePagination: (buttonID: string) => void;
+   loading: boolean;
 }
 
 const PasswordsContext = React.createContext<ContextState | null>(null);
@@ -23,10 +24,12 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const [passwords, setPasswords] = useState<Password[] | null>(() => null);
    const [paginationData, setPaginationData] = useState<IPagination | null>(() => null);
    const [pageNumber, setPageNumber] = useState<number>(() => 1);
+   const [loading, setLoading] = useState<boolean>(() => true);
 
    // fetching data ascending
    const sortPwdAscending = async (): Promise<void> => {
       try {
+         setLoading(true);
          const result = await axios.get(
             process.env.REACT_APP_PASSWORD_MANAGER_URL +
                `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
@@ -36,12 +39,15 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       } catch (err) {
          toast.error(errorOccured);
          console.log(err);
+      } finally {
+         setLoading(false);
       }
    };
 
    // sort data descending
    const sortPwdDescending = async () => {
       try {
+         setLoading(true);
          const result = await axios.get(
             process.env.REACT_APP_PASSWORD_MANAGER_URL +
                `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:desc`,
@@ -51,12 +57,15 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       } catch (err) {
          toast.error(errorOccured);
          console.log(err);
+      } finally {
+         setLoading(false);
       }
    };
 
    // refresh data
    const refreshData = async (): Promise<void> => {
       try {
+         setLoading(true);
          const result = await axios.get(
             process.env.REACT_APP_PASSWORD_MANAGER_URL +
                `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&pagination[page]=${pageNumber}&pagination[pageSize]=10&sort=title:asc`,
@@ -66,6 +75,8 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       } catch (err) {
          toast.error(errorOccured);
          console.log(err);
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -101,6 +112,8 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          } catch (err) {
             toast.error(errorOccured);
             console.log(err);
+         } finally {
+            setLoading(false);
          }
       } else {
          return;
@@ -115,6 +128,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       paginationData,
       pageNumber,
       handlePagination,
+      loading,
    };
 
    return <PasswordsContext.Provider value={state}>{children}</PasswordsContext.Provider>;

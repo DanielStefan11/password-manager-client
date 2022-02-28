@@ -8,6 +8,7 @@ import { headersObject, getJWT } from "../Utils/authorization";
 interface IFavoritesContext {
    favorites: Password[] | null;
    refreshFavorites: () => Promise<void>;
+   loading: boolean;
 }
 
 const FavoritesContext = React.createContext<IFavoritesContext | null>(null);
@@ -16,9 +17,11 @@ export const useFavoritesContext = () => useContext(FavoritesContext);
 
 const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
    const [favorites, setFavorites] = useState<Password[] | null>(() => null);
+   const [loading, setLoading] = useState<boolean>(() => true);
 
    const refreshFavorites = async (): Promise<void> => {
       try {
+         setLoading(true);
          const result = await axios.get(
             process.env.REACT_APP_PASSWORD_MANAGER_URL +
                `/api/favorites?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,
@@ -28,6 +31,8 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       } catch (err) {
          toast.error(errorOccured);
          console.log(err);
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -47,6 +52,8 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          } catch (err) {
             toast.error(errorOccured);
             console.log(err);
+         } finally {
+            setLoading(false);
          }
       } else {
          return;
@@ -56,6 +63,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const state: IFavoritesContext | null = {
       favorites,
       refreshFavorites,
+      loading,
    };
 
    return <FavoritesContext.Provider value={state}>{children}</FavoritesContext.Provider>;
