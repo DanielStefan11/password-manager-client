@@ -11,6 +11,7 @@ import PasswordItem from "../../Components/PasswordItem/PasswordItem";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import Pagination from "../../Components/Pagination/Pagination";
+import FadeLoader from "react-spinners/FadeLoader";
 
 interface SortIcons {
    AtoZ: boolean;
@@ -115,35 +116,42 @@ const Vault: React.FC = (): JSX.Element => {
          </div>
 
          {/* Password List */}
-         <div className={styles.list}>
-            {filteredPasswords === [] ||
-            filteredPasswords === null ||
-            filteredPasswords === undefined ||
-            filteredPasswords.length === 0 ? (
-               <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                  <EmptyListImage className="empty-list-image" />
-                  <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
-                     You have not added any passwords
-                  </h2>
-               </div>
-            ) : (
-               <>
-                  {/* Pagination */}
-                  <div className={styles.paginationSM}>
-                     <Pagination />
+         {passwordsContext?.loading ? (
+            <div className={`loadingContainer`}>
+               <FadeLoader height={30} color="#33cccc" />
+               <h5 className="mt-4 size-26 weight-700 primary-blue-text">Loading...</h5>
+            </div>
+         ) : (
+            <div className={styles.list}>
+               {filteredPasswords === [] ||
+               filteredPasswords === null ||
+               filteredPasswords === undefined ||
+               filteredPasswords.length === 0 ? (
+                  <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                     <EmptyListImage className="empty-list-image" />
+                     <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                        You have not added any passwords
+                     </h2>
                   </div>
+               ) : (
+                  <>
+                     {/* Pagination */}
+                     <div className={styles.paginationSM}>
+                        <Pagination />
+                     </div>
 
-                  {filteredPasswords.map(password => (
-                     <PasswordItem key={password.id} password={password} />
-                  ))}
+                     {filteredPasswords.map(password => (
+                        <PasswordItem key={password.id} password={password} />
+                     ))}
 
-                  {/* Pagination */}
-                  <div className={styles.paginationLG}>
-                     <Pagination />
-                  </div>
-               </>
-            )}
-         </div>
+                     {/* Pagination */}
+                     <div className={styles.paginationLG}>
+                        <Pagination />
+                     </div>
+                  </>
+               )}
+            </div>
+         )}
 
          {/* Add Password */}
          <div className={`shadow ${styles.addButton}`} onClick={toggleAddModal}>

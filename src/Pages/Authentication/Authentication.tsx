@@ -43,31 +43,27 @@ const Authentication: React.FC = (): JSX.Element => {
          password: passwordInputValue,
       };
 
-      setLoading(true);
-
       try {
+         setLoading(true);
          if (emailInputValue === "" || passwordInputValue === "") {
             toast.error(emptyInputsError);
-            setLoading(false);
          } else if (!validEmail) {
             toast.error(emailNotValid);
-            setLoading(false);
          } else if (!validPassword) {
             toast.error(passwordNotValid);
-            setLoading(false);
          } else {
             let response = await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
                sessionStorage.setItem("jwt", response.data.jwt);
-               setLoading(false);
                navigate(appRoutes.vault);
                window.location.reload();
             }
          }
       } catch (error) {
          toast.error(errorOccured);
-         setLoading(false);
          console.log(error);
+      } finally {
+         setLoading(false);
       }
    };
 
