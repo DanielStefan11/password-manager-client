@@ -95,7 +95,7 @@ const Authentication: React.FC = (): JSX.Element => {
                   <input
                      ref={emailRef}
                      type="email"
-                     className={`${styles.authInput} ${
+                     className={`${styles.authInput} highlightInput ${
                         darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
                      }`}
                      placeholder="Email or username"
@@ -111,7 +111,7 @@ const Authentication: React.FC = (): JSX.Element => {
                   <input
                      ref={passwordRef}
                      type={hidePassword ? "password" : "text"}
-                     className={`${styles.authInput} ${
+                     className={`${styles.authInput} highlightInput ${
                         darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
                      }`}
                      placeholder="Password"
