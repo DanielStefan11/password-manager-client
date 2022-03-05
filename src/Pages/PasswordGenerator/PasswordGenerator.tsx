@@ -41,9 +41,9 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
    // functions
    const handleCopy = () => {
       if (password === "") {
-         toast.error(noPwdToCopy);
+         toast.error(noPwdToCopy, { toastId: "zzxrxtzfeamljdwd" });
       } else {
-         toast.success(pwdCopied);
+         toast.success(pwdCopied, { toastId: "zzxrxtzfeamlskwjdhjhe" });
       }
    };
 
@@ -79,7 +79,7 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
          !passwordSettings.numbers &&
          !passwordSettings.symbols
       ) {
-         toast.error(noPwdSettings);
+         toast.error(noPwdSettings, { toastId: "zzxrxtzfeamldehdg" });
       } else {
          if (passwordSettings.uppercase) {
             charactersList = charactersList + upperCaseLetters;
@@ -116,7 +116,7 @@ const PasswordGenerator: React.FC = (): JSX.Element => {
       >
          <PageHeading />
 
-         <div className="w-100 d-flex justify-content-center align-items-center">
+         <div className={styles.generatorContainer}>
             <div
                className={`shadow darkModeTransition ${styles.generator} ${
                   darkModeContext?.darkMode ? "elementBgDarkMode" : styles.generatorLightMode

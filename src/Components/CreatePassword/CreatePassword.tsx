@@ -124,7 +124,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
       if (values.url !== "") {
          setActiveFavicon(values.url + "favicon.ico");
       } else {
-         toast.error(errorFetchFavicon);
+         toast.error(errorFetchFavicon, { toastId: "error-fetch" });
       }
    };
 
@@ -166,9 +166,9 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
             values.email === "" &&
             password === ""
          ) {
-            toast.error(emptyInputsError);
+            toast.error(emptyInputsError, { toastId: "empty-input" });
          } else if (values.title === "") {
-            toast.error("Title is mandatory");
+            toast.error("Title is mandatory", { toastId: "mandatory-title" });
          } else {
             if (!edit) {
                await axios.post(
@@ -176,7 +176,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   requestBody,
                   headersObject
                );
-               toast.success(passwordAddedSuccess);
+               toast.success(passwordAddedSuccess, { toastId: "pwd-success" });
                toggleModal();
                resetValues();
                passwordsContext?.refreshData();
@@ -186,13 +186,13 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   requestBody,
                   headersObject
                );
-               toast.success(passwordEditedSuccess);
+               toast.success(passwordEditedSuccess, { toastId: "pwd-edited" });
                toggleModal();
                passwordsContext?.refreshData();
             }
          }
       } catch (err) {
-         toast.error(errorOccured);
+         toast.error(errorOccured, { toastId: "err-occured" });
       }
    };
 

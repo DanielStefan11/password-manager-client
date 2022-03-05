@@ -29,8 +29,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          );
          setFavorites(result.data.data);
       } catch (err) {
-         toast.error(errorOccured);
-         console.log(err);
+         toast.error(errorOccured, { toastId: "erroroccured" });
       } finally {
          setLoading(false);
       }
@@ -50,8 +49,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
 
             fetchedData();
          } catch (err) {
-            toast.error(errorOccured);
-            console.log(err);
+            toast.error(errorOccured, { toastId: "errocurred" });
          } finally {
             setLoading(false);
          }
