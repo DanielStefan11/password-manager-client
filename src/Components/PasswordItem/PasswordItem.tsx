@@ -66,9 +66,9 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
       if (valueCopied === "n/a" || valueCopied === "N/A") {
-         toast.error("There is no value to copy");
+         toast.error("There is no value to copy", { toastId: "no-value" });
       } else {
-         toast.success(`The ${itemType} has been copied to the clipboard`);
+         toast.success(`The ${itemType} has been copied to the clipboard`, { toastId: "copied" });
       }
    };
 
@@ -81,17 +81,16 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
    const handleAddToFavorites = async (passwordTitle: string | undefined) => {
       try {
          if (favoritesContext?.favorites?.some(pwdItem => pwdItem.attributes.title === passwordTitle)) {
-            toast.error("Password already exists in the list");
+            toast.error("Password already exists in the list", { toastId: "pwd-wxists" });
          } else {
             await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/favorites`, requestBody, headersObject);
             if (passwordTitle !== undefined) {
-               toast.info(`${passwordTitle} password was added to Favorites`);
+               toast.info(`${passwordTitle} password was added to Favorites`, { toastId: "pwd-added" });
             }
             favoritesContext?.refreshFavorites();
          }
       } catch (err) {
-         console.log(err);
-         toast.error(errorOccured);
+         toast.error(errorOccured, { toastId: "error-occured" });
       }
    };
 
@@ -102,13 +101,12 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
             removeRequestBody
          );
          if (passwordTitle !== undefined) {
-            toast.info(`${passwordTitle} password was removed from Favorites`);
+            toast.info(`${passwordTitle} password was removed from Favorites`, { toastId: "pwd-removed" });
          }
          favoritesContext?.refreshFavorites();
          passwordContext?.refreshData();
       } catch (err) {
-         console.log(err);
-         toast.error(errorOccured);
+         toast.error(errorOccured, { toastId: "err-occured" });
       }
    };
 

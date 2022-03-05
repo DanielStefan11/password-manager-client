@@ -38,8 +38,7 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
             return;
          }
       } catch (err) {
-         console.log(err);
-         toast.error("Error occurred when fetching user info");
+         toast.error("Error occurred when fetching user info", { toastId: "vrxblczm" });
       }
    }, []);
 

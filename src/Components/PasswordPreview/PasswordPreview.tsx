@@ -27,9 +27,9 @@ const PasswordPreview: React.FC<Props> = ({ show, toggleModal, passwordItem }): 
 
    const handleCopy = (itemType: string, valueCopied: string) => {
       if (valueCopied === "n/a" || valueCopied === "N/A") {
-         toast.error("There is no value to copy");
+         toast.error("There is no value to copy", { toastId: "no-value-to copy" });
       } else {
-         toast.success(`The ${itemType} has been copied to the clipboard`);
+         toast.success(`The ${itemType} has been copied to the clipboard`, { toastId: "already-copied" });
       }
    };
 

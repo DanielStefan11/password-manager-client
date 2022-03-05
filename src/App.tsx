@@ -34,6 +34,7 @@ const App: React.FC = (): JSX.Element => {
                         pauseOnFocusLoss
                         draggable
                         closeButton={true}
+                        limit={1}
                      />
 
                      <Header />

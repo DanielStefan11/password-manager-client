@@ -37,8 +37,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          );
          setPasswords(result.data.data);
       } catch (err) {
-         toast.error(errorOccured);
-         console.log(err);
+         toast.error(errorOccured, { toastId: "err-occured" });
       } finally {
          setLoading(false);
       }
@@ -55,8 +54,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          );
          setPasswords(result.data.data);
       } catch (err) {
-         toast.error(errorOccured);
-         console.log(err);
+         toast.error(errorOccured, { toastId: "error" });
       } finally {
          setLoading(false);
       }
@@ -73,8 +71,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
          );
          setPasswords(result.data.data);
       } catch (err) {
-         toast.error(errorOccured);
-         console.log(err);
+         toast.error(errorOccured, { toastId: "other-err" });
       } finally {
          setLoading(false);
       }
@@ -110,8 +107,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
 
             fetchedData();
          } catch (err) {
-            toast.error(errorOccured);
-            console.log(err);
+            toast.error(errorOccured, { toastId: "buucodo" });
          } finally {
             setLoading(false);
          }

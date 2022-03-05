@@ -46,11 +46,11 @@ const Authentication: React.FC = (): JSX.Element => {
       try {
          setLoading(true);
          if (emailInputValue === "" || passwordInputValue === "") {
-            toast.error(emptyInputsError);
+            toast.error(emptyInputsError, { toastId: "zzxrxtzfeaml" });
          } else if (!validEmail) {
-            toast.error(emailNotValid);
+            toast.error(emailNotValid, { toastId: "zzxrxtzfeamljdh" });
          } else if (!validPassword) {
-            toast.error(passwordNotValid);
+            toast.error(passwordNotValid, { toastId: "zzxrxtzfeamlwddw" });
          } else {
             let response = await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
@@ -60,8 +60,7 @@ const Authentication: React.FC = (): JSX.Element => {
             }
          }
       } catch (error) {
-         toast.error(errorOccured);
-         console.log(error);
+         toast.error(errorOccured, { toastId: "sdzzxrxtzfeamls" });
       } finally {
          setLoading(false);
       }
