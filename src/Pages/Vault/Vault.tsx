@@ -92,7 +92,7 @@ const Vault: React.FC = (): JSX.Element => {
                   ref={searchRef}
                   type="text"
                   value={search}
-                  className={`shadow ${styles.search} ${
+                  className={`shadow highlightInput ${styles.search} ${
                      darkModeContext?.darkMode ? "elementBgDarkMode" : styles.searchBackground
                   }`}
                   placeholder="Search..."

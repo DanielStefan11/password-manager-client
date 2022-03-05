@@ -209,7 +209,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.title}
                      name="title"
                      type="text"
-                     className={`${styles.addPswInputs} ${
+                     className={`${styles.addPswInputs} highlightInput ${
                         darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
                      }`}
                      placeholder="Insert A title"
@@ -224,7 +224,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.url}
                      name="url"
                      type="text"
-                     className={`${styles.addPswInputs} ${
+                     className={`${styles.addPswInputs} highlightInput ${
                         darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
                      }`}
                      placeholder="Insert site URL"
@@ -239,7 +239,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.username}
                      type="text"
                      name="username"
-                     className={`${styles.addPswInputs} ${
+                     className={`${styles.addPswInputs} highlightInput ${
                         darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
                      }`}
                      placeholder="Insert your username"
@@ -254,7 +254,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={values.email}
                      name="email"
                      type="email"
-                     className={`${styles.addPswInputs} ${
+                     className={`${styles.addPswInputs} highlightInput ${
                         darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
                      }`}
                      placeholder="Insert your email"
@@ -273,7 +273,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                      value={password}
                      name="password"
                      type={hidePassword ? "password" : "text"}
-                     className={`${styles.addPswInputs} ${
+                     className={`${styles.addPswInputs} highlightInput ${
                         darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
                      }`}
                      placeholder="Insert a password"
