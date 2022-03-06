@@ -65,7 +65,7 @@ const PasswordItem: React.FC<Props> = ({ password }): JSX.Element => {
 
    // functions
    const handleCopy = (itemType: string, valueCopied: string) => {
-      if (valueCopied === "n/a" || valueCopied === "N/A") {
+      if (valueCopied === "n/a" || valueCopied === "N/A" || valueCopied === "") {
          toast.error("There is no value to copy", { toastId: "no-value" });
       } else {
          toast.success(`The ${itemType} has been copied to the clipboard`, { toastId: "copied" });
