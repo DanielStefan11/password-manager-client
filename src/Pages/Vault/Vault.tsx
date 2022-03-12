@@ -13,19 +13,8 @@ import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import Pagination from "../../Components/Pagination/Pagination";
 import FadeLoader from "react-spinners/FadeLoader";
 
-interface SortIcons {
-   AtoZ: boolean;
-   ZtoA: boolean;
-}
-
 const Vault: React.FC = (): JSX.Element => {
    // state
-   const [sortIcons, setSortIcons] = useState<SortIcons>(() => {
-      return {
-         AtoZ: false,
-         ZtoA: false,
-      };
-   });
    const [showAddModal, setShowAddModal] = useState<boolean>(() => false);
    const [search, setSearch] = useState<string>(() => "");
    const [clearSearch, setClearSearch] = useState<boolean>(() => false);
@@ -44,21 +33,8 @@ const Vault: React.FC = (): JSX.Element => {
 
    // functions
    const handleSortIcons = (iconId: string) => {
-      switch (iconId) {
-         case "a-z":
-            setSortIcons({ AtoZ: true, ZtoA: false });
-            passwordsContext?.sortPwdAscending();
-            break;
-
-         case "z-a":
-            setSortIcons({ AtoZ: false, ZtoA: true });
-            passwordsContext?.sortPwdDescending();
-            break;
-
-         default:
-            setSortIcons({ AtoZ: true, ZtoA: false });
-            passwordsContext?.sortPwdAscending();
-      }
+      if (iconId === "a-z") return passwordsContext?.sortPwdAscending();
+      if (iconId === "z-a") return passwordsContext?.sortPwdDescending();
    };
 
    const toggleAddModal = () => setShowAddModal(!showAddModal);
@@ -102,7 +78,7 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
 
             <div className={styles.actionsWrapper}>
-               <div className={styles.refresh} onClick={passwordsContext?.refreshData}>
+               <div className={styles.refresh} onClick={() => passwordsContext?.refreshData()}>
                   <RefreshIcon />
                   <span>Refresh</span>
                </div>
@@ -135,19 +111,23 @@ const Vault: React.FC = (): JSX.Element => {
                   </div>
                ) : (
                   <>
-                     {/* Pagination */}
-                     <div className={styles.paginationSM}>
-                        <Pagination />
-                     </div>
+                     {/* Top Pagination */}
+                     {!passwordsContext?.enableSorting && (
+                        <div className={styles.paginationSM}>
+                           <Pagination />
+                        </div>
+                     )}
 
                      {filteredPasswords.map(password => (
                         <PasswordItem key={password.id} password={password} />
                      ))}
 
-                     {/* Pagination */}
-                     <div className={styles.paginationLG}>
-                        <Pagination />
-                     </div>
+                     {/* Bottom Pagination */}
+                     {!passwordsContext?.enableSorting && (
+                        <div className={styles.paginationLG}>
+                           <Pagination />
+                        </div>
+                     )}
                   </>
                )}
             </div>

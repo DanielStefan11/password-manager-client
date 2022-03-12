@@ -14,6 +14,7 @@ interface ContextState {
    pageNumber: number;
    handlePagination: (buttonID: string) => void;
    loading: boolean;
+   enableSorting: boolean;
 }
 
 const PasswordsContext = React.createContext<ContextState | null>(null);
@@ -25,6 +26,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    const [paginationData, setPaginationData] = useState<IPagination | null>(() => null);
    const [pageNumber, setPageNumber] = useState<number>(() => 1);
    const [loading, setLoading] = useState<boolean>(() => true);
+   const [enableSorting, setEnableSorting] = useState<boolean>(() => false);
 
    // fetching data ascending
    const sortPwdAscending = async (): Promise<void> => {
@@ -36,6 +38,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             headersObject
          );
          setPasswords(result.data.data);
+         setEnableSorting(true);
       } catch (err) {
          toast.error(errorOccured, { toastId: "err-occured" });
       } finally {
@@ -53,6 +56,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             headersObject
          );
          setPasswords(result.data.data);
+         setEnableSorting(true);
       } catch (err) {
          toast.error(errorOccured, { toastId: "error" });
       } finally {
@@ -70,6 +74,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
             headersObject
          );
          setPasswords(result.data.data);
+         setEnableSorting(false);
       } catch (err) {
          toast.error(errorOccured, { toastId: "other-err" });
       } finally {
@@ -103,6 +108,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
                );
                setPasswords(result.data.data);
                setPaginationData(result.data.meta.pagination);
+               setEnableSorting(false);
             };
 
             fetchedData();
@@ -125,6 +131,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
       pageNumber,
       handlePagination,
       loading,
+      enableSorting,
    };
 
    return <PasswordsContext.Provider value={state}>{children}</PasswordsContext.Provider>;
