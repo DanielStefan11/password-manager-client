@@ -3,6 +3,7 @@ import styles from "./MobileMenu.module.scss";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
 import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
+import { FaStickyNote as NotesIcon } from "react-icons/fa";
 import { useLocation, NavLink } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
@@ -20,6 +21,7 @@ const MobileMenu: React.FC = (): JSX.Element => {
                   darkModeContext?.darkMode ? styles.menuDarkMode : styles.menuLightMode
                }`}
             >
+               {/* vault */}
                <NavLink
                   to={appRoutes.vault}
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}
@@ -27,6 +29,7 @@ const MobileMenu: React.FC = (): JSX.Element => {
                   <VaultIcon />
                </NavLink>
 
+               {/* favorites */}
                <NavLink
                   to={appRoutes.favorites}
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}
@@ -34,6 +37,15 @@ const MobileMenu: React.FC = (): JSX.Element => {
                   <FavoritesIcon />
                </NavLink>
 
+               {/* notes */}
+               <NavLink
+                  to={appRoutes.notes}
+                  className={navData => (navData.isActive ? styles.activeLink : styles.link)}
+               >
+                  <NotesIcon />
+               </NavLink>
+
+               {/* generate */}
                <NavLink
                   to={appRoutes.passwordGenerator}
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}
@@ -41,6 +53,7 @@ const MobileMenu: React.FC = (): JSX.Element => {
                   <GenerateIcon />
                </NavLink>
 
+               {/* settings */}
                <NavLink
                   to={appRoutes.settings}
                   className={navData => (navData.isActive ? styles.activeLink : styles.link)}

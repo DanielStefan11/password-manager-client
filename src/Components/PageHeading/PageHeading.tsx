@@ -3,6 +3,7 @@ import styles from "./PageHeading.module.scss";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
 import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
+import { FaStickyNote as NotesIcon } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 
@@ -46,6 +47,15 @@ const PageHeading: React.FC = (): JSX.Element => {
             <>
                <SettingsIcon size={30} className="me-2" color="#3c8dbb" />
                <h1 className="mb-0 primary-blue-text size-30 weight-900">Settings</h1>
+            </>
+         );
+         break;
+
+      case appRoutes.notes:
+         headingContent = (
+            <>
+               <NotesIcon size={30} className="me-2" color="#3c8dbb" />
+               <h1 className="mb-0 primary-blue-text size-30 weight-900">Notes</h1>
             </>
          );
          break;

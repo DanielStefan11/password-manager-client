@@ -21,3 +21,9 @@ export interface IPagination {
    pageSize: number;
    total: number;
 }
+
+export interface INote {
+   title: string;
+   content: string;
+   locked: boolean;
+}

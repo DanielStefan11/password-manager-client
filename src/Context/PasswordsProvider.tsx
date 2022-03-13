@@ -47,7 +47,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    };
 
    // sort data descending
-   const sortPwdDescending = async () => {
+   const sortPwdDescending = async (): Promise<void> => {
       try {
          setLoading(true);
          const result = await axios.get(
@@ -100,7 +100,7 @@ const PasswordsProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    useEffect(() => {
       if (getJWT) {
          try {
-            const fetchedData = async () => {
+            const fetchedData = async (): Promise<void> => {
                const result = await axios.get(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL +
                      `/api/passwords?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&pagination[page]=${pageNumber}&pagination[pageSize]=10&sort=title:asc`,

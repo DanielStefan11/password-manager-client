@@ -5,6 +5,7 @@ interface AppRoutes {
    cards: string;
    passwordGenerator: string;
    settings: string;
+   notes: string;
    errorPage: string;
 }
 
@@ -15,5 +16,6 @@ export const appRoutes: AppRoutes = {
    cards: "/cards",
    passwordGenerator: "/generator",
    settings: "/settings",
+   notes: "/notes",
    errorPage: "/error",
 };
