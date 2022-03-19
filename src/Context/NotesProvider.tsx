@@ -7,6 +7,7 @@ import { headersObject, getJWT } from "../Utils/authorization";
 
 interface INotesContext {
    notes: INote[] | null;
+   loading: boolean;
 }
 
 const NotesContext = React.createContext<INotesContext | null>(null);
@@ -19,6 +20,7 @@ const NotesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
 
    const state: INotesContext | null = {
       notes,
+      loading,
    };
 
    useEffect(() => {

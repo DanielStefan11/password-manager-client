@@ -23,7 +23,10 @@ export interface IPagination {
 }
 
 export interface INote {
-   title: string;
-   content: string;
-   locked: boolean;
+   id: string;
+   attributes: {
+      title: string;
+      content: string;
+      locked: boolean;
+   };
 }
