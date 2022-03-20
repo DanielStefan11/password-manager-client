@@ -1,4 +1,4 @@
-export const getJWT = sessionStorage.getItem("jwt");
+export const getJWT = localStorage.getItem("jwt");
 
 export const headersObject = {
    headers: {

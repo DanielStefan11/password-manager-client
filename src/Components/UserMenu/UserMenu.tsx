@@ -18,8 +18,9 @@ const UserMenu: React.FC<Props> = ({ show, toggle }): JSX.Element => {
 
    // functions
    const logout = () => {
-      sessionStorage.clear();
+      localStorage.removeItem("jwt");
       navigate(appRoutes.authenticate);
+      window.location.reload();
    };
 
    return (
