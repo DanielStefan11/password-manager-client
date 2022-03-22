@@ -1,0 +1,31 @@
+@import "../../StylesTemplate/colors";
+
+.inputsWrapper {
+   position: relative;
+   width: 100%;
+   margin-bottom: 2rem;
+}
+
+.unlockCodeInput {
+   width: 100%;
+   height: 50px;
+   padding: 0.5rem 0.5rem 0.5rem 2.3rem;
+   border: none;
+   outline: none;
+   border-radius: 8px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   color: $primaryDark;
+}
+
+.inputIcons {
+   position: absolute;
+   left: 12px;
+   top: 50%;
+   transform: translateY(-50%);
+   font-size: 18px;
+   color: $primaryBlue;
+
+   @media screen and (max-width: 500px) {
+      font-size: 16px;
+   }
+}

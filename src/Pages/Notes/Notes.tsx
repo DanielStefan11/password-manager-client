@@ -33,10 +33,6 @@ const Notes = () => {
                      <NotePreview noteData={note} />
                   </Col>
                ))}
-
-               {/* <Col>
-                  <NotePreview />
-               </Col> */}
             </Row>
          )}
 
