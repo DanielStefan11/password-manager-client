@@ -12,6 +12,7 @@
 
    &:hover {
       svg {
+         transition: all 0.2s ease-in-out;
          transform: scale(1.5);
       }
    }
@@ -38,18 +39,20 @@
    background-color: #e8effc;
 
    svg {
-      color: #6495ed;
-      font-size: 3rem;
       transition: all 0.2s ease-in-out;
    }
 }
 
-.lightPemCover {
+.lightPenCover {
    background-color: #fff2e6;
 
    svg {
-      color: #ff9933;
-      font-size: 3rem;
       transition: all 0.2s ease-in-out;
    }
+}
+
+.darkModeCover {
+   background-color: $lighter_dark_element;
+   border-bottom-left-radius: 8px;
+   border-bottom-right-radius: 8px;
 }
