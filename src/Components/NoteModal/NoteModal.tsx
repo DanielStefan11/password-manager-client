@@ -53,7 +53,7 @@ const NoteModal: React.FC<IProps> = ({ show, toggleModal, noteData }): JSX.Eleme
                   closeNote={handleCloseNote}
                />
             ) : (
-               <ViewContent closeNote={toggleModal} closeLockedNote={handleCloseNote} />
+               <ViewContent noteData={noteData} closeNote={toggleModal} closeLockedNote={handleCloseNote} />
             )}
          </Modal.Body>
       </Modal>
