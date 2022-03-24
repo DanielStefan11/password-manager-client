@@ -1,4 +1,5 @@
 @import "../../StylesTemplate/colors";
+@import "../../StylesTemplate/mixins";
 
 .inputsWrapper {
    position: relative;
@@ -6,7 +7,8 @@
    margin-bottom: 2rem;
 }
 
-.unlockCodeInput {
+.unlockCodeInput,
+.titleInput {
    width: 100%;
    height: 50px;
    padding: 0.5rem 0.5rem 0.5rem 2.3rem;
@@ -32,8 +34,24 @@
 
 .textSheet {
    width: 100%;
-   min-height: 300px;
+   height: 500px;
    padding: 1rem;
    margin: 3rem 0;
    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   overflow-y: auto;
+
+   @include vertical-scrollbar(0.5rem);
+}
+
+.contentTextarea {
+   width: 100%;
+   height: 500px;
+   padding: 1rem;
+   border: none;
+   outline: none;
+   resize: none;
+   border-radius: 8px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+   @include vertical-scrollbar(0.5rem);
 }

@@ -319,7 +319,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                   onClick={handleSubmitPassword}
                >
-                  {edit ? "Edit" : "Add"}
+                  {edit ? "Save" : "Add"}
                </button>
 
                <span className="cancel-span" onClick={handleCancel}>

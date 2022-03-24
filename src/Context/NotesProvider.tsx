@@ -8,6 +8,7 @@ import { headersObject, getJWT } from "../Utils/authorization";
 interface INotesContext {
    notes: INote[] | null;
    loading: boolean;
+   refreshNotesData: () => Promise<void>;
 }
 
 const NotesContext = React.createContext<INotesContext | null>(null);
@@ -18,9 +19,19 @@ const NotesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
    const [notes, setNotes] = useState<INote[] | null>(() => null);
    const [loading, setLoading] = useState<boolean>(() => true);
 
-   const state: INotesContext | null = {
-      notes,
-      loading,
+   const refreshNotesData = async (): Promise<void> => {
+      try {
+         setLoading(true);
+         const result = await axios.get(
+            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/notes?fields=id,title,content,locked&sort=title:asc`,
+            headersObject
+         );
+         setNotes(result.data.data);
+      } catch (err) {
+         toast.error(errorOccured, { toastId: "other-err" });
+      } finally {
+         setLoading(false);
+      }
    };
 
    useEffect(() => {
@@ -46,7 +57,13 @@ const NotesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
       }
    }, []);
 
-   console.log("notes: ", notes);
+   const state: INotesContext | null = {
+      notes,
+      loading,
+      refreshNotesData,
+   };
+
+   // console.log("notes: ", notes);
 
    return <NotesContext.Provider value={state}>{children}</NotesContext.Provider>;
 };

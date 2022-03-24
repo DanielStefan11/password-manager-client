@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../NoteModal.module.scss";
 import { INote } from "../../../Interfaces/GlobalInterfaces";
 import ReactMarkdown from "react-markdown";
+import { AiFillEdit as EditIcon } from "react-icons/ai";
+import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
+import { FaUndoAlt as UndoIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
+import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
+import { useDarkModeContext } from "../../../Context/DarkModeProvider";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { noteEditedSuccess, errorOccured } from "../../../Utils/notifications";
+import { headersObject } from "../../../Utils/authorization";
+import { useNotesContext } from "../../../Context/NotesProvider";
+import ToggleButton from "../../../Components/ToggleButton/ToggleButton";
 
 interface IProps {
    noteData: INote;
@@ -9,20 +20,140 @@ interface IProps {
    closeLockedNote: () => void;
 }
 
-const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData }): JSX.Element => {
+const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote }): JSX.Element => {
+   // state
+   const [enableEdit, setEnableEdit] = useState<boolean>(() => false);
+   const [editableTitle, setEditableTitle] = useState<string>(() => noteData.attributes.title);
+   const [editableContent, setEditableContent] = useState<string>(() => noteData.attributes.content);
+   const [editableLocked, setEditableLocked] = useState<boolean>(() => noteData.attributes.locked);
+
+   // hooks
+   const darkModeContext = useDarkModeContext();
+   const notesContext = useNotesContext();
+
+   // functions
+   const handleToggleEnableEdit = (): void => setEnableEdit(!enableEdit);
+
+   const handleTitleUpdate = (e: React.FormEvent<HTMLInputElement>): void => setEditableTitle(e.currentTarget.value);
+
+   const handleEditableContentUpdate = (e: React.FormEvent<HTMLTextAreaElement>): void => {
+      setEditableContent(e.currentTarget.value);
+   };
+
+   const handleLockedUpdate = (): void => setEditableLocked(!editableLocked);
+
+   const handleSaveEditedNote = async (): Promise<void> => {
+      const requestBody = {
+         data: {
+            title: editableTitle,
+            content: editableContent,
+            locked: editableLocked,
+         },
+      };
+
+      try {
+         await axios.put(
+            process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/notes/${noteData.id}`,
+            requestBody,
+            headersObject
+         );
+         toast.success(noteEditedSuccess, { toastId: "kh34" });
+         closeNote();
+         notesContext?.refreshNotesData();
+         // passwordsContext?.refreshData();
+      } catch (err) {
+         toast.error(errorOccured, { toastId: "err-occured" });
+      }
+   };
+
    return (
       <div className={`w-100`}>
-         <h4 className={`text-center weight-700`}>{noteData.attributes.title}</h4>
+         {enableEdit ? (
+            // Edit note content
+            <>
+               <h4 className={`text-center mb-4 weight-700`}>Edit note</h4>
 
-         <div className={styles.textSheet}>
-            <ReactMarkdown>{noteData.attributes.content}</ReactMarkdown>
-         </div>
+               {/* undo */}
+               <div className="w-100 mb-4 d-flex justify-content-end">
+                  <UndoIcon size={20} className="pointer primary-blue-text" onClick={handleToggleEnableEdit} />
+               </div>
 
-         <div className="w-100 d-flex justify-content-center align-items-center">
-            <span className="cancel-span" onClick={closeLockedNote}>
-               Close
-            </span>
-         </div>
+               {/* Title */}
+               <div className={styles.inputsWrapper}>
+                  <TitleIcon className={styles.inputIcons} />
+                  <input
+                     value={editableTitle}
+                     name="title"
+                     type="text"
+                     className={`${styles.titleInput} highlightInput ${
+                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
+                     placeholder="Insert note title"
+                     onChange={handleTitleUpdate}
+                  />
+               </div>
+
+               {/* editor */}
+               <textarea
+                  className={`${styles.contentTextarea} highlightInput ${
+                     darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                  }`}
+                  value={editableContent}
+                  onChange={handleEditableContentUpdate}
+                  placeholder="Insert note content"
+               ></textarea>
+
+               <div className="w-100 mt-4 d-flex justify-content-center">
+                  <div className="d-flex align-items-center">
+                     <OpenedLock className="me-2" size={20} color={!editableLocked ? "#33cccc" : "#3a3a3a"} />
+                     <ToggleButton checkState={editableLocked} toggle={handleLockedUpdate} />
+                     <CloseLock className="ms-2" size={20} color={editableLocked ? "#33cccc" : "#3a3a3a"} />
+                  </div>
+               </div>
+
+               {/* control buttons */}
+               <div className="w-100 mt-4 d-flex justify-content-center align-items-center">
+                  <button
+                     className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
+                     onClick={handleSaveEditedNote}
+                  >
+                     Save
+                  </button>
+
+                  <span className="cancel-span" onClick={closeLockedNote}>
+                     Cancel
+                  </span>
+               </div>
+            </>
+         ) : (
+            // View note content
+            <>
+               <h4 className={`text-center weight-700`}>{noteData.attributes.title}</h4>
+
+               <div className="w-100 d-flex justify-content-between">
+                  {noteData.attributes.locked ? (
+                     <CloseLock size={20} color="#33cccc" />
+                  ) : (
+                     <OpenedLock size={20} color="#33cccc" />
+                  )}
+
+                  <div className="d-flex align-items-center">
+                     <EditIcon className="me-3 pointer primary-blue-text" size={27} onClick={handleToggleEnableEdit} />
+                     <RemoveIcon className="pointer" size={27} color="#e62e00" />
+                  </div>
+               </div>
+
+               <div className={styles.textSheet}>
+                  <ReactMarkdown>{noteData.attributes.content}</ReactMarkdown>
+               </div>
+
+               <div className="w-100 d-flex justify-content-center align-items-center">
+                  <span className="cancel-span" onClick={closeLockedNote}>
+                     Close
+                  </span>
+               </div>
+            </>
+         )}
       </div>
    );
 };

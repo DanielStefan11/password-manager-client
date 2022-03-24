@@ -1,5 +1,6 @@
 @import "./colors";
 
+// BUTTONS
 @mixin roundedButton($width, $height) {
    width: $width;
    height: $height;
@@ -72,6 +73,7 @@
    cursor: pointer;
 }
 
+// GRADIENTS
 @mixin blueTextGradient {
    background-color: $darkBlue;
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
@@ -102,4 +104,29 @@
 
 @mixin horizontalGradient {
    background-image: linear-gradient(to right, $darkBlue, $primaryBlue, $lightGreen);
+}
+
+// SCROLLBAR
+
+@mixin vertical-scrollbar($width) {
+   &::-webkit-scrollbar {
+      width: $width;
+
+      @media screen and (max-width: 768px) {
+         display: none;
+      }
+   }
+
+   &::-webkit-scrollbar-track {
+      border-radius: 10px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: $primaryBlue;
+   }
+
+   &::-webkit-scrollbar-thumb:hover {
+      background-color: darken($color: $primaryBlue, $amount: 10%);
+   }
 }
