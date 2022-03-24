@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./NoteModal.module.scss";
 import { Modal } from "react-bootstrap";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { INote } from "../../Interfaces/GlobalInterfaces";

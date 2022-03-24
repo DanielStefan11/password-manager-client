@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./Notes.module.scss";
 import PageHeading from "../../Components/PageHeading/PageHeading";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { useNotesContext } from "../../Context/NotesProvider";
@@ -8,14 +7,14 @@ import { Row, Col } from "react-bootstrap";
 import NotePreview from "../../Components/NotePreview/NotePreview";
 import { BsPlusLg as PlusIcon } from "react-icons/bs";
 
-const Notes = () => {
+const Notes: React.FC = (): JSX.Element => {
    // hooks
    const darkModeContext = useDarkModeContext();
    const notesContext = useNotesContext();
 
    return (
       <div
-         className={`page darkModeTransition position-relative ${
+         className={`pb-5 page darkModeTransition position-relative ${
             darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
          }`}
       >

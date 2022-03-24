@@ -10,7 +10,9 @@ export const passwordDeletedSuccess: JSX.Element = (
    <span id="delete-psw-success">Password was deleted successfully</span>
 );
 
-export const noteEditedSuccess: JSX.Element = <span id="edit-psw-success">Note was edited successfully</span>;
+export const noteDeletedSuccess: JSX.Element = <span id="delete-note-success">Note was deleted successfully</span>;
+
+export const noteEditedSuccess: JSX.Element = <span id="edit-note-success">Note was edited successfully</span>;
 
 // Error messages____________________________________________
 

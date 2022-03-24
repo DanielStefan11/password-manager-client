@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import { AiFillEdit as EditIcon } from "react-icons/ai";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
 import { FaUndoAlt as UndoIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
-import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
 import { useDarkModeContext } from "../../../Context/DarkModeProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -137,10 +136,7 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
                      <OpenedLock size={20} color="#33cccc" />
                   )}
 
-                  <div className="d-flex align-items-center">
-                     <EditIcon className="me-3 pointer primary-blue-text" size={27} onClick={handleToggleEnableEdit} />
-                     <RemoveIcon className="pointer" size={27} color="#e62e00" />
-                  </div>
+                  <EditIcon className="pointer primary-blue-text" size={27} onClick={handleToggleEnableEdit} />
                </div>
 
                <div className={styles.textSheet}>
