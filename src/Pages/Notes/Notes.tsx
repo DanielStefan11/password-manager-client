@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PageHeading from "../../Components/PageHeading/PageHeading";
+import { ReactComponent as EmptyListImage } from "../../Assets/Global/not-found.svg";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { useNotesContext } from "../../Context/NotesProvider";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -37,13 +38,27 @@ const Notes: React.FC = (): JSX.Element => {
                   <h5 className="mt-4 size-26 weight-700 primary-blue-text">Loading...</h5>
                </div>
             ) : (
-               <Row xs={1} sm={2} md={2} lg={3} xxl={4} className="mt-5">
-                  {notesContext?.notes?.map(note => (
-                     <Col key={note.id}>
-                        <NotePreview noteData={note} />
-                     </Col>
-                  ))}
-               </Row>
+               <>
+                  {notesContext?.notes === [] ||
+                  notesContext?.notes === null ||
+                  notesContext?.notes === undefined ||
+                  notesContext.notes.length === 0 ? (
+                     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                        <EmptyListImage className="empty-list-image" />
+                        <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                           You have not added any notes
+                        </h2>
+                     </div>
+                  ) : (
+                     <Row xs={1} sm={2} md={2} lg={3} xxl={4} className="mt-5">
+                        {notesContext?.notes?.map(note => (
+                           <Col key={note.id}>
+                              <NotePreview noteData={note} />
+                           </Col>
+                        ))}
+                     </Row>
+                  )}
+               </>
             )}
 
             {/* add note button */}

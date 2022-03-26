@@ -106,6 +106,14 @@ input {
    height: auto;
    margin-top: 4rem;
    margin-bottom: 1.5rem;
+
+   @media screen and (max-width: 850px) {
+      max-width: 250px;
+   }
+
+   @media screen and (max-width: 500px) {
+      max-width: 200px;
+   }
 }
 
 .loadingContainer {
