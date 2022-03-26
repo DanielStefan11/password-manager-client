@@ -5,6 +5,10 @@
 @import "./containers";
 @import "./darkMode";
 
+html {
+   scroll-behavior: smooth;
+}
+
 html,
 #root,
 body,
@@ -12,6 +16,8 @@ body,
    width: 100%;
    height: 100%;
    background-color: #ffffff;
+
+   @include vertical-scrollbar(0.8rem);
 }
 
 * {
@@ -47,10 +53,10 @@ input {
 
 .inputDarkMode {
    background-color: $background_DM;
-   color: #ffffff;
+   color: #ffffff !important;
 
    &::placeholder {
-      color: #c7c3c3;
+      color: #c7c3c3 !important;
    }
 }
 
@@ -118,6 +124,41 @@ input {
 .highlightInput {
    &:focus {
       box-shadow: 0 0 0 0.25rem rgba(51, 204, 204, 0.384) !important;
+   }
+}
+
+// add button _____________________________________________________________________
+
+.addButton {
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   width: 60px;
+   height: 60px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: $primaryBlue;
+   color: #ffffff;
+   border-radius: 50%;
+   cursor: pointer;
+
+   svg {
+      font-size: 1.5rem;
+   }
+
+   @media screen and (max-width: 1024px) {
+      width: 50px;
+      height: 50px;
+
+      svg {
+         font-size: 1.3rem;
+      }
+   }
+
+   @media screen and (max-width: 700px) {
+      bottom: 90px;
+      right: 20px;
    }
 }
 
@@ -228,4 +269,8 @@ input[type="number"]::-webkit-inner-spin-button,
 .confirmModalButtonDM {
    @include gradientButtonDarkMode(100px, 40px, 48px);
    margin-right: 1rem;
+}
+
+.fade.modal.show {
+   @include vertical-scrollbar(0.8rem);
 }

@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import styles from "./Header.module.scss";
 import LogoIcon from "../../Assets/Header/logo.png";
-import UserIcon from "../../Assets/Header/user.png";
 import { useLocation } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
-import UserMenu from "../UserMenu/UserMenu";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
+import { BiLogOutCircle as LogoutIcon } from "react-icons/bi";
+import LogoutConfirmation from "../LogoutConfirmation/LogoutConfirmation";
 
 const Header: React.FC = (): JSX.Element => {
    // state
-   const [showUserMenu, setShowUserMenu] = useState<boolean>(() => false);
+   const [logoutModal, setLogoutModal] = useState<boolean>(() => false);
 
    // hooks
    const location = useLocation();
    const darkModeContext = useDarkModeContext();
 
    // functions
-   const handleToggleMenu = () => setShowUserMenu(!showUserMenu);
+   const handleLogoutModal = (): void => setLogoutModal(!logoutModal);
 
    return (
       <>
+         {/* modals */}
+         <LogoutConfirmation show={logoutModal} toggleModal={handleLogoutModal} />
+
          {location.pathname === appRoutes.authenticate || location.pathname === appRoutes.errorPage ? null : (
             <div
                className={`darkModeTransition ${styles.header} ${
@@ -47,11 +50,7 @@ const Header: React.FC = (): JSX.Element => {
                      </h2>
                   </div>
 
-                  <div className={styles.dropdownContainer}>
-                     <img src={UserIcon} alt="user" className={styles.userIcon} onClick={handleToggleMenu} />
-
-                     <UserMenu show={showUserMenu} toggle={handleToggleMenu} />
-                  </div>
+                  <LogoutIcon className={styles.logoutIcon} onClick={handleLogoutModal} />
                </div>
             </div>
          )}

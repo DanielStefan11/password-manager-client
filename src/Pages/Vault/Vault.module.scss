@@ -117,38 +117,38 @@
    flex-direction: column;
 }
 
-.addButton {
-   position: fixed;
-   bottom: 30px;
-   right: 30px;
-   width: 60px;
-   height: 60px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: $primaryBlue;
-   color: #ffffff;
-   border-radius: 50%;
-   cursor: pointer;
+// .addButton {
+//    position: fixed;
+//    bottom: 30px;
+//    right: 30px;
+//    width: 60px;
+//    height: 60px;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    background-color: $primaryBlue;
+//    color: #ffffff;
+//    border-radius: 50%;
+//    cursor: pointer;
 
-   svg {
-      font-size: 1.5rem;
-   }
+//    svg {
+//       font-size: 1.5rem;
+//    }
 
-   @media screen and (max-width: 1024px) {
-      width: 50px;
-      height: 50px;
+//    @media screen and (max-width: 1024px) {
+//       width: 50px;
+//       height: 50px;
 
-      svg {
-         font-size: 1.3rem;
-      }
-   }
+//       svg {
+//          font-size: 1.3rem;
+//       }
+//    }
 
-   @media screen and (max-width: 700px) {
-      bottom: 90px;
-      right: 20px;
-   }
-}
+//    @media screen and (max-width: 700px) {
+//       bottom: 90px;
+//       right: 20px;
+//    }
+// }
 
 .paginationSM {
    margin-bottom: 3rem;

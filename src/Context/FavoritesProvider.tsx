@@ -38,7 +38,7 @@ const FavoritesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =
    useEffect(() => {
       if (getJWT) {
          try {
-            const fetchedData = async () => {
+            const fetchedData = async (): Promise<void> => {
                const result = await axios.get(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL +
                      `/api/favorites?fields=id,title,username,email,password,siteUrl,faviconAddress,favorite&sort=title:asc`,

@@ -123,6 +123,11 @@
    }
 }
 
+.goToVaultButton {
+   @extend .loginButton;
+   max-width: 160px;
+}
+
 .darkModeControl {
    position: absolute;
    top: 2rem;
@@ -132,4 +137,18 @@
    padding: 0.5rem 1rem;
    background-color: rgba(0, 0, 0, 0.4);
    border-radius: 48px;
+}
+
+.emoji {
+   width: 100%;
+   max-width: 120px;
+   height: auto;
+
+   @media screen and (max-width: 992px) {
+      max-width: 100px;
+   }
+
+   @media screen and (max-width: 500px) {
+      max-width: 80px;
+   }
 }

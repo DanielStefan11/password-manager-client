@@ -134,7 +134,7 @@ const Vault: React.FC = (): JSX.Element => {
          )}
 
          {/* Add Password */}
-         <div className={`shadow ${styles.addButton}`} onClick={toggleAddModal}>
+         <div className={`shadow addButton`} onClick={toggleAddModal}>
             <PlusIcon />
          </div>
       </div>

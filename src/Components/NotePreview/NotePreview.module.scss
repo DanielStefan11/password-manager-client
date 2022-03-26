@@ -1,0 +1,77 @@
+@import "../../StylesTemplate/mixins";
+
+.notePreview {
+   position: relative;
+   width: 100%;
+   max-width: 300px;
+   height: 300px;
+   display: flex;
+   flex-direction: column;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   margin-bottom: 1.5rem;
+   border-radius: 8px;
+
+   &:hover {
+      svg {
+         transition: all 0.2s ease-in-out;
+         transform: scale(1.5);
+      }
+   }
+
+   @media screen and (max-width: 991px) {
+      max-width: 100%;
+   }
+}
+
+.viewIcon {
+   position: absolute;
+   top: 20px;
+   left: 20px;
+   cursor: pointer;
+}
+
+.deleteIcon {
+   position: absolute;
+   top: 20px;
+   right: 20px;
+   cursor: pointer;
+}
+
+.cardCover {
+   width: 100%;
+   height: 70%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.titleCover {
+   width: 100%;
+   height: 30%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 1rem;
+}
+
+.lightLockedCover {
+   background-color: #e8effc;
+
+   svg {
+      transition: all 0.2s ease-in-out;
+   }
+}
+
+.lightPenCover {
+   background-color: #fff2e6;
+
+   svg {
+      transition: all 0.2s ease-in-out;
+   }
+}
+
+.darkModeCover {
+   background-color: $lighter_dark_element;
+   border-bottom-left-radius: 8px;
+   border-bottom-right-radius: 8px;
+}

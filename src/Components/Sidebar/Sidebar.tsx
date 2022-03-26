@@ -5,6 +5,7 @@ import { appRoutes } from "../../Utils/appRoutes";
 import { BsShieldLockFill as VaultIcon } from "react-icons/bs";
 import { AiFillStar as FavoritesIcon, AiFillSetting as SettingsIcon } from "react-icons/ai";
 import { RiLockPasswordFill as GenerateIcon } from "react-icons/ri";
+import { FaStickyNote as NotesIcon } from "react-icons/fa";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 
 const Sidebar: React.FC = (): JSX.Element => {
@@ -21,6 +22,7 @@ const Sidebar: React.FC = (): JSX.Element => {
                }`}
             >
                <div className={styles.linksWrapper}>
+                  {/* vault */}
                   <NavLink
                      to={appRoutes.vault}
                      className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}
@@ -29,6 +31,7 @@ const Sidebar: React.FC = (): JSX.Element => {
                      <span className={styles.linkSpan}>Vault</span>
                   </NavLink>
 
+                  {/* favorites */}
                   <NavLink
                      to={appRoutes.favorites}
                      className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}
@@ -37,6 +40,16 @@ const Sidebar: React.FC = (): JSX.Element => {
                      <span className={styles.linkSpan}>Favorites</span>
                   </NavLink>
 
+                  {/* notes */}
+                  <NavLink
+                     to={appRoutes.notes}
+                     className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}
+                  >
+                     <NotesIcon />
+                     <span className={styles.linkSpan}>Notes</span>
+                  </NavLink>
+
+                  {/* generator */}
                   <NavLink
                      to={appRoutes.passwordGenerator}
                      className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}
@@ -45,6 +58,7 @@ const Sidebar: React.FC = (): JSX.Element => {
                      <span className={styles.linkSpan}>Generator</span>
                   </NavLink>
 
+                  {/* settings */}
                   <NavLink
                      to={appRoutes.settings}
                      className={navData => (navData.isActive ? styles.activeLink : styles.linkItem)}

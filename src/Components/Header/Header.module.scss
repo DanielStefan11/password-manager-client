@@ -1,4 +1,5 @@
 @import "../../StylesTemplate/mixins";
+@import "../../StylesTemplate/colors";
 
 .header {
    position: fixed;
@@ -78,22 +79,12 @@
    }
 }
 
-.dropdownContainer {
-   position: relative;
-   width: 100%;
-   max-width: 320px;
-   display: flex;
-   align-items: center;
-   justify-content: flex-end;
-}
-
-.userIcon {
-   width: 100%;
-   max-width: 50px;
-   height: auto;
+.logoutIcon {
+   font-size: 3rem;
+   color: $primaryBlue;
    cursor: pointer;
 
    @media screen and (max-width: 1024px) {
-      max-width: 40px;
+      font-size: 2.5rem;
    }
 }

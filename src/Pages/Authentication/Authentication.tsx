@@ -11,6 +11,8 @@ import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import ToggleButton from "../../Components/ToggleButton/ToggleButton";
 import { BsFillMoonFill as MoonIcon, BsFillSunFill as SunIcon } from "react-icons/bs";
 import PulseLoader from "react-spinners/PulseLoader";
+import { getJWT } from "../../Utils/authorization";
+import EmojiIcon from "../../Assets/Login/emoji-smile.png";
 
 const Authentication: React.FC = (): JSX.Element => {
    // state
@@ -54,7 +56,7 @@ const Authentication: React.FC = (): JSX.Element => {
          } else {
             let response = await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/auth/local", reqObj);
             if (response.status === 200) {
-               sessionStorage.setItem("jwt", response.data.jwt);
+               localStorage.setItem("jwt", response.data.jwt);
                navigate(appRoutes.vault);
                window.location.reload();
             }
@@ -81,47 +83,67 @@ const Authentication: React.FC = (): JSX.Element => {
 
          {/* Login box */}
          <div className={`${styles.loginBox} ${darkModeContext?.darkMode ? styles.boxDarkMode : styles.boxLightMode}`}>
-            <h2
-               className={`size-64 weight-900 ${styles.heading} ${
-                  darkModeContext?.darkMode ? styles.headingDarkMode : styles.headingLightMode
-               }`}
-            >
-               Login
-            </h2>
-
-            <form className={styles.formContent} onSubmit={handleLogin}>
-               <div className={styles.inputContainer}>
-                  <UserIcon className={styles.inputIcons} />
-                  <input
-                     ref={emailRef}
-                     type="email"
-                     className={`${styles.authInput} highlightInput ${
-                        darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+            {!getJWT ? (
+               <>
+                  <h2
+                     className={`size-64 weight-900 ${styles.heading} ${
+                        darkModeContext?.darkMode ? styles.headingDarkMode : styles.headingLightMode
                      }`}
-                     placeholder="Email or username"
-                  ></input>
-               </div>
+                  >
+                     Login
+                  </h2>
 
-               <div className={styles.inputContainer}>
-                  {hidePassword ? (
-                     <CloseLock className={`${styles.inputIcons} pointer`} onClick={handleToggleHidePassword} />
-                  ) : (
-                     <OpenedLock className={`${styles.inputIcons} pointer`} onClick={handleToggleHidePassword} />
-                  )}
-                  <input
-                     ref={passwordRef}
-                     type={hidePassword ? "password" : "text"}
-                     className={`${styles.authInput} highlightInput ${
-                        darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+                  <form className={styles.formContent} onSubmit={handleLogin}>
+                     <div className={styles.inputContainer}>
+                        <UserIcon className={styles.inputIcons} />
+                        <input
+                           ref={emailRef}
+                           type="email"
+                           className={`${styles.authInput} highlightInput ${
+                              darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+                           }`}
+                           placeholder="Email or username"
+                        ></input>
+                     </div>
+
+                     <div className={styles.inputContainer}>
+                        {hidePassword ? (
+                           <CloseLock className={`${styles.inputIcons} pointer`} onClick={handleToggleHidePassword} />
+                        ) : (
+                           <OpenedLock className={`${styles.inputIcons} pointer`} onClick={handleToggleHidePassword} />
+                        )}
+                        <input
+                           ref={passwordRef}
+                           type={hidePassword ? "password" : "text"}
+                           className={`${styles.authInput} highlightInput ${
+                              darkModeContext?.darkMode ? styles.inputDarkMode : styles.inputLightMode
+                           }`}
+                           placeholder="Password"
+                        ></input>
+                     </div>
+
+                     <button className={styles.loginButton} onClick={handleLogin}>
+                        {loading ? <PulseLoader color="#ffffff" size={12} /> : "Log In"}
+                     </button>
+                  </form>
+               </>
+            ) : (
+               <>
+                  <img src={EmojiIcon} alt="smile emoji" className={styles.emoji} />
+
+                  <h2
+                     className={`size-64 weight-900 text-center ${styles.heading} ${
+                        darkModeContext?.darkMode ? styles.headingDarkMode : styles.headingLightMode
                      }`}
-                     placeholder="Password"
-                  ></input>
-               </div>
+                  >
+                     Welcome back!
+                  </h2>
 
-               <button className={styles.loginButton} onClick={handleLogin}>
-                  {loading ? <PulseLoader color="#ffffff" size={12} /> : "Log In"}
-               </button>
-            </form>
+                  <button className={styles.goToVaultButton} onClick={() => navigate(appRoutes.vault)}>
+                     Go to Vault
+                  </button>
+               </>
+            )}
          </div>
       </div>
    );
