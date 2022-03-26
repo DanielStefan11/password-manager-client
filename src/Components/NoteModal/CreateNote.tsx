@@ -77,7 +77,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
       <Modal centered show={show} onHide={toggleModal}>
          <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
             <>
-               <h4 className={`text-center mb-4 weight-700`}>Create note</h4>
+               <h4 className={`text-center mb-4 weight-400 size-30 primary-blue-text`}>Create note</h4>
 
                {/* Title */}
                <div className={styles.inputsWrapper}>
