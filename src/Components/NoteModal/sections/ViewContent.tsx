@@ -102,6 +102,7 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
                   placeholder="Insert note content"
                ></textarea>
 
+               {/* lock */}
                <div className="w-100 mt-4 d-flex justify-content-center">
                   <div className="d-flex align-items-center">
                      <OpenedLock className="me-2" size={20} color={!editableLocked ? "#33cccc" : "#3a3a3a"} />

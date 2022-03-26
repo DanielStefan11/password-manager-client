@@ -4,12 +4,12 @@ import { Modal } from "react-bootstrap";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { noteEditedSuccess, errorOccured } from "../../Utils/notifications";
+import { errorOccured, errorCreateNote, noteCreatedSuccess } from "../../Utils/notifications";
 import { headersObject } from "../../Utils/authorization";
 import { useNotesContext } from "../../Context/NotesProvider";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
-import { FaUndoAlt as UndoIcon, FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
+import { FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 
 interface IProps {
    show: boolean;
@@ -24,6 +24,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
 
    // hooks
    const darkModeContext = useDarkModeContext();
+   const notesContext = useNotesContext();
 
    // functions
    const handleTitleUpdate = (e: React.FormEvent<HTMLInputElement>): void => setTitle(e.currentTarget.value);
@@ -31,6 +32,36 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
    const handleContentUpdate = (e: React.FormEvent<HTMLTextAreaElement>): void => setContent(e.currentTarget.value);
 
    const handleLockedUpdate = (): void => setLocked(!locked);
+
+   const resetValues = (): void => {
+      setTitle("");
+      setContent("");
+      setLocked(false);
+   };
+
+   const handleCreateNote = async (): Promise<void> => {
+      const requestBody = {
+         data: {
+            title,
+            content,
+            locked,
+         },
+      };
+
+      try {
+         if (title === "" || content === "") {
+            toast.error(errorCreateNote, { toastId: "feuh5" });
+         } else {
+            await axios.post(process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/notes", requestBody, headersObject);
+            toast.success(noteCreatedSuccess, { toastId: "hjh5bh" });
+            toggleModal();
+            resetValues();
+            notesContext?.refreshNotesData();
+         }
+      } catch (err) {
+         toast.error(errorOccured, { toastId: "09uo" });
+      }
+   };
 
    return (
       <Modal centered show={show} onHide={toggleModal}>
@@ -63,6 +94,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
                   placeholder="Insert note content"
                ></textarea>
 
+               {/* lock */}
                <div className="w-100 mt-4 d-flex justify-content-center">
                   <div className="d-flex align-items-center">
                      <OpenedLock className="me-2" size={20} color={!locked ? "#33cccc" : "#3a3a3a"} />
@@ -73,11 +105,16 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
 
                {/* control buttons */}
                <div className="w-100 mt-4 d-flex justify-content-center align-items-center">
-                  <button className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}>
+                  <button
+                     className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
+                     onClick={handleCreateNote}
+                  >
                      Create
                   </button>
 
-                  <span className="cancel-span">Cancel</span>
+                  <span className="cancel-span" onClick={toggleModal}>
+                     Cancel
+                  </span>
                </div>
             </>
          </Modal.Body>

@@ -14,6 +14,8 @@ export const noteDeletedSuccess: JSX.Element = <span id="delete-note-success">No
 
 export const noteEditedSuccess: JSX.Element = <span id="edit-note-success">Note was edited successfully</span>;
 
+export const noteCreatedSuccess: JSX.Element = <span id="create-note-success">Note was created successfully</span>;
+
 // Error messages____________________________________________
 
 export const emptyInputsError: JSX.Element = <span id="empty-inputs-error">Some fields are empty</span>;
@@ -29,3 +31,5 @@ export const passwordNotValid: JSX.Element = (
 export const errorOccured: JSX.Element = <span id="error-occured">An error occured</span>;
 
 export const errorFetchFavicon: JSX.Element = <span id="error-fetch-favicon">You did not specify a URL</span>;
+
+export const errorCreateNote: JSX.Element = <span id="error-create-note">Title or content field is empty</span>;
