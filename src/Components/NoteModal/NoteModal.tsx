@@ -24,7 +24,7 @@ const NoteModal: React.FC<IProps> = ({ show, toggleModal, noteData }): JSX.Eleme
    const handleUnlockNote = (e: React.FormEvent): void => {
       e.preventDefault();
 
-      if (secureCodeInput === "123") {
+      if (secureCodeInput === process.env.REACT_APP_NOTE_LOCK_CODE) {
          setUnlockNote(true);
       } else {
          toast.error("Code is incorrect", { toastId: "98r9uf" });

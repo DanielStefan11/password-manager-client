@@ -12,6 +12,7 @@ import { noteEditedSuccess, errorOccured } from "../../../Utils/notifications";
 import { headersObject } from "../../../Utils/authorization";
 import { useNotesContext } from "../../../Context/NotesProvider";
 import ToggleButton from "../../../Components/ToggleButton/ToggleButton";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface IProps {
    noteData: INote;
@@ -25,6 +26,7 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
    const [editableTitle, setEditableTitle] = useState<string>(() => noteData.attributes.title);
    const [editableContent, setEditableContent] = useState<string>(() => noteData.attributes.content);
    const [editableLocked, setEditableLocked] = useState<boolean>(() => noteData.attributes.locked);
+   const [loading, setLoading] = useState<boolean>(() => false);
 
    // hooks
    const darkModeContext = useDarkModeContext();
@@ -51,6 +53,7 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
       };
 
       try {
+         setLoading(true);
          await axios.put(
             process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/notes/${noteData.id}`,
             requestBody,
@@ -62,6 +65,8 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
          // passwordsContext?.refreshData();
       } catch (err) {
          toast.error(errorOccured, { toastId: "err-occured" });
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -105,9 +110,9 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
                {/* lock */}
                <div className="w-100 mt-4 d-flex justify-content-center">
                   <div className="d-flex align-items-center">
-                     <OpenedLock className="me-2" size={20} color={!editableLocked ? "#33cccc" : "#3a3a3a"} />
+                     <OpenedLock className="me-2" size={20} color={!editableLocked ? "#33cccc" : "#a9a9a9"} />
                      <ToggleButton checkState={editableLocked} toggle={handleLockedUpdate} />
-                     <CloseLock className="ms-2" size={20} color={editableLocked ? "#33cccc" : "#3a3a3a"} />
+                     <CloseLock className="ms-2" size={20} color={editableLocked ? "#33cccc" : "#a9a9a9"} />
                   </div>
                </div>
 
@@ -117,7 +122,7 @@ const ViewContent: React.FC<IProps> = ({ closeLockedNote, noteData, closeNote })
                      className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                      onClick={handleSaveEditedNote}
                   >
-                     Save
+                     {loading ? <PulseLoader color="#ffffff" size={12} /> : "Save"}
                   </button>
 
                   <span className="cancel-span" onClick={closeLockedNote}>

@@ -19,6 +19,7 @@ import { Password } from "../../Interfaces/GlobalInterfaces";
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { headersObject } from "../../Utils/authorization";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface Props {
    show: boolean;
@@ -40,6 +41,7 @@ const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 const length = 10;
 
 const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem }): JSX.Element => {
+   // initial values
    const initialValues: InputValues = {
       title: "",
       url: "",
@@ -61,6 +63,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const [activeFavicon, setActiveFavicon] = useState<string | undefined>(() =>
       edit ? passwordItem?.attributes.faviconAddress : ""
    );
+   const [loading, setLoading] = useState<boolean>(() => false);
 
    // other hooks
    const passwordsContext = usePasswordsContext();
@@ -159,6 +162,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
       };
 
       try {
+         setLoading(true);
          if (
             values.title === "" &&
             values.url === "" &&
@@ -193,6 +197,8 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
          }
       } catch (err) {
          toast.error(errorOccured, { toastId: "err-occured" });
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -319,7 +325,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                   onClick={handleSubmitPassword}
                >
-                  {edit ? "Save" : "Add"}
+                  {loading ? <PulseLoader color="#ffffff" size={12} /> : edit ? "Save" : "Add"}
                </button>
 
                <span className="cancel-span" onClick={handleCancel}>

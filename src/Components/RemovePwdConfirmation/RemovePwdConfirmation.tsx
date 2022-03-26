@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Password } from "../../Interfaces/GlobalInterfaces";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { errorOccured, passwordDeletedSuccess } from "../../Utils/notifications"
 import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { getJWT } from "../../Utils/authorization";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface Props {
    show: boolean;
@@ -15,6 +16,9 @@ interface Props {
 }
 
 const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordItem }): JSX.Element => {
+   // state
+   const [loading, setLoading] = useState<boolean>(() => false);
+
    // hooks
    const passwordsContext = usePasswordsContext();
    const darkModeContext = useDarkModeContext();
@@ -29,6 +33,7 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
       };
 
       try {
+         setLoading(true);
          await axios.delete(
             process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/passwords/${passwordItem?.id}`,
             requestBody
@@ -39,6 +44,8 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
       } catch (err) {
          toast.error(errorOccured, { toastId: "err-occured" });
          toggleModal();
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -56,7 +63,7 @@ const RemovePwdConfirmation: React.FC<Props> = ({ show, toggleModal, passwordIte
                   className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                   onClick={handleDeletePassword}
                >
-                  Delete
+                  {loading ? <PulseLoader color="#ffffff" size={12} /> : "Delete"}
                </button>
 
                <span className="cancel-span" onClick={toggleModal}>

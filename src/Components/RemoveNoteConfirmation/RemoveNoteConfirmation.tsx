@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { getJWT } from "../../Utils/authorization";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { useNotesContext } from "../../Context/NotesProvider";
 import { INote } from "../../Interfaces/GlobalInterfaces";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface Props {
    show: boolean;
@@ -15,6 +16,9 @@ interface Props {
 }
 
 const RemoveNoteConfirmation: React.FC<Props> = ({ show, toggleModal, noteItem }): JSX.Element => {
+   // state
+   const [loading, setLoading] = useState<boolean>(() => false);
+
    // hooks
    const darkModeContext = useDarkModeContext();
    const notesContext = useNotesContext();
@@ -29,6 +33,7 @@ const RemoveNoteConfirmation: React.FC<Props> = ({ show, toggleModal, noteItem }
       };
 
       try {
+         setLoading(true);
          await axios.delete(process.env.REACT_APP_PASSWORD_MANAGER_URL + `/api/notes/${noteItem?.id}`, requestBody);
          toggleModal();
          toast.success(noteDeletedSuccess, { toastId: "irp6d" });
@@ -36,6 +41,8 @@ const RemoveNoteConfirmation: React.FC<Props> = ({ show, toggleModal, noteItem }
       } catch (err) {
          toast.error(errorOccured, { toastId: "pfro9" });
          toggleModal();
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -53,7 +60,7 @@ const RemoveNoteConfirmation: React.FC<Props> = ({ show, toggleModal, noteItem }
                   className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                   onClick={handleDeleteNote}
                >
-                  Delete
+                  {loading ? <PulseLoader color="#ffffff" size={12} /> : "Delete"}
                </button>
 
                <span className="cancel-span" onClick={toggleModal}>

@@ -10,6 +10,7 @@ import { useNotesContext } from "../../Context/NotesProvider";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
 import { FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface IProps {
    show: boolean;
@@ -21,6 +22,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
    const [title, setTitle] = useState<string>(() => "");
    const [content, setContent] = useState<string>(() => "");
    const [locked, setLocked] = useState<boolean>(() => false);
+   const [loading, setLoading] = useState<boolean>(() => false);
 
    // hooks
    const darkModeContext = useDarkModeContext();
@@ -49,6 +51,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
       };
 
       try {
+         setLoading(true);
          if (title === "" || content === "") {
             toast.error(errorCreateNote, { toastId: "feuh5" });
          } else {
@@ -60,7 +63,14 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
          }
       } catch (err) {
          toast.error(errorOccured, { toastId: "09uo" });
+      } finally {
+         setLoading(false);
       }
+   };
+
+   const closeModal = (): void => {
+      toggleModal();
+      resetValues();
    };
 
    return (
@@ -97,9 +107,9 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
                {/* lock */}
                <div className="w-100 mt-4 d-flex justify-content-center">
                   <div className="d-flex align-items-center">
-                     <OpenedLock className="me-2" size={20} color={!locked ? "#33cccc" : "#3a3a3a"} />
+                     <OpenedLock className="me-2" size={20} color={!locked ? "#33cccc" : "#a9a9a9"} />
                      <ToggleButton checkState={locked} toggle={handleLockedUpdate} />
-                     <CloseLock className="ms-2" size={20} color={locked ? "#33cccc" : "#3a3a3a"} />
+                     <CloseLock className="ms-2" size={20} color={locked ? "#33cccc" : "#a9a9a9"} />
                   </div>
                </div>
 
@@ -109,10 +119,10 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
                      className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                      onClick={handleCreateNote}
                   >
-                     Create
+                     {loading ? <PulseLoader color="#ffffff" size={12} /> : "Create"}
                   </button>
 
-                  <span className="cancel-span" onClick={toggleModal}>
+                  <span className="cancel-span" onClick={closeModal}>
                      Cancel
                   </span>
                </div>

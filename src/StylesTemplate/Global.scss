@@ -5,6 +5,10 @@
 @import "./containers";
 @import "./darkMode";
 
+html {
+   scroll-behavior: smooth;
+}
+
 html,
 #root,
 body,
