@@ -123,6 +123,11 @@
    }
 }
 
+.goToVaultButton {
+   @extend .loginButton;
+   max-width: 160px;
+}
+
 .darkModeControl {
    position: absolute;
    top: 2rem;

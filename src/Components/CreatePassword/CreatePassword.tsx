@@ -205,7 +205,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    return (
       <Modal centered show={show} onHide={toggleModal}>
          <Modal.Body className={`${darkModeContext?.darkMode ? "elementBgDarkMode" : "modalLightMode"}`}>
-            <h2 className={`text-center weight-400 size-30 primary-blue-text`}>{edit ? "Edit" : "Add"} Password</h2>
+            <h2 className={`text-center weight-400 size-30 primary-blue-text`}>{edit ? "Edit" : "Create"} Password</h2>
 
             <div className={styles.inputsContainer}>
                {/* Title */}
@@ -325,7 +325,7 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
                   className={`${darkModeContext?.darkMode ? "confirmModalButtonDM" : "confirmModalButton"}`}
                   onClick={handleSubmitPassword}
                >
-                  {loading ? <PulseLoader color="#ffffff" size={12} /> : edit ? "Save" : "Add"}
+                  {loading ? <PulseLoader color="#ffffff" size={12} /> : edit ? "Save" : "Create"}
                </button>
 
                <span className="cancel-span" onClick={handleCancel}>

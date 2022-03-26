@@ -139,7 +139,7 @@ const Authentication: React.FC = (): JSX.Element => {
                      Welcome back!
                   </h2>
 
-                  <button className={styles.loginButton} onClick={() => navigate(appRoutes.vault)}>
+                  <button className={styles.goToVaultButton} onClick={() => navigate(appRoutes.vault)}>
                      Go to Vault
                   </button>
                </>
