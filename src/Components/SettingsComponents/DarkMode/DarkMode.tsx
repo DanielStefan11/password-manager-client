@@ -10,8 +10,8 @@ const DarkMode: React.FC = (): JSX.Element => {
 
    return (
       <div
-         className={`shadow darkModeTransition ${styles.box} ${
-            darkModeContext?.darkMode ? "elementBgDarkMode" : styles.boxLightMode
+         className={`shadow darkModeTransition settingsCard ${
+            darkModeContext?.darkMode ? "elementBgDarkMode" : "settingsCardLightMode"
          }`}
       >
          <h4 className="text-center mb-4 size-20 weight-700">System Theme</h4>
