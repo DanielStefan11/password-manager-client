@@ -20,6 +20,7 @@ import { usePasswordsContext } from "../../Context/PasswordsProvider";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { headersObject } from "../../Utils/authorization";
 import PulseLoader from "react-spinners/PulseLoader";
+import { capitalizeFirstLetter } from "../../Utils/capitalizeFirstLetter";
 
 interface Props {
    show: boolean;
@@ -70,15 +71,6 @@ const CreatePassword: React.FC<Props> = ({ show, toggleModal, edit, passwordItem
    const darkModeContext = useDarkModeContext();
 
    // functions
-   const capitalizeFirstLetter = (word: string): string | undefined => {
-      if (word !== "" || word !== undefined) {
-         const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1);
-         return capitalizedWord;
-      } else {
-         return;
-      }
-   };
-
    const handleToggleHidePassword = (): void => setHidePassword(!hidePassword);
 
    const handleInputChange = (e: React.FormEvent): void => {

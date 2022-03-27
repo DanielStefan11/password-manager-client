@@ -11,6 +11,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
 import { FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 import PulseLoader from "react-spinners/PulseLoader";
+import { capitalizeFirstLetter } from "../../Utils/capitalizeFirstLetter";
 
 interface IProps {
    show: boolean;
@@ -19,7 +20,7 @@ interface IProps {
 
 const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
    // state
-   const [title, setTitle] = useState<string>(() => "");
+   const [title, setTitle] = useState<string | undefined>(() => "");
    const [content, setContent] = useState<string>(() => "");
    const [locked, setLocked] = useState<boolean>(() => false);
    const [loading, setLoading] = useState<boolean>(() => false);
@@ -29,7 +30,9 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
    const notesContext = useNotesContext();
 
    // functions
-   const handleTitleUpdate = (e: React.FormEvent<HTMLInputElement>): void => setTitle(e.currentTarget.value);
+   const handleTitleUpdate = (e: React.FormEvent<HTMLInputElement>): void => {
+      setTitle(capitalizeFirstLetter(e.currentTarget.value));
+   };
 
    const handleContentUpdate = (e: React.FormEvent<HTMLTextAreaElement>): void => setContent(e.currentTarget.value);
 
