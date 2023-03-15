@@ -52,9 +52,8 @@ const Vault: React.FC = (): JSX.Element => {
 
    return (
       <div
-         className={`page darkModeTransition ${styles.vaultPage} ${
-            darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
-         }`}
+         className={`page darkModeTransition ${styles.vaultPage} ${darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
+            }`}
       >
          <CreatePassword show={showAddModal} toggleModal={toggleAddModal} />
 
@@ -68,9 +67,8 @@ const Vault: React.FC = (): JSX.Element => {
                   ref={searchRef}
                   type="text"
                   value={search}
-                  className={`shadow highlightInput ${styles.search} ${
-                     darkModeContext?.darkMode ? "elementBgDarkMode" : styles.searchBackground
-                  }`}
+                  className={`shadow highlightInput ${styles.search} ${darkModeContext?.darkMode ? "elementBgDarkMode" : styles.searchBackground
+                     }`}
                   placeholder="Search..."
                   onChange={e => handleSearch(e)}
                />
@@ -99,37 +97,37 @@ const Vault: React.FC = (): JSX.Element => {
             </div>
          ) : (
             <div className={styles.list}>
-               {filteredPasswords === [] ||
-               filteredPasswords === null ||
-               filteredPasswords === undefined ||
-               filteredPasswords.length === 0 ? (
-                  <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                     <EmptyListImage className="empty-list-image" />
-                     <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
-                        You have not added any passwords
-                     </h2>
-                  </div>
-               ) : (
-                  <>
-                     {/* Top Pagination */}
-                     {!passwordsContext?.enableSorting && (
-                        <div className={styles.paginationSM}>
-                           <Pagination />
-                        </div>
-                     )}
+               {
+                  filteredPasswords === null ||
+                     filteredPasswords === undefined ||
+                     filteredPasswords.length === 0 ? (
+                     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                        <EmptyListImage className="empty-list-image" />
+                        <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                           You have not added any passwords
+                        </h2>
+                     </div>
+                  ) : (
+                     <>
+                        {/* Top Pagination */}
+                        {!passwordsContext?.enableSorting && (
+                           <div className={styles.paginationSM}>
+                              <Pagination />
+                           </div>
+                        )}
 
-                     {filteredPasswords.map(password => (
-                        <PasswordItem key={password.id} password={password} />
-                     ))}
+                        {filteredPasswords.map(password => (
+                           <PasswordItem key={password.id} password={password} />
+                        ))}
 
-                     {/* Bottom Pagination */}
-                     {!passwordsContext?.enableSorting && (
-                        <div className={styles.paginationLG}>
-                           <Pagination />
-                        </div>
-                     )}
-                  </>
-               )}
+                        {/* Bottom Pagination */}
+                        {!passwordsContext?.enableSorting && (
+                           <div className={styles.paginationLG}>
+                              <Pagination />
+                           </div>
+                        )}
+                     </>
+                  )}
             </div>
          )}
 

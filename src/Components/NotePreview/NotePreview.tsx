@@ -56,9 +56,10 @@ const NotePreview: React.FC<INoteData> = ({ noteData }): JSX.Element => {
                )}
             </div>
             <div className={`${styles.titleCover} ${darkModeContext?.darkMode && styles.darkModeCover}`}>
-               <Dotdotdot clamp={2}>
+               {/* <Dotdotdot clamp={2}>
                   <h4 className={`weight-700 primary-blue-text`}>{noteData.attributes.title}</h4>
-               </Dotdotdot>
+               </Dotdotdot> */}
+               <h4 className={`weight-700 primary-blue-text`}>{noteData.attributes.title}</h4>
             </div>
          </div>
       </>

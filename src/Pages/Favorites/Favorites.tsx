@@ -14,9 +14,8 @@ const Favorites: React.FC = (): JSX.Element => {
 
    return (
       <div
-         className={`page darkModeTransition ${styles.favorites} ${
-            darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
-         }`}
+         className={`page darkModeTransition ${styles.favorites} ${darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
+            }`}
       >
          <PageHeading />
 
@@ -27,19 +26,19 @@ const Favorites: React.FC = (): JSX.Element => {
             </div>
          ) : (
             <div className={styles.list}>
-               {favoritesContext?.favorites === [] ||
-               favoritesContext?.favorites === null ||
-               favoritesContext?.favorites === undefined ||
-               favoritesContext?.favorites.length === 0 ? (
-                  <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                     <EmptyListImage className="empty-list-image" />
-                     <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
-                        You have not added any favorite passwords
-                     </h2>
-                  </div>
-               ) : (
-                  favoritesContext?.favorites.map(password => <PasswordItem key={password.id} password={password} />)
-               )}
+               {
+                  favoritesContext?.favorites === null ||
+                     favoritesContext?.favorites === undefined ||
+                     favoritesContext?.favorites.length === 0 ? (
+                     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                        <EmptyListImage className="empty-list-image" />
+                        <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                           You have not added any favorite passwords
+                        </h2>
+                     </div>
+                  ) : (
+                     favoritesContext?.favorites.map(password => <PasswordItem key={password.id} password={password} />)
+                  )}
             </div>
          )}
       </div>

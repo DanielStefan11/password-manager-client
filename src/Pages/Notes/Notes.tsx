@@ -26,9 +26,8 @@ const Notes: React.FC = (): JSX.Element => {
          <CreateNote show={createNoteModal} toggleModal={handleToggleCreateNote} />
 
          <div
-            className={`pb-5 page darkModeTransition position-relative ${
-               darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
-            }`}
+            className={`pb-5 page darkModeTransition position-relative ${darkModeContext?.darkMode ? "backgroundDarkMode" : "pageLightMode"
+               }`}
          >
             <PageHeading />
 
@@ -39,25 +38,25 @@ const Notes: React.FC = (): JSX.Element => {
                </div>
             ) : (
                <>
-                  {notesContext?.notes === [] ||
-                  notesContext?.notes === null ||
-                  notesContext?.notes === undefined ||
-                  notesContext.notes.length === 0 ? (
-                     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                        <EmptyListImage className="empty-list-image" />
-                        <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
-                           You have not added any notes
-                        </h2>
-                     </div>
-                  ) : (
-                     <Row xs={1} sm={2} md={2} lg={3} xxl={4} className="mt-5">
-                        {notesContext?.notes?.map(note => (
-                           <Col key={note.id}>
-                              <NotePreview noteData={note} />
-                           </Col>
-                        ))}
-                     </Row>
-                  )}
+                  {
+                     notesContext?.notes === null ||
+                        notesContext?.notes === undefined ||
+                        notesContext.notes.length === 0 ? (
+                        <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                           <EmptyListImage className="empty-list-image" />
+                           <h2 className={`text-center ${darkModeContext?.darkMode && "text-white"}`}>
+                              You have not added any notes
+                           </h2>
+                        </div>
+                     ) : (
+                        <Row xs={1} sm={2} md={2} lg={3} xxl={4} className="mt-5">
+                           {notesContext?.notes?.map(note => (
+                              <Col key={note.id}>
+                                 <NotePreview noteData={note} />
+                              </Col>
+                           ))}
+                        </Row>
+                     )}
                </>
             )}
 
