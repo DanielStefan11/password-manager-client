@@ -1,12 +1,14 @@
 @import "../../../StylesTemplate/colors";
 
-.imageContainer {
-   width: 90px;
-   height: 90px;
-   background-image: url("../../../Assets/Settings/user-1.jpg");
-   background-position: center;
-   background-size: cover;
-   background-repeat: no-repeat;
-   border-radius: 50%;
-   border: 5px solid $primaryBlue;
+.userIcon {
+   width: 100%;
+   max-width: 50px;
+   height: auto;
+   margin-bottom: 1rem;
+}
+
+.infoContainer {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
 }

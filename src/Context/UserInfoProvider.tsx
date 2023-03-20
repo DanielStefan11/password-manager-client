@@ -5,14 +5,8 @@ import { toast } from "react-toastify";
 import { headersObject, getJWT } from "../Utils/authorization";
 
 interface UserInfo {
-   id: number;
    username: string;
    email: string;
-   provider: string;
-   confirmed: boolean;
-   blocked: boolean;
-   createdAt: string;
-   updatedAt: string;
 }
 
 const UserInfoContext = React.createContext<UserInfo | null>(null);
@@ -27,10 +21,11 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
          if (getJWT) {
             const fetchedData = async () => {
                const result = await axios.get(
-                  process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/users/1",
+                  process.env.REACT_APP_PASSWORD_MANAGER_URL + "/api/users/me",
                   headersObject
                );
-               setUserInfo(result.data);
+               setUserInfo({ username: result?.data?.username, email: result?.data?.email });
+               console.log(result.data);
             };
 
             fetchedData();

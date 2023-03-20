@@ -1,5 +1,15 @@
 # Password Manager
 
-### Technologies:
+#### Deploy link: https://shield-pwd-mng.netlify.app/
 
--  React.js + Typescript
+### Main Technologies:
+
+-  React.js;
+- Typescript;
+- Strapi (for backend)
+
+### Styling:
+
+- CSS Modules;
+- React Bootstrap;
+- SASS

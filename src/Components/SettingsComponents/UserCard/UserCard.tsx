@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./UserCard.module.scss";
 import { useDarkModeContext } from "../../../Context/DarkModeProvider";
 import { useUserInfoContext } from "../../../Context/UserInfoProvider";
+import UserIcon from "../../../Assets/Settings/user.png";
 
 const UserCard: React.FC = (): JSX.Element => {
    // hooks
@@ -10,12 +11,14 @@ const UserCard: React.FC = (): JSX.Element => {
 
    return (
       <div
-         className={`shadow darkModeTransition settingsCard ${
-            darkModeContext?.darkMode ? "elementBgDarkMode" : "settingsCardLightMode"
-         }`}
+         className={`shadow darkModeTransition settingsCard ${darkModeContext?.darkMode ? "elementBgDarkMode" : "settingsCardLightMode"
+            }`}
       >
-         <div className={styles.imageContainer}></div>
-         <h4 className="text-center mt-3 size-26 weight-700 primary-blue-text">{userContext?.username}</h4>
+         <img src={UserIcon} alt="user" className={styles.userIcon} />
+         <div className={styles.infoContainer}>
+            <h6 className="size-16 weight-700 primary-blue-text">Username: <span className="ms-1 weight-400">{userContext?.username}</span></h6>
+            <h6 className="size-16 weight-700 primary-blue-text">Email: <span className="ms-1 weight-400">{userContext?.email}</span></h6>
+         </div>
       </div>
    );
 };
