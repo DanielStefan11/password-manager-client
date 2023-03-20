@@ -25,7 +25,6 @@ const UserInfoProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element =>
                   headersObject
                );
                setUserInfo({ username: result?.data?.username, email: result?.data?.email });
-               console.log(result.data);
             };
 
             fetchedData();
