@@ -1,7 +1,5 @@
 # Password Manager
 
-#### Deploy link: https://shield-pwd-mng.netlify.app/
-
 ### Main Technologies:
 
 -  React.js;
