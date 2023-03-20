@@ -7,9 +7,9 @@ import axios from "axios";
 import { errorOccured, errorCreateNote, noteCreatedSuccess } from "../../Utils/notifications";
 import { headersObject } from "../../Utils/authorization";
 import { useNotesContext } from "../../Context/NotesProvider";
-import ToggleButton from "../ToggleButton/ToggleButton";
+// import ToggleButton from "../ToggleButton/ToggleButton";
 import { BsFillInfoSquareFill as TitleIcon } from "react-icons/bs";
-import { FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
+// import { FaLock as CloseLock, FaUnlockAlt as OpenedLock } from "react-icons/fa";
 import PulseLoader from "react-spinners/PulseLoader";
 import { capitalizeFirstLetter } from "../../Utils/capitalizeFirstLetter";
 
@@ -20,10 +20,10 @@ interface IProps {
 
 const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
    // state
-   const [title, setTitle] = useState<string | undefined>(() => "");
-   const [content, setContent] = useState<string>(() => "");
-   const [locked, setLocked] = useState<boolean>(() => false);
-   const [loading, setLoading] = useState<boolean>(() => false);
+   const [title, setTitle] = useState<string | undefined>("");
+   const [content, setContent] = useState<string>("");
+   // const [locked, setLocked] = useState<boolean>(false);
+   const [loading, setLoading] = useState<boolean>(false);
 
    // hooks
    const darkModeContext = useDarkModeContext();
@@ -36,12 +36,12 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
 
    const handleContentUpdate = (e: React.FormEvent<HTMLTextAreaElement>): void => setContent(e.currentTarget.value);
 
-   const handleLockedUpdate = (): void => setLocked(!locked);
+   // const handleLockedUpdate = (): void => setLocked(!locked);
 
    const resetValues = (): void => {
       setTitle("");
       setContent("");
-      setLocked(false);
+      // setLocked(false);
    };
 
    const handleCreateNote = async (): Promise<void> => {
@@ -49,7 +49,7 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
          data: {
             title,
             content,
-            locked,
+            locked: false,
          },
       };
 
@@ -89,9 +89,8 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
                      value={title}
                      name="title"
                      type="text"
-                     className={`${styles.titleInput} highlightInput ${
-                        darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
-                     }`}
+                     className={`${styles.titleInput} highlightInput ${darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                        }`}
                      placeholder="Insert note title"
                      onChange={handleTitleUpdate}
                   />
@@ -99,22 +98,21 @@ const CreateNote: React.FC<IProps> = ({ show, toggleModal }): JSX.Element => {
 
                {/* editor */}
                <textarea
-                  className={`${styles.contentTextarea} highlightInput ${
-                     darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
-                  }`}
+                  className={`${styles.contentTextarea} highlightInput ${darkModeContext?.darkMode ? "inputDarkMode" : "inputLightMode"
+                     }`}
                   value={content}
                   onChange={handleContentUpdate}
                   placeholder="Insert note content"
                ></textarea>
 
                {/* lock */}
-               <div className="w-100 mt-4 d-flex justify-content-center">
+               {/* <div className="w-100 mt-4 d-flex justify-content-center">
                   <div className="d-flex align-items-center">
                      <OpenedLock className="me-2" size={20} color={!locked ? "#33cccc" : "#a9a9a9"} />
                      <ToggleButton checkState={locked} toggle={handleLockedUpdate} />
                      <CloseLock className="ms-2" size={20} color={locked ? "#33cccc" : "#a9a9a9"} />
                   </div>
-               </div>
+               </div> */}
 
                {/* control buttons */}
                <div className="w-100 mt-4 d-flex justify-content-center align-items-center">

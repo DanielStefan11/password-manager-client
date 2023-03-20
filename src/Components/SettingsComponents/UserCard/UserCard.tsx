@@ -16,8 +16,8 @@ const UserCard: React.FC = (): JSX.Element => {
       >
          <img src={UserIcon} alt="user" className={styles.userIcon} />
          <div className={styles.infoContainer}>
-            <h6 className="size-16 weight-700 primary-blue-text">Username: <span className="ms-1 weight-400">{userContext?.username}</span></h6>
-            <h6 className="size-16 weight-700 primary-blue-text">Email: <span className="ms-1 weight-400">{userContext?.email}</span></h6>
+            <h6 className="size-14 weight-700 primary-blue-text">Username: <span className="ms-1 weight-400">{userContext?.username}</span></h6>
+            <h6 className="size-14 weight-700 primary-blue-text">Email: <span className="ms-1 weight-400">{userContext?.email}</span></h6>
          </div>
       </div>
    );

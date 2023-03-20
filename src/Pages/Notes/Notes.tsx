@@ -61,9 +61,9 @@ const Notes: React.FC = (): JSX.Element => {
             )}
 
             {/* add note button */}
-            <div className={`shadow addButton`} onClick={handleToggleCreateNote}>
+            <button className={`shadow addButton`} title="Add note" onClick={handleToggleCreateNote}>
                <PlusIcon />
-            </div>
+            </button>
          </div>
       </>
    );

@@ -149,6 +149,8 @@ input {
    background-color: $primaryBlue;
    color: #ffffff;
    border-radius: 50%;
+   outline: none;
+   border: none;
    cursor: pointer;
 
    svg {
@@ -213,11 +215,11 @@ input[type="number"]::-webkit-inner-spin-button,
    background-color: #eee;
 }
 
-.container:hover input ~ .checkmark {
+.container:hover input~.checkmark {
    background-color: #ccc;
 }
 
-.container input:checked ~ .checkmark {
+.container input:checked~.checkmark {
    background-color: $primaryBlue;
 }
 
@@ -227,7 +229,7 @@ input[type="number"]::-webkit-inner-spin-button,
    display: none;
 }
 
-.container input:checked ~ .checkmark:after {
+.container input:checked~.checkmark:after {
    display: block;
 }
 
