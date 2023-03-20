@@ -10,8 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { appRoutes } from "../../Utils/appRoutes";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import PulseLoader from "react-spinners/PulseLoader";
-import { getJWT } from "../../Utils/authorization";
-import EmojiIcon from "../../Assets/Login/emoji-smile.png";
 import { loginView } from "./Authentication";
 
 interface IProps {

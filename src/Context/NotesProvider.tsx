@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Children } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ChildrenProps, INote } from "../Interfaces/GlobalInterfaces";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -40,7 +40,7 @@ const NotesProvider: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
             const fetchedData = async (): Promise<void> => {
                const result = await axios.get(
                   process.env.REACT_APP_PASSWORD_MANAGER_URL +
-                     `/api/notes?fields=id,title,content,locked&sort=title:asc`,
+                  `/api/notes?fields=id,title,content,locked&sort=title:asc`,
                   headersObject
                );
                setNotes(result.data.data);

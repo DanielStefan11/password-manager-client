@@ -5,7 +5,7 @@ import { RiDeleteBin5Fill as RemoveIcon } from "react-icons/ri";
 import { ImPencil2 as PenIcon } from "react-icons/im";
 import { useDarkModeContext } from "../../Context/DarkModeProvider";
 import { INote } from "../../Interfaces/GlobalInterfaces";
-import Dotdotdot from "react-dotdotdot";
+// import Dotdotdot from "react-dotdotdot";
 import NoteModal from "../NoteModal/NoteModal";
 import RemoveNoteConfirmation from "../RemoveNoteConfirmation/RemoveNoteConfirmation";
 
